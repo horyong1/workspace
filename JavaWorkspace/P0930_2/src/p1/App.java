@@ -8,6 +8,7 @@ public class App {
         // 0 = 남자
         // 1 = 여자
         Days days = Days.FRIDAY;
+        System.out.println(days);
 
 
     }
