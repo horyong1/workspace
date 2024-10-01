@@ -9,6 +9,7 @@ public class Controller {
    
     public void run(){
         hello();
+
         while (true) {
            showMenu();
            String key = commandValue();
@@ -30,10 +31,10 @@ public class Controller {
 
     private void showMenu(){
         Ioutil.print("1.학생정보입력");
-        Ioutil.print("2.학생정보입력");
-        Ioutil.print("3.학생정보입력");
-        Ioutil.print("4.학생정보입력");
-        Ioutil.print("5.학생정보입력");
+        Ioutil.print("2.학생목록출력");
+        Ioutil.print("3.학생정보검색");
+        Ioutil.print("4.학생정보삭제");
+        Ioutil.print("5.학생평균점수");
         Ioutil.print("0.학생정보입력");
     }
 
@@ -45,19 +46,24 @@ public class Controller {
         switch (value) {
             case "1":
                 service.addStudent();
+                Ioutil.pause();
                 break;
-            case "2":
+                case "2":
                 service.showStudent();
+                Ioutil.pause();
                 break;
             case "3":
-                
+                service.searchStudent();
+                Ioutil.pause();
                 break;
             case "4":
-                
+                service.removeStudent();
+                Ioutil.pause();
                 break;
             
             case "5":
-                
+                service.avgScore();
+                Ioutil.pause();    
                 break;
             
             default:
