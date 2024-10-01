@@ -19,5 +19,42 @@ public class App {
         for(int a : set){
             System.out.println(a);
         }
+
+        Set<StudentDto> studentSet = new TreeSet<>();
+        studentSet.add(new StudentDto());
+        studentSet.add(new StudentDto());
+        studentSet.add(new StudentDto());
     }
+}
+
+
+class StudentDto implements Comparable{
+    String name;
+    int age;
+    int score;
+    
+    
+    public StudentDto() {
+    }
+
+
+    public StudentDto(String name, int age, int score) {
+        this.name = name;
+        this.age = age;
+        this.score = score;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        StudentDto st = (StudentDto)o;
+
+        System.out.println("!!!!!");
+        if(this.score > st.score) return -1;
+        else if(this.score == st.score) return 0;
+        else return 1;
+
+    }
+
+    
 }
