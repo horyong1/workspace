@@ -1,11 +1,14 @@
-package chat;
+package chat.server;
 
 import java.io.DataInputStream;
 
-public class RecieveMessage extends Thread{
+import chat.client.ClientDto;
+import chat.client.Clients;
+
+public class RecieveMessageForServer extends Thread{
     private ClientDto clientDto;
 
-    public RecieveMessage(ClientDto clientDto){
+    public RecieveMessageForServer(ClientDto clientDto){
         this.clientDto = clientDto;
     }
 
@@ -18,7 +21,7 @@ public class RecieveMessage extends Thread{
             while (true) {
                 String message = dis.readUTF();
                 Clients.broadcast(clientDto.getNickname() +" : " +message);
-                
+
                 
                 
             }

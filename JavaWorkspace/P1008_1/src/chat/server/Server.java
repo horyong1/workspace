@@ -1,8 +1,11 @@
-package chat;
+package chat.server;
 
 import java.io.DataInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import chat.client.ClientDto;
+import chat.client.Clients;
 
 public class Server {
     public static void main(String[] args) throws Exception{
@@ -21,7 +24,7 @@ public class Server {
             Clients.setList(clientDto);
             Clients.broadcast(nickname + "님이 입장하셨습니다.");
 
-            new RecieveMessage(clientDto).start();
+            new RecieveMessageForServer(clientDto).start();
 
         }
 
