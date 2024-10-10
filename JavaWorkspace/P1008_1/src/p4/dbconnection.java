@@ -12,7 +12,7 @@ public class dbconnection {
         Connection connection = null;
 
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
+            // Class.forName("org.mariadb.jdbc.Driver");
 
 
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
