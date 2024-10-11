@@ -71,9 +71,11 @@ public class Repository {
                 StudentDto dto = new StudentDto(no,name,age,score);
                 list.add(dto);
             }
+            resultSet.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
+
         }finally {
             if (connection != null) {
                 jdbcPool.releaseConnection(connection); // 커넥션을 반환
@@ -110,6 +112,8 @@ public class Repository {
                 StudentDto dto = new StudentDto(no, name1, age, score);
                 list.add(dto);
             }
+            resultSet.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
