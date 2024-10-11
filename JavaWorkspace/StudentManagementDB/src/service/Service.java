@@ -58,35 +58,16 @@ public class Service {
             return;
         }
 
-        if(list.size() > 1){
-            Ioutil.print(list.size() + "명이 검색되었습니다.");
-            int num = Integer.parseInt(Ioutil.input("삭제하려는 학생 번호를 입력해 주세요 >>> "));
-            String yn = Ioutil.input("해당 학생을 삭제 하시겠습니까? (y/n) >>> ");
+        // 학생 삭제 여부 확인
+        if (!confirmDeletion(list)) return;
 
-            if(yn.equals("n") || yn.equals("N")){
-                Ioutil.print("삭제를 취소 하였습니다.");
-                return;
-            }
-
-            StudentDto dto = list.get(num-1);
-            int result = repository.remove(dto);
-
-            removeResultPrint(result);
-            return;
-        }
-
-        String yn = Ioutil.input("해당 학생을 삭제 하시겠습니까? (y/n) >>> ");
-        
-        if(yn.equals("n") || yn.equals("N")){
-            Ioutil.print("삭제를 취소 하였습니다.");
-            return;
-        }
-        
-        StudentDto dto = list.get(0);
+         // 삭제할 학생 선택
+        StudentDto dto = (list.size() > 1) ? getStudentToRemove(list) : list.get(0);
         int result = repository.remove(dto);
-
+    
         removeResultPrint(result);
     }
+
 
     /*
      * 학생 평균 점수 통계
@@ -113,6 +94,12 @@ public class Service {
     private void studentListShow(List<StudentDto> list){
         int cnt = 1;
         Ioutil.print("===========================");
+        
+        if(list.isEmpty()){
+            Ioutil.print("학생 정보가 없습니다.");
+            return;
+        }
+
         for(StudentDto s : list){
             Ioutil.print("번호 : " + cnt++);
             Ioutil.print("학생이름 : " + s.getName());
@@ -120,6 +107,21 @@ public class Service {
             Ioutil.print("학생점수 : " + s.getScore());
             Ioutil.print("===========================");
         }
+    }
+
+    // 학생 삭제 여부 확인 메서드
+    private boolean confirmDeletion(List<StudentDto> list) {
+        if (list.size() > 1) {
+            Ioutil.print(list.size() + "명이 검색되었습니다.");
+        }
+        String yn = Ioutil.input("해당 학생을 삭제 하시겠습니까? (y/n) >>> ");
+        return !(yn.equalsIgnoreCase("n")); // 'n' 또는 'N'일 경우 false 반환
+}
+
+    // 삭제할 학생 선택 메서드
+    private StudentDto getStudentToRemove(List<StudentDto> list) {
+        int num = Integer.parseInt(Ioutil.input("삭제하려는 학생 번호를 입력해 주세요 >>> "));
+        return list.get(num - 1);
     }
 
     private void removeResultPrint(int result){
