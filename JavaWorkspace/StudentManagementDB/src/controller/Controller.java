@@ -11,9 +11,11 @@ public class Controller {
         while (true) {
             showMenu();
             String key = Ioutil.input("커멘드 입력 >>>>> ");
+
             if (key.equals("0")) {
                 break;
             }
+
             selectMenu(key);
         }
         bye();
@@ -38,18 +40,23 @@ public class Controller {
         switch (key) {
             case "1":
                 service.addStudent();
+                Ioutil.pause();
                 break;
             case "2":
-            
+                service.findAllStudent();
+                Ioutil.pause();
                 break;
             case "3":
-            
+                service.findByNameStudent();
+                Ioutil.pause();
                 break;
             case "4":
-            
+                service.removeStudent();
+                Ioutil.pause();
                 break;
             case "5":
-            
+                service.avgScore();
+                Ioutil.pause();
                 break;
         
             default:

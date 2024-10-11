@@ -1,11 +1,19 @@
 package dto;
 
 public class StudentDto {
+    private int no;
     private String name;
     private int age;
     private int score;
 
     public StudentDto(String name, int age, int score) {
+        this.name = name;
+        this.age = age;
+        this.score = score;
+    }
+
+    public StudentDto(int no, String name, int age, int score) {
+        this.no = no;
         this.name = name;
         this.age = age;
         this.score = score;
@@ -33,5 +41,8 @@ public class StudentDto {
         this.score = score;
     }
 
+    public int getNo() {
+        return no;
+    }
     
 }
