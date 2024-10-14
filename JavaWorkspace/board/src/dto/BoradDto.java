@@ -5,8 +5,8 @@ import java.sql.Date;
 public class BoradDto {
     private String title;
     private String content;
-    private Date Date;
     private String id;
+    private Date date;
     
     public String getTitle() {
         return title;
@@ -21,10 +21,10 @@ public class BoradDto {
         this.content = content;
     }
     public Date getDate() {
-        return Date;
+        return date;
     }
     public void setDate(Date date) {
-        Date = date;
+        this.date = date;
     }
     public String getId() {
         return id;
