@@ -27,7 +27,8 @@ public class boardController {
     }
     private void showMenu(){
         Ioutil.print("1.게시판 접속");
-        Ioutil.print("2.회원가입");
+        Ioutil.print("2.로그인");
+        Ioutil.print("3.회원가입");
         Ioutil.print("0.게시판 종료");
         
     }
