@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header {
+            background-color: #3cbe5b;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        #search-button{
+            height: 2.5em;
+            width: auto;
+            border-radius: 10%;
+            border: 0px solid black;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 1.2em;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 0.8em;
+            border: none;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="#">바로가기</a>
+            <a href="#">네이버페이</a>
+            
+        </div>
+            
+                <div class="search-bar">
+                    <input type="text" placeholder="검색어를 입력하세요">
+                </div>
+            
+            
+            <input id="search-button" type="submit" value="검색">
+        <nav>
+            <a href="#">뉴스</a>
+            <a href="#">카페</a>
+            <a href="#">블로그</a>
+            <a href="#">지식iN</a>
+        </nav>
+    </header>
+</body>
+</html>

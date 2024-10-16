@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #3cbe5b;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            color: white;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+    
+    
+<header>
+    <div class="logo">네이버</div>
+    <div class="search-bar">
+        <input type="text" placeholder="검색어를 입력하세요">
+    </div>
+    <nav>
+        <a href="#">뉴스</a>
+        <a href="#">카페</a>
+        <a href="#">블로그</a>
+        <a href="#">지식iN</a>
+    </nav>
+</header>
+<div id="nav"></div>
+<main>
+    <section>
+        <h2>인기 검색어</h2>
+        <ul>
+            <li>검색어 1</li>
+            <li>검색어 2</li>
+            <li>검색어 3</li>
+        </ul>
+    </section>
+    <section>
+        <h2>추천 콘텐츠</h2>
+        <p>개인화된 추천 뉴스 기사나 블로그 포스트</p>
+    </section>
+</main>
+
+<footer>
+    <p><a href="#">고객센터</a> | <a href="#">이용약관</a> | <a href="#">개인정보처리방침</a></p>
+</footer>
+
+<script>
+    $(document).ready(function(){
+        $("#nav").load("p1.html")
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            .b-red{
+                background-color: red;
+            }
+            .b-blue{
+                background-color: blue;
+            }
+
+            .d-inline{
+                display: inline;
+            }
+            .d-block{
+                display: block;
+            }
+            .test{
+                position: relative;
+                width: 12em;
+                height: 12em;
+            }
+            .test2{
+                
+                width: 10em;
+                height: 10em;
+            }
+            .margin{
+                margin: 0.5em;
+            }
+
+            .padding{
+                padding: 0.5em 0.5em 0.5em 0.5em;
+                background-color: green;
+
+            }
+            .border{
+                border: 0.1em solid black;
+                border-radius: 0.3em;
+            }
+            .check{
+                position: absolute;
+                transform : translate(-50%,-50%)
+            }
+
+            .parent {
+                position: relative;
+                width: 200px;  /* 부모 요소의 너비 */
+                height: 200px; /* 부모 요소의 높이 */
+                background-color: green;
+             }
+
+            .child {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100px;  /* 자식 요소의 너비 */
+                height: 100px; /* 자식 요소의 높이 */
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="b-blue margin border">안녕1</div>
+        <div class="test b-red margin border padding">안녕2
+            <div class="test2 b-red check">안녕3</div>
+        </div>
+        <div class="parent">
+            dddd
+            <div class="child">dada</div>
+        </div>
+    </body>
+</html>

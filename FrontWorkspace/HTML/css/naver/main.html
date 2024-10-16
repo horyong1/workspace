@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+         main {
+            padding: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            color: white;
+        }
+       
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    <main>
+        <section>
+            <h2>인기 검색어</h2>
+            <ul>
+                <li>검색어 1</li>
+                <li>검색어 2</li>
+                <li>검색어 3</li>
+            </ul>
+        </section>
+        <section>
+            <h2>추천 콘텐츠</h2>
+            <p>개인화된 추천 뉴스 기사나 블로그 포스트</p>
+        </section>
+    </main>
+    <div id="footer"></div>
+    <script>
+        $(document).ready(function(){
+            $("#header").load("header.html")
+        })
+        $(document).ready(function(){
+            $("#footer").load("footer.html")
+        })
+    </script>
+</body>
+</html>
