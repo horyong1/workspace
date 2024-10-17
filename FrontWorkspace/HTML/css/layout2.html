@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./style.css">
+        <style>
+            *{
+                margin:0;
+                padding: 0;
+            }
+            .row{
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .col-20{
+                width: 20%;
+            }
+            .col-30{
+                width: 30%;
+            }
+            
+            #qwer1{
+                /* position 기본값이 static 고정되서 안움직임 
+                    relative 는 block 이 존재해서 기존 블록이 고정되고 움직여짐
+                    absolute 는 relative가 걸려있는 부모 기준으로 
+                    움직일 수 있음, block이 존재 하지 않는다 
+                    박스 겹치기용으로 많이 사용
+                    body 기본이 relative라 설정이 없으면 body기준으로 잡힘 
+
+                */
+                position: absolute;
+                left: 50em;
+                top: 0.5em;
+            }
+
+            #ad{
+                position: fixed;
+                left: 20em;
+                top: 50em;
+                background-color: aqua;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="row bg-red">
+            <div class="col-20 bg-green">123</div>
+            <div id="qwer1" class="col-20 bg-gray">123</div>
+            <div class="col-30 bg-skyblue">123</div>
+            <div class="col-30 bg-blue">123</div>
+        </div>
+        <div id="ad">
+            안녕하세요
+        </div>
+    </body>
+</html>

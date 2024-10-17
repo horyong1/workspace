@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>layout1</title>
+        <style>
+
+            /* flex 잡히면 컨텐츠들은 옆으로 정렬 */
+            .box-container1{
+                display: flex;
+                background-color: red;
+                flex-wrap: wrap;
+            }
+            .box-container2{
+                background-color: green;
+            }
+            .column-30{
+                width: 30%;
+            }
+            .column-20{
+                width: 20%;
+            }
+            .backgroundcolor-red{
+                background-color: red;
+            }
+            .backgroundcolor-2{
+                background-color: red;
+            }
+            .backgroundcolor-3{
+                background-color: red;
+            }
+            .backgroundcolor-4{
+                background-color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box-container1" style="padding-bottom : 2em">
+            <div class="column-30">
+                <div class="box-container1">
+                    <div class="column-30">
+                        <div class="column-30">5</div>
+                        <div class="column-30">5</div>
+                    </div>
+                    <div class="box-container1">
+                        <div class="column-30">
+                            <div class="column-30">6</div>
+                            <div class="column-30">6</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column-20">2</div>
+            <div class="column-30" style="margin-right: 0.5em;">1</div>
+            <div class="column-20">2</div>
+        </div>
+        <div class="box-container2">3</div>
+    </body>
+</html>
