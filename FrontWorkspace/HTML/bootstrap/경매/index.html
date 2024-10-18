@@ -18,18 +18,40 @@
         .font-9{
             font-size: 0.9em;
         }
+        .font-1{
+            font-size: 1.5em;
+        }
+        .bg-pink{
+            background-color: #FF7777;
+        }
+        .bg-button{
+            background-color: #FF6F0F;
+        }
+        .bg-ct{
+            background-color: #DFF5EA;
+        }
+        .bg-gray{
+            background-color: #E9ECEF;
+        }
+        .fc-gr{
+            color: #78B996;
+        }
+        .fc-y{
+            color: #FF7777;
+        }
+        
     </style>
-    <title>Document</title>
+    <title>경매페이지</title>
 </head>
 <body>
     <div class="container-xl">
         <!-- 상단 가입하기 -->
-        <div class="row">
-            <div class="col bg-dark-subtle"></div>
-            <div class="col bg-dark-subtle text-center p-1 font-8">지금 가입하여 혜택을 누려보세요!
-                <span class="btn btn-outline-secondary font-8">가입하기</span>
+        <div class="row text-secondary">
+            <div class="col bg-gray"></div>
+            <div class="col bg-gray text-center p-1 font-8">지금 가입하여 혜택을 누려보세요!
+                <span class="btn btn-outline-secondary font-8 text-dark">가입하기</span>
             </div>
-            <div class="col bg-dark-subtle"></div>
+            <div class="col bg-gray"></div>
         </div>
         <div class="row">
             <div class="col"></div>
@@ -63,8 +85,10 @@
                             </div>
                             <!-- 상단 로그인, 회원가입 -->
                             <div class="col-auto text-end p-0">
-                                <button class="btn btn-primary btn-sm font-8">로그인</button>
-                                <button class="btn btn-warning btn-sm font-8">회원가입</button>
+                                <button class="btn btn-primary btn-sm font-8 bg-white text-dark border-black">
+                                    <span class="text-secondary">로그인</span>
+                                </button>
+                                <button class="btn btn-warning btn-sm font-8 bg-button text-white border border-warning-subtl">회원가입</button>
                             </div>
                         </div>
                         <div class="row">
@@ -72,11 +96,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- 왼쪽 레이아웃 시작 -->
                 <div class="row">
                     <div class="col">
                         <div class="row">
-                            <div class="col border-0 rounded-1 bg-primary text-white font-8">
-                                <i class="bi bi-smartwatch"></i>경매 종료까지 5일 15:02:28
+                            <div class="col border-0 rounded-1  text-white font-8 bg-pink text-center">
+                                <span class="pt-1"><i class="bi bi-smartwatch"></i>경매 종료까지 5일 15:02:28</span>
                             </div>
                         </div>
                         <div class="row mt-1">
@@ -98,35 +123,36 @@
                                     <div class="col border-bottom border-black">거래일</div>
                                 </div>
                                 <div class="row text-center font-8 border-bottom mt-2">
-                                    <div class="col pb-2">카이사</div>
-                                    <div class="col">23,000원</div>
+                                    <div class="col pb-2">푸들</div>
+                                    <div class="col ">23,000원</div>
                                     <div class="col">2023.8.23 오후 9:39</div>
                                 </div>
                                 <div class="row text-center font-8 border-bottom mt-2">
-                                    <div class="col pb-2">zeri</div>
+                                    <div class="col pb-2">비숑</div>
                                     <div class="col">22,000원</div>
                                     <div class="col">2023.8.22 오전 12:00</div>
                                 </div>
                                 <div class="row text-center font-8 border-bottom mt-2">
-                                    <div class="col pb-2">릴리아</div>
+                                    <div class="col pb-2">말티즈</div>
                                     <div class="col">20,000원</div>
                                     <div class="col">2023.8.23 오후 11:49</div>
                                 </div>
                                 <div class="row text-center font-8 border-bottom mt-2">
-                                    <div class="col pb-2">카이사</div>
+                                    <div class="col pb-2">푸들</div>
                                     <div class="col">19,000원</div>
                                     <div class="col">2023.8.16 오후 8:37</div>
                                 </div>
                                 <div class="row text-center font-8 border-bottom mt-2">
-                                    <div class="col pb-2">아트록스</div>
+                                    <div class="col pb-2">포메라니안</div>
                                     <div class="col">18,000원</div>
                                     <div class="col">2023.8.16 오후 8:30</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-1">2</div>
-                    <!-- 왼쪽 레이아웃 -->
+                    <!-- 중간 레이아웃 -->
+                    <div class="col-1"></div>
+                    <!-- 오른쪽 레이아웃 -->
                     <div class="col p-0">
                         <!-- 제품 상세 정보 -->
                         <div class="row">
@@ -139,7 +165,7 @@
                         </div>
                         <div class="row py-1">
                             <div class="col">
-                                 <span class="badge text-bg-success font-7">진행중</span>
+                                 <span class="badge font-7 bg-ct fc-gr">진행중</span>
                             </div>
                             <div class="col text-end">
                                 <i class="bi bi-share font-8"></i>
@@ -152,20 +178,23 @@
                         </div>
                         <div class="row pt-1">
                             <div class="col font-7 text-secondary">
-                                <i class="bi bi-heart text-danger"></i>&nbsp;4&nbsp;&nbsp;<i class="bi bi-person"></i>&nbsp;4명&nbsp;참여
+                                <i class="bi bi-heart text-danger"></i>&nbsp;4&nbsp;&nbsp;<i class="bi bi-people"></i>&nbsp;4명&nbsp;참여
                             </div>
                         </div>
                         <!-- 입찰 가격 -->
                         <div class="text-secondary fw-bold">
-                            <div class="row border-bottom py-3">
+                            <div class="row border-bottom pt-3">
                                 <div class="col">현재가</div>
-                                <div class="col text-end">23,000원</div>
+                                <div class="col text-end ">
+                                    <span class="font-1 fc-y">23,000</span>
+                                    <span class="font-8 ">원</span>
+                                </div>
                             </div>
-                            <div class="row font-7 py-1">
+                            <div class="row font-7 pt-2">
                                 <div class="col">즉시낙찰가</div>
                                 <div class="col text-end fw-bold">30,000원</div>
                             </div>
-                            <div class="row font-7 ">
+                            <div class="row font-7 pt-1">
                                 <div class="col">경매시작일</div>
                                 <div class="col text-end">2023-08-16&nbsp;오후&nbsp;8:02</div>
                             </div>
@@ -198,7 +227,7 @@
                                     <input type="text" class="form-control form-control-sm  font-7 ms-2 mb-2" placeholder="현재가보다 낮은 가격으로 입찰하실 수 없습니다.">
                                 </div>
                                 <div class="col d-grid">
-                                    <button class="btn btn-primary btn-sm font-7 me-2 mb-2">입찰하기</button>
+                                    <button class="btn btn-warning btn-sm btn-sm font-7 me-2 mb-2 bg-button text-white border border-warning-subtl">입찰하기</button>
                                 </div>
                             </div>
                         </div>
@@ -300,10 +329,10 @@
                             </div>
                         </div>
                         <div class="row mt-3 ">
-                            <div class="col-10">
+                            <div class="col-9 pe-1">
                                 <input type="text" class="form-control form-control-sm  font-7 mb-2" placeholder="현재가보다 낮은 가격으로 입찰하실 수 없습니다.">
                             </div>
-                            <div class="col d-grid">
+                            <div class="col d-grid ps-1">
                                 <button class="btn btn-dark btn-sm font-7 mb-2">입력</button>
                             </div>
                         </div>
@@ -311,7 +340,7 @@
                 </div>
             <div class="col border-bottom pt-5"></div>
             <div class="col">
-                <div class="row text-secondary mt-5">
+                <div class="row text-secondary mt-4">
                     <div class="col-3 fw-bold border-bottom pb-2">사파리</div>
                     <div class="col">
                         <div class="row">
@@ -327,7 +356,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row text-secondary mt-3">
+                <div class="row text-secondary mt-3 border-bottom pb-3">
                     <div class="col-3 font-8 fw-bold ">
                         <div class="row mb-1">
                             <div class="col">상담&nbsp;가능&nbsp;시간</div>
@@ -351,7 +380,14 @@
                     </div>
                 </div>
             </div>    
-            <div class="col p-0 border-bottom  pt-3"></div>
+            <div class="col p-0 pt-3 text-center">
+                <i class="bi bi-facebook"></i>&nbsp;
+                <i class="bi bi-twitter"></i>&nbsp;
+                <i class="bi bi-instagram"></i>
+            </div>
+            <div class="col text-secondary font-6 text-center mt-3">
+                ⓒ 2023 safari Compaynt, Inc
+            </div>
         </div>
         <div class="col"></div>
     </div>
