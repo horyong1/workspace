@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        const arr1 = [];
+        const arr2 = [3,4,5,"1", true,null];
+
+        for(e of arr2){
+            console.log(e)
+        }
+        
+        //사실상 list......
+        const arr3 = [];
+        arr3.push(3);
+        arr3.push(33);
+        arr3.push(4);
+        arr3.push('wowo');
+        arr3.push('fuck');
+        
+        // 배열로 쓰려면 이런식으로 사용
+        arr3[10] = 10;
+        
+        for(e of arr3){
+            console.log(e)
+        }
+        
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

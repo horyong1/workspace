@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            
+            function cl1(){
+                alert("야호");
+            }
+
+            function cl2(){
+                alert("qwer");
+            }
+
+            function cl3(){
+                const qqqq = document.getElementById("qqqq");
+                qqqq.innerText = "야호ㄴㅁㅇㅁ";
+            }
+
+            // 정적으로 html 다루기 
+            function cl4(){
+                const nLi = document.createElement("li");
+                nLi.style.color = "red";
+                nLi.style.fontSize = "3em";
+                nLi.innerText = "새로운 텍스트";
+
+                const yyyy = document.getElementById("yyyy");
+                yyyy.appendChild(nLi);
+            }
+
+            
+        </script>
+    </head>
+    <body>
+        <!-- 
+            tag : 구조
+            css : 꾸미고
+            js  : 움직인다.
+        -->
+        <ul id="yyyy">
+            <li>야호</li>
+            <li id="qqqq">야호</li>
+            <li>야호</li>
+            <li>야호</li>
+            <li>야호</li>
+            <li>야호</li>
+        </ul>
+        <button onclick="cl1()">1번</button>
+        <button onmouseenter="cl2()">2번</button>
+        <button onclick="cl3()">3번</button>
+        <button onclick="cl4()">4번</button>
+        <button onclick="cl5()">5번</button>
+
+    </body>
+</html>

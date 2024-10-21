@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        // 연산자
+        // 산술 연산자 : +, -, *, /, %
+        // 문자열 연산 : +
+        // 비교 연산 : ==, !=, ===
+        
+        // 자바스크립트는 정수,실수 구분이 아니라
+        // 넘버라는 타입으로 구분함
+        // 정수/정수 하더라도 소수점으로 나올 수 있음
+        const a = 10;
+        const b = 3;
+        let c = a / b;
+        console.log(c);
+
+        // parseInt API로 정수로 바꿔줌 소수점 x
+        c = parseInt(a/b);
+        console.log(c);
+
+        const d = 1 + "1";
+        console.log(d);
+
+        // 비교연산자 == .....
+        const v1 = 10;
+        const v2 = '10';
+
+        if(v1 === v2){
+            console.log("같다")
+        }else{
+            console.log("다르다")
+        }
+
+        // 문자열 비교시 자바는 equals 사용, 자바스크립트는 == 사용
+        
+        let q1 = 10;
+        const q2 = 20;
+        const q3 = 30;
+
+        if(q1 > q2 && q1 == 10 || q3 === q2){
+            console.log("맞다")
+        }else{
+            console.log("틀리다")
+        }
+
+        q1 += 2;
+        q1++;
+        q1--;
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

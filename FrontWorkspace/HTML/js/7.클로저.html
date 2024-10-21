@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        const bbb = 10;
+        // 원래는 bbb가 사라져야 하는데 func1에서 잡고 있으면 사라지지않음 메모리에서 
+        // 소멸 구조가 달라짐 
+        const func1 = (a) =>{
+            console.log("야호");
+            console.log(bbb) // 이때 bbb는 클로져 가까운 변수값을 사용 할 수 있음
+            return a + bbb;
+        };
+        
+        const dex = func1(2);
+        console.log(dex)
+
+        // 활용 예시
+        for(i = 1; i <= 5; i++){
+            setTimeout(()=>{
+                console.log(i);
+            },3000);
+        }
+
+        for(i = 1; i <= 5; i++){
+            setTimeout(qwer(i),3000);
+        }
+
+        // 클로져를 생성한다.
+        function qwer(x){
+            return () => {
+                console.log(x);
+            }
+        }
+
+        // 클로저 활용 예시2
+        function showAlert(x1, x2){
+            alert(x1 + x2);
+        }
+
+        const kkk = (a, b) =>{
+            alert(a + b);
+        };
+
+        // 어떠한 이유에 의해 아래와 같이 값이 세팅 되었다.
+        const v1 = 10;
+        const v2 = 20;
+
+
+
+
+
+    </script>
+</head>
+<body>
+    <button id="yaho">버튼1</button>
+
+    <script>
+        function showAlert2(x1, x2){
+            alert(x1 + x2);
+        }
+        const v3 = 10;
+        const v4 = 320;
+        const yaho = document.getElementById("yaho");
+        // yaho.setAttribute("onclick",`showAlert2(${v3},${v4})`);
+        yaho.onclick = ccc(v3,v4);
+
+        function ccc (a, b){
+            return ()=>{
+                showAlert2(a,b)
+            }
+        }
+        
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        // 명명함수(es5) - 선언 위치가 상관없음
+        func1(1,2);
+        function func1(a, b){
+            console.log(a + b);
+            return a + b;
+        }
+
+        // 익명함수(es5- 요즘은 화살표 함수로 대체) 
+        const func2 = function(a, b){
+            return a - b;
+        };
+
+        // 화살표 함수, arrow function = 람다 (es6)
+        const func3 = (a, b) => a * b;
+        
+        func3();
+
+        setTimeout(()=> console.log(1512413),3000);
+
+        const a = func1;
+        const b = func2;
+        const c = func3;
+
+        function test1(){
+            console.log("안녕하세요");
+            return (a, b) =>{
+                console.log("함수리턴한다!!!!!!")
+                return a / b;
+            } 
+        }
+        console.log("@@@@@@@")
+        const d = test1();
+        console.log("@@@@@@@")
+        const result = d(1,3);
+        console.log(parseInt(result));
+
+        // 테스트를 한번 호출 후 다시 한번 더 호출
+        const rrr=test1()(3,4);
+        
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

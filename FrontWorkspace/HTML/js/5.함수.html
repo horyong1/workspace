@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        // 함수: 자바에는 없지만 대부분의 언어에는 있는 문법
+        function qwer(a = 1, b = 2){
+            if(b == undefined){
+                console.log("b값이 없어요");
+
+            }else{
+                console.log("안녕하세요.");
+                console.log(a);
+                console.log(b);
+                return a + b;
+
+            }
+
+        }
+        
+
+        qwer(51, 232);
+        // 함수가 리턴을 안해줘도 문법적으론 문제가 없으나 
+        // undefined로 처리됨
+        let a = qwer(3, 5);
+        qwer(1); // undefined
+
+        const qq = undefined;
+
+        console.log(a); 
+
+        const yyyy = qwer;
+        console.log(yyyy);
+        yyyy();
+
+       
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
