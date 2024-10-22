@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .redColor{
+            color: skyblue;
+            font-size: 3em;
+            transition: all 1s ease;
+        }
+    </style>
+    <script>
+         function test1(){
+            const qqq = document.getElementById('qqq');
+            qqq.setAttribute("style"," font-size: 1em; color:red; transition: all 1s ease;")
+         }
+
+         function test2(){
+            const qqq = document.getElementById('qqq');
+            qqq.setAttribute("style","font-size: 1em; color:blue; transition: all 1s ease;")
+         }
+
+         function test3(){
+            const qqq = document.getElementById('qqq');
+            qqq.setAttribute("class", 'redColor')
+            
+    
+         }
+
+         function test4(){
+            const qqq=document.getElementById(`qqq`);
+
+         }
+    </script>
+</head>
+<body>
+    <div id="qqq"><h1>안녕하세요</h1></div>
+    <button onclick="test1()">버튼1</button>
+    <button onclick="test2()">버튼1</button>
+    <button onclick="test3()">버튼1</button>
+    <button>버튼1</button>
+</body>
+</html>

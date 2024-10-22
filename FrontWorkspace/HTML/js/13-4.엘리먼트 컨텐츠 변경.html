@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        function test1(){
+            const yaho = document.getElementById(`yaho`);
+            yaho.innerText = "새로운 버튼"
+            yaho.style.backgroundColor = "white"
+            yaho.style.border = '0 solid darkred'
+            yaho.style.transform = 'scale(1.0)';
+            yaho.style.transition ='all 0.2s ease'
+        }
+
+        function test2(){
+            const yaho = document.getElementById(`yaho`);
+            yaho.innerText = "신기한 버튼"
+            yaho.style.backgroundColor = "lightciral"
+            yaho.style.border = '1em solid darkred'
+            yaho.style.transform = 'scale(0.99)';
+            yaho.style.transition ='all 0.2s ease'
+        }
+        
+    </script>
+</head>
+<body>
+    <div id="yaho" style="margin-bottom: 2em; text-align: center;">야호</div>
+    <button onclick="test1()">버튼1</button>
+    <button onclick="test2()">버튼2</button>
+</body>
+</html>

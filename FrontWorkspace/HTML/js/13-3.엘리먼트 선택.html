@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            border: 2px solid blue;
+            padding: 10px;
+        }
+        .box {
+            border: 2px solid red;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+    <script>
+        // getElementById, getElementsByClassName
+        // querySelector, querySelectorAll
+        function test1(){
+          const li1 = document.getElementById('li1');
+          li1.innerHTML=`<h1 style="color:red;">안녕녀녀녀녀녕</h1>`;
+
+        }
+
+        function test2(){
+            //class는 배열로 넘겨줌 for문으로 돌려야함
+            const yyyList = document.getElementsByClassName("yyy");
+            for(e of yyyList){
+                e.innerHTML = `<h3 style="color:blue;">안녕녀녀녀녀녕</h3>`;
+            }
+            
+        }
+
+        function test3(){
+            const qqq = document.querySelector(".qqq");
+            qqq.innerHTML =`<h3 style="color:skyblue;">안녕녀녀녀녀녕</h3>`;
+            
+        }
+
+        function test4(){
+            const yyy = document.querySelectorAll(".yyy")
+            for(e of yyy){
+                e.innerHTML = `<h3 style="color:skyblue;">달라져라 </h3>`;
+            }
+            
+        }
+
+        // 엘리먼트 선택 보조
+        // parentElement, children, closest()
+        function test5(){
+            const ddd = document.getElementById("ddd");
+            for(e of ddd.parentElement.children){
+                e.innerHTML = `text`;
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+    <ul >
+        <li id="li1">안녕하세요</li>
+        <li id="li2" class="yyy" >안녕하세요</li>
+        <li id="li3" class="qqq">안녕하세요</li>
+        <li id="li4" class="yyy">안녕하세요</li>
+        <li id="li5">안녕하세요</li>
+        <li>
+            <div>div 내용</div>
+            <div id="ddd">div 내용</div>
+            <div>div 내용</div>
+            <div>div 내용</div>
+        </li>
+    </ul>
+    <button onclick="test1()">버튼 1</button>
+    <button onclick="test2()">버튼 2</button>
+    <button onclick="test3()">버튼 3</button>
+    <button onclick="test4()">버튼 4</button>
+    <button onclick="test5()">버튼 5</button>
+
+    <div class="container">
+        <div class="box" id="box1">
+            박스 1
+            <button class="btn">버튼 1</button>
+        </div>
+        <div class="box" id="box2">
+            박스 2
+            <button class="btn">버튼 2</button>
+        </div>
+    </div>
+    
+    <script>
+        // 모든 버튼에 클릭 이벤트 추가
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                // 클릭된 버튼의 가장 가까운 상위 .box 요소 찾기
+                const closestBox = this.closest('.box');
+                // 해당 박스의 배경색 변경
+                closestBox.style.backgroundColor = 'lightgreen';
+            });
+        });
+    </script>
+</body>
+</html>
