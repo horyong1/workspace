@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        // 오브젝트 선언 방법 (문법)
+        const aaa = {
+            "아아아" : "hㅁㅇㅁ",
+            value1 : 10,
+            value2 : 20,
+
+        };
+
+        // JSON = Javascrip Object Notation
+        const st1 ={
+            name: "한조",
+            age: 30,
+            score: 90,
+        };
+
+        const st2 ={
+            name: "xxx",
+            age: 50,
+            score: 90,
+            // 이건 메소드 (객체안에 있기 때문에 this사용이 가능)
+            study : function(){
+                console.log(this.name +" 공부를 한다!!!!!!!!!!");
+                
+            },
+            // 화살표 함수에는 this 사용이 가능하나 상위 스코프 this를 사용함
+            play: () => {
+                console.log(this.a + "는 공부를 안해!!!!")
+            }
+        };
+
+        this.qqq = 301;  // 이 시점 this = window객체
+        var a = 320;
+        
+        console.log(qqq)
+        console.log(a)
+
+        // 클래스 생성 (es5 문법)
+        function Student(name, age, score){
+            this.name = name;
+            this.age = age;
+            this.score = score;
+        };
+        // Student.tttt =function(){}; 자바로 보면 static 
+        // prototype을 이용해서 study 라는 메소드를 생성함
+        
+        Student.prototype.study = function(){
+            console.log(this.name + "가 공부를 안합니다.")
+        }
+        const student1 = new Student("라라라", 12313,122);
+        const student2 = new Student("하ㅑ하하", 13,22);
+        // student1 을 실행시 Student클래스에서 study를 찾고 없으면 prototype에서 찾아서 실행
+        student1.study();
+        console.log(student1.age)
+
+        st2.study();
+        st2.play();
+        console.log(aaa);
+        console.log(st1);
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

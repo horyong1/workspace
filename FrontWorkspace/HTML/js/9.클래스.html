@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // 클래스 문법(es6)
+        //# <- private
+        class Student{
+            #name;
+            #age;
+            #score;
+            constructor(name,age,score){
+                this.#name = name;
+                this.#age = age;
+                this.#score = score
+            }
+
+            study(hour){
+                console.log(`${this.#name}이 ${hour}만큼 공부합니다.`);
+            }
+
+            static qwer(a){
+                console.log(`${a}시간 뒤 집간다.`);
+            }
+
+            get name(){
+                return this.#name;
+            }
+
+            set name(name){
+                this.#name = name;
+            }
+        }
+
+        const student1 = new Student("리라파", 11, 23);
+        const student2 = new Student("나아리", 22, 87);
+
+        student1.study(1);
+        student2.study(2);
+
+        console.log();
+
+        Student.qwer(2);
+
+        const yyy ={};
+        
+    </script>
+</head>    
+<body>
+    
+</body>
+</html>

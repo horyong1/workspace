@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script>
+            // list
+            const list = []; // 새로운 리스트 생성
+
+            list.push("초코1");
+            list.push("초코2");
+            list.push("초코3");
+            list.push("초코4");
+            list.push("초코5");
+
+            for(e of list){
+                console.log(e);
+            }
+            
+            list.reverse();
+
+            list.forEach(element => {
+                console.log(element);
+            });
+
+            
+            // map
+            const map = {};
+            map["v1"] = 30;
+            map["score"] = 20;
+            map["name"] = "야호";
+            map["v1"] = 40;
+            map.v2 = 30;
+
+
+            // 쓸데 없는 이해를 위한..
+            // object == map 문법적으로는 동일 
+            // 개념적으론 다르기 때문에 구분해서 사용 해야 함
+            const qwer = {};
+            qwer.aaa = 10;  // object
+            qwer["v1"] = 40;    // map
+
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
