@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Document</title>
     <style>
-        
+        .no-transition {
+            transition: none; /* 전환 효과 비활성화 */
+        }
         .fs-66{
             font-size: 0.6em;
         }
@@ -271,7 +273,7 @@
                 <!-- 상품 정보 메뉴 바 start -->
                 <div class="row pt-4 sticky-top" style="top: 0.75em;">
                     <div class="col bg-white">
-                        <div class="row p-1 text-center">
+                        <div class="row p-0 pt-1 text-center">
                             <div class="col d-grid p-0">
                                 <button class="btn btn-light fs-8 border-0 rounded-0">정보</button>
                             </div>
@@ -441,10 +443,14 @@
     
                             </div>
                         </div>
-                        <div class="row px-3 py-2 mt-2">
+                        <div class="row px-3 py-2 mt-2 ">
                             <div class="card-header">
                                 <h5 class="col mb-0 text-center d-grid fs-8 ">
-                                    <button id="toggleButton" class="btn btn-white py-2 fs-1-0 toggle-btn border border-black " data-toggle="collapse" data-target="#collapseDetails" aria-expanded="false" aria-controls="collapseDetails">
+                                    <button id="toggleButton" 
+                                    class="btn btn-white py-2 fs-1-0 no-transition toggle-btn border border-black " 
+                                    data-toggle="collapse" data-target="#collapseDetails" aria-expanded="false" 
+                                    aria-controls="collapseDetails"
+                                    >
                                         상품 정보 더보기 <i class="bi bi-chevron-down"></i>
                                     </button>
                                 </h5>
@@ -525,6 +531,8 @@
                     </div>
                 </div>
                 <!-- 무신사 스탠다드 정보 end -->
+
+                <!-- 하단 배너 start -->
                 <div class="row pt-5">
                     <div class="col p-0 px-2">
                         <img class="img-fluid rounded-1" src="./image/dddds.png" alt="">
@@ -552,6 +560,43 @@
                         </div>
                     </div>
                 </div>
+                <!-- 하단 배너 end -->
+
+                <div class="row py-3"></div>
+
+                <!-- 사이즈 정보 start -->
+                <div class="row">
+                    <div class="col fs-6 fw-bold">사이즈 정보</div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul class="nav nav-tabs fs-8">
+                            <li class="active"  >
+                                <a href="#home1" data-toggle="tab">
+                                <button class="btn btn-light btn-sm  border-black text-dark">
+                                    실측 사이즈</button></a>
+                            </li>
+                            <li class="nav-item" >
+                                <a href="#home2" data-toggle="tab">
+                                <button class="btn btn-light btn-sm  border-black text-dark">
+                                    기준표 사이즈</button></a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div id="home1" class="tab-pane in active">
+                    <h3>시작1</h3>
+                    </div>
+                    <div id="home2" class="tab-pane ">
+                    <h3>시작2</h3>
+                    </div>
+                </div>
+
+                
+                <div class="row"></div>
+                <div class="row"></div>
                 <div class="row"></div>
                 <div class="row"></div>
                 <div class="row"></div>
