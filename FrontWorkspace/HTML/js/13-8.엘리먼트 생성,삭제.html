@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        function test1(){
+            const messageBox = document.getElementById("message");
+            // 자동완성은 안되지만 value라는 속성을 컨트롤 할 수 있음
+            const value = messageBox.value;
+            console.log(value); 
+            // 태그안 속성은 변경 안될 수도 있음
+            messageBox.value = "값을 출력했다"
+            // 가상으로 li를 생성
+            const newLi = document.createElement("li");
+            newLi.innerText = messageBox.value;
+            // 붙일 곳에 붙인다
+            const listbox = document.getElementById("list");
+            listbox.appendChild(newLi);
+        }
+
+        function test2(){
+            const message = document.getElementById("message");
+            const value = message.value;
+
+            const newLi = document.createElement("li");
+            const newSp = document.createElement("span");
+
+            newSp.innerText = value;
+            newLi.className = "card"
+            newLi.appendChild(newSp);
+
+            const deleteSpan = document.createElement("span");
+            deleteSpan.innerText = " X ";
+            // deleteSpan.className = "delete"
+            deleteSpan.setAttribute("onclick","test3()");
+            
+            newLi.appendChild(deleteSpan);
+
+            const listbox = document.getElementById("list");
+            listbox.appendChild(newLi);
+        }
+
+        function test3(){
+        //    event.target.parentElement.remove();
+            //  event 객체 활용 가능
+            const card = event.target.closest(".card") // 조건에 맞는 조상 엘리먼트를 찾음
+            card.remove();
+        }
+
+        function test4(){
+            const listbox = document.getElementById('list');
+            listbox.innerHTML = ""; // 유일하게 자식 element 전체 삭제 innerHTML 허용
+        }
+        
+
+    </script>
+</head>
+<body>
+    <ul id="list"> 
+        <!-- <li><span>안녕하세요</span> <span class="delete">X</span></li>
+        <li id="eee"><span>dsadaadsda</span> <span class="delete">X</span></li>
+        <li><span>안녕하세요</span> <span class="delete">X</span></li>
+        <li><span>안녕하세요</span> <span class="delete">X</span></li>
+        <li><span>안녕하세요</span> <span class="delete">X</span></li> -->
+        <li class="card"><span>안녕하세요</span> <span onclick="test3()">X</span></li>
+        <li id="eee" class="card"><span>dsadaadsda</span> <span onclick="test3()">X</span></li>
+        <li class="card"><span>안녕하세요</span> <span onclick="test3()">X</span></li>
+        <li class="card"><span>안녕하세요</span> <span onclick="test3()">X</span></li>
+        <li class="card"><span>안녕하세요</span> <span onclick="test3()">X</span></li>
+    </ul>
+
+    <input id="message" type="text" placeholder="입력해라" value="기본">
+    <button onclick="test1()">버튼1</button>
+    <button onclick="test2()">버튼2</button>
+    <button onclick="test3()">버튼3</button>
+    <button onclick="test4()">버튼4</button>
+    <button onclick="test5()">버튼5</button>
+
+    <script>
+        document.querySelectorAll(".delete").forEach(e=>{
+            e.addEventListener('click', function(){
+                this.parentElement.remove();
+            })
+        })
+    </script>
+</body>
+</html>
