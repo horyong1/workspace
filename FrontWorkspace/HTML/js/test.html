@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP 정보 가져오기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 600px;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        pre {
+            background-color: #eef;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>IP 정보 가져오기</h1>
+    <button id="fetchData">IP 정보 가져오기</button>
+    <pre id="result"></pre>
+    <div id="error" class="error"></div>
+
+    <script>
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://headers.jsontest.com/");
+                if (!response.ok) {
+                    throw new Error('네트워크 응답이 좋지 않습니다');
+                }
+                const data = await response.json();
+                return data; // 데이터를 반환
+            } catch (error) {
+                throw error; // 오류를 다시 던짐
+            }
+        };
+
+        document.getElementById('fetchData').addEventListener('click', async () => {
+            document.getElementById('error').textContent = ''; // 이전 오류 메시지 초기화
+            document.getElementById('result').textContent = '로딩 중...'; // 로딩 상태 표시
+
+            try {
+                const info = await fetchData(); // 데이터 가져오기
+                document.getElementById('result').textContent = JSON.stringify(info, null, 2); // 결과 표시
+            } catch (error) {
+                document.getElementById('error').textContent = '문제가 발생했습니다: ' + error.message; // 오류 표시
+                console.error('문제가 발생했습니다:', error);
+            }
+        });
+    </script>
+</body>
+</html>

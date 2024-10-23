@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        const fetchData = () =>{
+            return new Promise((resolve, reject) =>{
+                fetch("http://headers.jsontest.com/")
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => resolve(data))
+                .catch(e => reject(e))
+
+            })
+        }
+
+        fetchData()
+        .then(info => {
+                console.log(info);
+                document.getElementById('result').textContent = JSON.stringify(info);
+            })
+
+        console.log("dladada")
+
+    //     const qwer = new Promise((resolve,reject)=>{
+    //         fetch("http://headers.jsontest.com/")
+    //         .then(response =>{   
+    //           return response.json();
+    //         })
+    //         .then(data =>{
+    //             resolve(data)
+    //         })
+    //         .catch(error=> reject(error))
+
+    //         qwer.then(info => {
+    //             document.getElementById('result').textContent = JSON.stringify(info);
+    //         })
+    //    });
+
+      
+       
+
+    </script>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        
+
+    </script>
+</body>
+</html>

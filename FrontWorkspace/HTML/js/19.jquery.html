@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .red{ color: red;}
+        .fw-b{ font-weight: bold;}
+        .fs-3-0{ font-size: 3em;}
+        .flex{ display: flex;}
+    </style>
+    <script src="./jquery.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function addLi(){
+            const newLi = document.createElement("li");
+            newLi.innerText = "반갑습니다.";
+            newLi.style.backgroundColor = "skyblue";
+            newLi.style.border = "1px solid black";
+            newLi.classList = "red fw-b fs-3-0";
+            newLi.setAttribute("aa","11");
+            newLi.setAttribute("bb","22");
+
+            const qwer =document.getElementById("qwer");
+            qwer.appendChild(newLi);
+            
+        }
+        function addLi_jQuery(){
+            $("<li></li>").text("qweqeq").css({
+                backgroundColor:"green",
+                border: "1px solid black",
+                transition:"all 0.3s ease"
+                
+            }).addClass("fs-3-0 red fw-b").attr({
+                aa:11,
+                bb:22
+            }).appendTo("#qwer");            
+        }
+    </script>
+</head>
+<body>
+    <ul id="qwer">
+        <li class="fs-3-0">안녕하세요</li>
+        <li>안녕하세요</li>
+        <li class="fs-3-0">안녕하세요</li>
+    </ul>
+
+    <button onclick="addLi()">버튼 1</button>
+    <button onclick="addLi_jQuery()">버튼 2</button>
+</body>
+</html>

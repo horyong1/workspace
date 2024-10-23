@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // history
+        history.back();
+        
+        // window
+        window.setInterval(()=>{
+            const now = new Date();
+            const hh = now.getHours();
+            const mm = now.getMinutes();
+            const ss = now.getSeconds();
+
+            const clock = document.getElementById("clock");
+
+            clock.innerText = `${hh}:${mm}:${ss}`;
+
+
+        },1000);
+    </script>
+</head>
+<body>
+    <div id="clock"></div>
+</body>
+</html>

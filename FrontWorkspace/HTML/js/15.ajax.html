@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        // AJAX..
+        
+        // es5
+       
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('GET','http://ip-api.com/json');
+
+        // xhr.onload = function (){
+        //     if(xhr.status >= 200 && xhr.status < 300){
+        //         const response = JSON.parse(xhr.responseText);
+        //         const result = document.getElementById('result');
+        //         result.textContent = JSON.stringify(response,null,2)
+        //         console.log(response.query)
+        //     }
+        // }
+        // xhr.send();
+        // console.log("안녕하세욧")
+
+        // es6 -fetch
+
+        fetch("http://headers.jsontest.com/")
+        .then(response => response.json())
+        .then(data =>{
+            console(data);
+                // 비동기 동기화 방법
+                // 하지만 비동기는 비동기 식으로 만드는게 좋음
+                // 무언가 실행되고 그다음게 실행되려면 이렇게 해야함
+                fetch("http://headers.jsontest.com/")
+                .then(response => response.json())
+                .then(data => console(data))
+                .catch(e => '문제발생'); 
+        } )
+        .catch(e => '문제발생');
+        
+       
+            
+        console.log('안녕하세요');
+       
+        
+    </script>
+</head>
+<body>
+    
+</body>
+
+    <pre id="result"></pre>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        
+        // function test2(){
+        //     return new Promise(resolve =>{
+        //         resolve(1);
+        //     })
+        // }
+
+        // Promise를 쉽게 사용하기 위한 문법 async&await
+        // 위 코드랑 같음
+        // promise = 비동기식 코드(ajax)를 간결하면서 
+        //          구조적으로 작성 가능하게 지원하는 객체
+        //          .then()
+        // async = promise를 간결하게 하는 문법
+        // await = 비동기식 함수를 동기식으로 호출 시키는 문법
+        // await가 적으면 적을수록 좋은 코드
+        // await은 async 안에만 사용 가능
+        async function test(){
+            console.log("test 실행됨");
+            return 1;
+        }
+
+        test().then(x => {
+            console.log(x);
+        });
+
+        // const result = test();
+        // console.log(result);
+
+        async function handler(){
+            // test().then((data)=>{
+            //     console.log(data+"하하하")
+            // });
+            // test().then((data)=>{
+            //     console.log(data+"하하하")
+            // });
+            // 비동기 함수를 동기식으로 호출 (왠만하면 비추)
+            const data1 = await test();
+            const data2 = await test();
+            const data3 = await test();
+            console.log(data1);
+            console.log(data2);
+            console.log(data3);
+        }
+    </script>
+</head>
+<body>
+    <div onclick="handler()">daaaaasd</div>
+</body>
+</html>

@@ -10,17 +10,8 @@
 
             const qqq1 = parseInt("123");
             const qqq2 = parseInt(33.3333);
-        </script>
-    </head>
-    
-    <body>
-        <h1>현재 시간</h1>
-        <h2>
-            <div id="clock"></div>
-        </h2>
-        <script>
-            //날짜
-            function updateTime(){
+
+            async function updateTime(){
                 const now = new Date();
                 const hours = String(now.getHours()).padStart(2,'0');
                 const minutes = String(now.getMinutes()).padStart(2,'0');
@@ -30,9 +21,23 @@
                 document.getElementById('clock').innerText = currentTime;
             }
     
-            setInterval(updateTime, 1000);
-            updateTime();
+            setInterval(updateTime, 500);
+
+            setTimeout(() => {
+                console.log("출력되나");
+            }, 3000);
+
         </script>
+    </head>
+    
+    <body>
+        <h1 style="margin: 0em;">현재 시간</h1>
+        <h2>
+            <div id="clock"></div>
+        </h2>
+        <script>
+            //날짜
+                    </script>
         
     </body>
 </html>
