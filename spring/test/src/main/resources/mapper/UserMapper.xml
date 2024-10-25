@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.test.mapper.UserMapper">
+    <select id="selectAllUsers" resultType="com.test.test.model.User">
+        SELECT * FROM StudentInfo
+    </select>
+    <insert id="insertUser" parameterType="com.test.test.model.User">
+        INSERT INTO StudentInfo (name, age, score) VALUES (#{name}, #{age}, #{score})
+    </insert>
+</mapper>
