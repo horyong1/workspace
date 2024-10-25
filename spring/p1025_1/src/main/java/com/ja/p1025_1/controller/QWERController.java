@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -59,7 +60,13 @@ public class QWERController {
         
         return modelaAndView;
     }
-    
+
+    @RequestMapping("detail/{no}")
+    public String detail(@PathVariable("no") int no){
+
+        return"aaa";
+    }
+
     /**
      * Get :  
      * 파라메터를 URL에 포함해서 요청
