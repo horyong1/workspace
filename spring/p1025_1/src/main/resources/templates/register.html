@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    넝머왔다
+    <div th:with="title=${map.title}, content=${map.content}">
+        <p th:text="'제목 : ' + ${title}"></p>
+        <p th:text="'내용 : ' + ${content}"></p>
+    </div>
+        
+        <a href="./write"> 다시 글쓰러 가기</a>
+    
+</body>
+</html>
