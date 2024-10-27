@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.test.mapper.BoardMapper">
+    <!-- 게시판 신규 등록 -->
+    <insert id="insertBoard" parameterType="com.test.test.model.Board">
+        INSERT INTO Board (title, content, id) VALUES (#{title}, #{content}, #{id})
+    </insert>
+
+    <!-- 전체 게시판 목록  -->
+    <select id="selectAllBoards" resultType="com.test.test.model.Board">
+        SELECT  A.no,
+                A.title,
+                A.content,
+                A.id,
+                DATE_FORMAT(A.create_date, '%Y-%m-%d') AS create_date
+        FROM    Board A
+        ORDER BY A.no DESC;
+    </select>
+
+    <!-- 게시판 상세 내용 -->
+    <select id="findByNoBoard" parameterType="int" resultType="com.test.test.model.Board">
+        SELECT  A.no,
+                A.title,
+                A.content,
+                A.id,
+                DATE_FORMAT(A.create_date, '%Y-%m-%d') AS create_date
+        FROM    Board A
+        WHERE   A.no = #{no}
+    </select>
+</mapper>

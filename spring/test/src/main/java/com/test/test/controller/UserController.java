@@ -22,6 +22,18 @@ public class UserController {
     @GetMapping("/users")
     public String getUsers(Model model){
         List<User> userList = userService.getAllUsers();
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        for (User user : userList) {
+            System.out.println(user);
+        }
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
+        System.out.println("=======================");
         model.addAttribute("users", userList);
         return "userList";
     }

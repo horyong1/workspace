@@ -4,9 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.test.test.mapper.UserMapper">
     <select id="selectAllUsers" resultType="com.test.test.model.User">
-        SELECT * FROM StudentInfo
+        SELECT  U.id,
+                U.name,
+                U.email
+        FROM    User U
     </select>
     <insert id="insertUser" parameterType="com.test.test.model.User">
-        INSERT INTO StudentInfo (name, age, score) VALUES (#{name}, #{age}, #{score})
+        INSERT INTO User (id, name, password, email) VALUES (#{id}, #{name}, #{password}, #{email})
     </insert>
 </mapper>

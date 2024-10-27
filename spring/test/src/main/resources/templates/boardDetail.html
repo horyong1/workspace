@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+</head>
+<body>
+    <div>
+        <h1>게시글 상세내용</h1>
+    </div>
+    <div th:with="list=${board}">
+        <div>
+            번호: <span th:text="${list.no}"></span><br>
+            제목: <span th:text="${list.title}"></span><br>
+            작성자: <span th:text="${list.id}"></span><br>
+            등록일: <span th:text="${list.create_date}"></span>
+        </div>
+        <div>
+            <span th:text="${list.content}"></span>
+        </div>
+        <a th:href="@{/board}">뒤로가기</a>
+    </div>
+    
+</body>
+</html>
