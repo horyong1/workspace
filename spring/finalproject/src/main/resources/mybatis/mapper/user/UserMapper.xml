@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ja.finalproject.user.mapper.UserMapper">
-    <insert id="addUser" parameterType="com.ja.finalproject.dto.UserDto">
+    <insert id="createUser" parameterType="com.ja.finalproject.dto.UserDto">
         INSERT INTO fp_user (id, user_id, password, nickname, email, gender, birth, phone)
         VALUES (#{id}, #{userId},#{password},#{nickname},#{email},#{gender},#{birth},#{phone})
     </insert>
