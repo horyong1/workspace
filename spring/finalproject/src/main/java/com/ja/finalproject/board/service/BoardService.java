@@ -17,4 +17,8 @@ public class BoardService {
     public List<BoardDto> getBoardList(){
         return boardMapper.selectAllBoards();
     }
+
+    public BoardDto findByNoContent(int no){
+        return boardMapper.selectFindByNoContent(no);
+    }
 }
