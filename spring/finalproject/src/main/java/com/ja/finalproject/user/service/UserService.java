@@ -12,7 +12,7 @@ public class UserService {
     private UserMapper userMapper;
 
     public void addUser(UserDto user){
-        userMapper.addUser(user);
+        userMapper.insert(user);
     }
 
     public void loginCheck(UserDto user){

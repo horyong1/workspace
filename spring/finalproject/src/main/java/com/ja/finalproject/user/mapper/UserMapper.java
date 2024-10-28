@@ -6,6 +6,6 @@ import com.ja.finalproject.dto.UserDto;
 
 @Mapper
 public interface UserMapper {
-    void addUser(UserDto userdto);
+    void insert(UserDto userdto);
     void loginCheck(UserDto userdto);
 }
