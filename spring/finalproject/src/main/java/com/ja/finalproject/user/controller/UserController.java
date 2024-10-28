@@ -2,7 +2,6 @@ package com.ja.finalproject.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.finalproject.dto.UserDto;
@@ -36,7 +35,7 @@ public class UserController {
         return "user/registerComplete";
     }
 
-    @RequestMapping()
+    @RequestMapping("loginCheck")
     public String login(UserDto params){
         userservice.loginCheck(params);
         return "/board/list";

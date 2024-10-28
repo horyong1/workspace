@@ -23,7 +23,7 @@ public class BoardController {
     public String getBoardList(Model model){
         List<BoardDto> list = boardService.getBoardList();
         model.addAttribute("list", list);
-        return"boardListPage";
+        return"/board/boardListPage";
     }
 
     @RequestMapping("detailPage/{id}")
@@ -31,6 +31,6 @@ public class BoardController {
         BoardDto dto = boardService.findByNoContent(no);
         model.addAttribute("dto", dto);
         System.out.println("닉네임 >>> "+ dto.getNickname());
-        return"boardDetailPage";
+        return"/board/boardDetailPage";
     }
 }

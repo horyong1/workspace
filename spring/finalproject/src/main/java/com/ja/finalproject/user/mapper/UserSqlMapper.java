@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ja.finalproject.dto.UserDto;
 
 @Mapper
-public interface UserMapper {
+public interface UserSqlMapper {
     void createUser(UserDto userdto);
     void loginCheck(UserDto userdto);
 }
