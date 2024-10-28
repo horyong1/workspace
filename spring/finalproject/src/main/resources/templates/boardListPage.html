@@ -21,7 +21,7 @@
                 </thead>
                 <tbody th:each="item : ${list}">
                     <td><span th:text="${item.id}"></span></td>
-                    <td><span th:text="${item.title}"></span></td>
+                    <td><a href="./boardDetail"><span th:text="${item.title}"></span></a></td>
                     <td><span th:text="${item.userid}"></span></td>
                     <td><span th:text="${item.readcount}"></span></td>
                     <td><span th:text="${item.registerdate}"></span></td>
