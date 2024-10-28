@@ -6,6 +6,20 @@
     <title>회원가입</title>
 </head>
 <body>
-    
+    <h1>회원가입 페이지</h1>
+
+    <form action="./registerProcess" method="post">
+        ID: <input type="text" name="userId"><br>
+        PW: <input type="password" name="password"><br>
+        닉네임: <input type="text" name="nickname"><br>
+        이메일: <input type="text" name="email"><br>
+        성별: 
+        <input type="radio" name="gender" value="M" checked="true">남자
+        <input type="radio" name="gender" value="F">여자<br>
+        생년월일: <input name="birth" type="date" ><br>
+        전화번호: <input name="phone" type="text" ><br>
+        <input type="submit" value="회원가입"> <a href="./loginPage">뒤로가기</a>
+    </form>
+
 </body>
 </html>
