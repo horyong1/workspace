@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyemleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div>
+            <h5>게시판</h5>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>작성일</th>
+                </thead>
+                <tbody th:each="item : ${list}">
+                    <td><span th:text="${item.id}"></span></td>
+                    <td><span th:text="${item.title}"></span></td>
+                    <td><span th:text="${item.userid}"></span></td>
+                    <td><span th:text="${item.readcount}"></span></td>
+                    <td><span th:text="${item.registerdate}"></span></td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -28,14 +28,6 @@ public class BoardController {
     @RequestMapping("/board/{no}")
     public String getNoBoard(@PathVariable("no") int no, Model model){
         Board board = boardService.getByNoBoard(no);
-        System.out.println("============================");
-        System.out.println("============================");
-        System.out.println("============================");
-        System.out.println(no);
-        
-        System.out.println("============================");
-        System.out.println("============================");
-        System.out.println("============================");
         model.addAttribute("board", board);
         return "boardDetail";
     }
