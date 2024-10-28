@@ -9,5 +9,6 @@ import com.ja.finalproject.dto.BoardDto;
 @Mapper
 public interface BoardMapper {
     List<BoardDto> selectAllBoards();
-
+    BoardDto selectFindByNoContent(int no);
+    
 }
