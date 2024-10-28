@@ -4,13 +4,30 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.ja.finalproject.board.mapper.BoardMapper">
+    <!-- 전체 게시물 리스트 -->
     <select id="selectAllBoards" resultType="com.ja.finalproject.dto.BoardDto">
         SELECT  (b.id) AS id,
+                (u.nickname) AS nickname,
                 (b.user_id) AS userid,
                 (b.title) AS title,
                 (b.content) AS content,
                 (b.read_count) AS readcount,
-                DATE_FORMAT(b.register_date,'%Y-%d-%m') AS registerdate
+                DATE_FORMAT(b.register_date,'%Y-%m-%d') AS registerdate
         FROM    board b
+        INNER JOIN 	user u ON u.id = b.user_id 
+        ORDER BY id DESC
+    </select>
+    <!-- 게시물 상세 내용 -->
+    <select id="selectFindByNoContent" parameterType="int" resultType="com.ja.finalproject.dto.BoardDto">
+        SELECT  (b.id) AS id,
+                (u.nickname) AS nickname,
+                (b.user_id) AS userid,
+                (b.title) AS title,
+                (b.content) AS content,
+                (b.read_count) AS readcount,
+                DATE_FORMAT(b.register_date,'%Y-%m-%d') AS registerdate
+        FROM    board b
+        INNER JOIN 	user u ON u.id = b.user_id 
+        WHERE   b.id = #{no}
     </select>
 </mapper>

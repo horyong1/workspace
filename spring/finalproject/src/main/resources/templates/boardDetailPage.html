@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyemleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <div>
+            <h1>게시글 상세 내용</h1>
+        </div>
+        <div th:with="item=${dto}">
+            제목:<span th:text="${item.title}"></span><br> 
+            내용:<span th:text="${item.content}"></span><br> 
+            작성자:<span th:text="${item.nickname}"></span><br> 
+            조회수:<span th:text="${item.readcount}"></span><br> 
+            작성일:<span th:text="${item.registerdate}"></span><br> 
+        </div>
+        <a href="/board/list">뒤로가기</a>
+    </div>
+</body>
+</html>
