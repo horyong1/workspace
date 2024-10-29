@@ -19,19 +19,25 @@ public class UserController {
     @Autowired
     private UserService userservice;
 
-    // 로그인 페이지
+    /*
+     * 로그인 페이지
+     */
     @RequestMapping("loginPage")
     public String loginPage(){
         return"user/loginPage";
     }
 
-    // 회원 가입 페이지
+    /*
+     * 회원가입 페이지
+     */
     @RequestMapping("registerPage")
     public String registerPage() {
         return "user/registerPage";
     }
 
-    // 회원가입 추가
+    /*
+     * 회원가입 로직 실행
+     */
     @RequestMapping("registerProcess")
     public String registerProcess(UserDto params){
         userservice.addUser(params);
@@ -56,6 +62,16 @@ public class UserController {
         // 로그인 성공
         session.setAttribute("sessionUserInfo", sessionUserInfo);
 
+        return "redirect:/board/mainPage";
+    }
+
+    /*
+     * 로그아웃 
+     */
+    @RequestMapping("logOutProcess")
+    public String logOutProcess(HttpSession session){
+        session.invalidate();
+        // session.removeAttribute("sessionUserInfo");
         return "redirect:/board/mainPage";
     }
 
