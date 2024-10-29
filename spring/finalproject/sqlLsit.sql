@@ -11,3 +11,13 @@ CREATE TABLE fp_user(
 	phone VARCHAR(30),
 	created_at DATETIME DEFAULT now()
 );
+
+DROP TABLE fp_article;
+CREATE TABLE fp_article(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	user_id INT,
+	title VARCHAR(100),
+	content VARCHAR(4000),
+	read_count INT DEFAULT 0,
+	created_at DATETIME DEFAULT now()
+);
