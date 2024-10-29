@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>회원가입페이지</h1>
+    <form action="./signUpProcess">
+        ID : <input type="text" name="id"><br>
+        PW : <input type="password" name="userId"><br>
+        닉네임: <input type="text" name="nickname"><br>
+        email: <input type="text" name="email"><br>
+        성별: <input type="radio" name="gender" value="M" checked="true">남
+        <input type="radio" value="F" name="gender">여<br>
+    
+        생년월일: <input type="date" name="birth"><br>
+        전화번호: <input type="text" name="phone"><br>
+        <input type="submit" value="회원가입">
+    </form>
+    <a href="./loginPage">뒤로가기</a>
+
+</body>
+</html>
