@@ -11,13 +11,15 @@
             <h1>게시글 상세 내용</h1>
         </div>
         <div th:with="item=${dto}">
-            제목:<span th:text="${item.title}"></span><br> 
-            내용:<span th:text="${item.content}"></span><br> 
-            작성자:<span th:text="${item.nickname}"></span><br> 
-            조회수:<span th:text="${item.readcount}"></span><br> 
-            작성일:<span th:text="${item.registerdate}"></span><br> 
+            <b>제목:</b> <span th:text="${item.title}"></span><br> 
+            <div style="width: 20em; margin-top: 2em; margin-bottom: 2em;">
+                <b>내용:</b> <span th:text="${item.content}"></span> 
+            </div>
+            <b>작성자:</b> <span th:text="${item.nickname}"></span><br> 
+            <b>조회수:</b> <span th:text="${item.readcount}"></span><br> 
+            <b>작성일:</b> <span th:text="${item.createdAtFormmat}"></span><br> 
         </div>
-        <a href="/board/list">뒤로가기</a>
+        <a href="/board/mainPage">뒤로가기</a>
     </div>
 </body>
 </html>

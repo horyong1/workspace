@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.finalproject.board.service.BoardService;
-import com.ja.finalproject.dto.BoardDto;
+import com.ja.finalproject.dto.articleDto;
+import com.ja.finalproject.dto.UserDto;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("board")
@@ -19,18 +22,44 @@ public class BoardController {
     private BoardService boardService;
 
     // 게시판 목록
-    @RequestMapping("list")
-    public String getBoardList(Model model){
-        List<BoardDto> list = boardService.getBoardList();
+    @RequestMapping("mainPage")
+    public String mainPage(Model model){
+        List<articleDto> list = boardService.getBoardList();
+        for(articleDto a: list){
+            System.out.println("정보 >>> " + a);
+        }
         model.addAttribute("list", list);
-        return"/board/boardListPage";
+        return"board/mainPage";
     }
 
+    /*
+     * 글 상세 보기
+     */
     @RequestMapping("detailPage/{id}")
     public String getBoardDetail(@PathVariable("id") int no, Model model){
-        BoardDto dto = boardService.findByNoContent(no);
+        boardService.addReadCount(no);
+        articleDto dto = boardService.findByNoContent(no);
         model.addAttribute("dto", dto);
-        System.out.println("닉네임 >>> "+ dto.getNickname());
-        return"/board/boardDetailPage";
+        return"board/boardDetailPage";
+    }
+    /*
+     * 글쓰기 페이지
+     */
+    @RequestMapping("writeArticlePage")
+    public String writeArticlePage(){
+        return "board/writeArticlePage";
+    }
+
+    /*
+     * 글쓰기 프로세스
+     */
+    @RequestMapping("wirteArticleProcess")
+    public String writeArticleProcess(articleDto params, HttpSession session){
+        // 세션값 세팅 하는 방법
+        UserDto sessionUserInfo = (UserDto)session.getAttribute("sessionUserInfo");
+        int userPk = sessionUserInfo.getId();
+        params.setUserid(userPk);
+        boardService.registerArticle(params);
+        return "redirect:/board/mainPage";
     }
 }

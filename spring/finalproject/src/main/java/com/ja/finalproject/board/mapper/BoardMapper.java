@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.ja.finalproject.dto.BoardDto;
+import com.ja.finalproject.dto.articleDto;
 
 @Mapper
 public interface BoardMapper {
-    List<BoardDto> selectAllBoards();
-    BoardDto selectFindByNoContent(int no);
+    void createBoard(articleDto articleDto);
+    List<articleDto> selectAllBoards();
+    articleDto selectFindByNoContent(int no);
+    void addReadCount(int no);
     
 }

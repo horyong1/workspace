@@ -1,14 +1,17 @@
 package com.ja.finalproject.dto;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
-public class BoardDto {
+public class articleDto {
     private int id;
+    private int userid;
     private String nickname;
-    private String userid;
     private String title;
     private String content;
     private int readcount;
-    private String registerdate;
+    private Date createdAt;
+    private String createdAtFormmat;
 }

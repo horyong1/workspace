@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.finalproject.board.mapper.BoardMapper;
-import com.ja.finalproject.dto.BoardDto;
+import com.ja.finalproject.dto.articleDto;
 
 @Service
 public class BoardService {
@@ -14,11 +14,19 @@ public class BoardService {
     @Autowired
     private BoardMapper boardMapper;
 
-    public List<BoardDto> getBoardList(){
+    public List<articleDto> getBoardList(){
         return boardMapper.selectAllBoards();
     }
 
-    public BoardDto findByNoContent(int no){
+    public articleDto findByNoContent(int no){
         return boardMapper.selectFindByNoContent(no);
+    }
+
+    public void registerArticle(articleDto articleDto){
+        boardMapper.createBoard(articleDto);
+    }
+
+    public void addReadCount(int no){
+        boardMapper.addReadCount(no);
     }
 }

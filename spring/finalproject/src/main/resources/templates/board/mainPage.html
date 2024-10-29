@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyemleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+    </script>
+</head>
+<body>
+    <div>
+        <div>
+            <div th:if="${session.sessionUserInfo == null}">
+                <a href="/user/loginPage">로그인</a>
+            </div>
+            </div>
+            <div th:unless="${session.sessionUserInfo == null}">
+                <span th:text="${session.sessionUserInfo.nickname}"></span>
+                <span>님 반갑습니다.</span>
+                <a href="/user/logOutProcess">로그아웃</a>
+            </div>
+        </div>
+        <div>
+            <h1>게시판</h1>
+            <span></span>
+        </div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>조회수</th>
+                        <th>작성일</th>
+                    </tr>
+                </thead>
+                <tbody th:each="item : ${list}">
+                    <tr>
+                        <td><span th:text="${item.id}"></span></td>
+                        <td><a th:href="@{./detailPage/{no}(no=${item.id})}"><span th:text="${item.title}"></span></a></td>
+                        <td><span th:text="${item.nickname}"></span></td>
+                        <td><span th:text="${item.readcount}"></span></td>
+                        <td><span th:text="${item.createdAtFormmat}"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${session.sessionUserInfo != null}">
+           <a href="./writeArticlePage">
+                <button>글쓰기</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
