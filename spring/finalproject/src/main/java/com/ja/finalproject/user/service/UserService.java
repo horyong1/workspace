@@ -16,7 +16,7 @@ public class UserService {
         userMapper.createUser(user);
     }
 
-    public void loginCheck(UserDto user){
-        userMapper.loginCheck(user);
+    public UserDto getUserByUserIdAndPassword(UserDto user){
+        return userMapper.findByUserIdAndPassword(user);
     }
 }

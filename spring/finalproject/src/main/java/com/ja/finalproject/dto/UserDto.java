@@ -14,10 +14,8 @@ public class UserDto {
     private String nickname;
     private String email;
     private String gender;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
-
     private String phone;
     private Date createdAt;
 }

@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.user.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("user")
@@ -35,12 +39,35 @@ public class UserController {
         return "user/registerComplete";
     }
 
-    @RequestMapping("loginCheck")
-    public String login(UserDto params){
-        userservice.loginCheck(params);
-        return "/board/list";
+    /**
+     * 로그인 정보 체크 
+     * @param UserDto
+     * @return redirect:/board/list
+     */
+    @RequestMapping("loginProcess")
+    public String loginProcess(UserDto params, HttpSession session){
+        System.out.println("정보 >>>> " + params);
+        UserDto sessionUserInfo = userservice.getUserByUserIdAndPassword(params);
+        
+        if(sessionUserInfo==null){
+            return "user/loginFail";
+        }
+        
+        // 로그인 성공
+        session.setAttribute("sessionUserInfo", sessionUserInfo);
+
+        return "redirect:/board/mainPage";
     }
 
+    // @RequestMapping("test")
+    // public String test(HttpServletRequest request, HttpSession session){
 
+    //     request.setAttribute("yyy", 30);
+    //     request.getAttribute(null);
+
+    //     session.setAttribute("qqq", 50);
+
+    //     return "qwer";
+    // }
     
 }
