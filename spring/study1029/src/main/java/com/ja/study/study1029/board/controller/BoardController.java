@@ -59,8 +59,23 @@ public class BoardController {
 
     // 게시글 수정 페이지
     @RequestMapping("updateArticlePage")
-    public String updateArticlePage(@RequestParam("id") int id){
-
+    public String updateArticlePage(@RequestParam("id") int id, Model model){
+        Map<String,Object> boardMap = boardService.getFindById(id);
+        model.addAttribute("boardMap", boardMap);
         return"board/updateArticlePage";
+    }
+
+    // 게시글 수정 프로세스
+    @RequestMapping("updateArticleProcess")
+    public String updateArticleProcess(BoardDto boardDto){
+        boardService.updateArticle(boardDto);
+        return"redirect:/board/mainPage";
+    }
+
+    //게시글 삭제 프로세스
+    @RequestMapping("deleteArticleProcess")
+    public String deleteArticleProcess(BoardDto boardDto){
+        boardService.deleteArticle(boardDto);
+        return"redirect:/board/mainPage";
     }
 }

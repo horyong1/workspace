@@ -39,5 +39,19 @@
         SET     read_count = read_count + 1
         WHERE   id = #{id}
     </update>
+
+    <!-- 본인 게시글 수정 -->
+    <update id="updateArticle">
+        UPDATE  fp_article  
+        SET     title = #{title},
+                content = #{content}
+        WHERE   id = #{id}
+    </update>
+
+    <!-- 본인 게시글 삭제 -->
+    <update id="deleteArticle">
+        DELETE  FROM fp_article  
+        WHERE   id = #{id}
+    </update>
    
 </mapper>

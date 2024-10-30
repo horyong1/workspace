@@ -33,18 +33,18 @@
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center p-0">
         <div class="row fixed-container">
-            <div class="col">
+            <div class="col" th:with="item=${boardMap}">
 
                 <div class="row pb-5">
                     <div class="col text-center">
                         <h1>게시글 작성</h1>
                     </div>
                 </div>
-                <form action="./writeArticleProcess" method="post">
+                <form th:action="@{./updateArticleProcess(id=${item.boardDto.id})}" method="post">
                     <div class="row fs-9 pb-2">
                         <div class="col-auto align-self-center">제목</div>
                         <div class="col">
-                            <input class="form-control" type="text" name="title">
+                            <input  th:value="${item.boardDto.title}" class="form-control" type="text" name="title" >
                         </div>
                     </div>
                     <div class="row fs-9 pb-2">
@@ -56,12 +56,13 @@
                     <div class="row fs-9 pb-2">
                         <div class="col-auto align-self-center">내용</div>
                         <div class="col">
-                            <textarea class="form-control" type="text" rows="10" cols="50" name="content"></textarea>
+                            <textarea class="form-control" type="text" rows="10" cols="50" name="content"
+                            th:text="${item.boardDto.content}"></textarea>
                         </div>
                     </div>
                     <div class="row fs-9 pt-4">
                         <div class="col">
-                            <button class="btn btn-primary btn-sm" type="submit">등록</button>
+                            <button class="btn btn-primary btn-sm" type="submit">수정</button>
                         </div>
                         <div class="col-auto">
                             <a href="./mainPage">

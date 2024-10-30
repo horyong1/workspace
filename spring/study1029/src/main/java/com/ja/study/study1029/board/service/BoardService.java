@@ -60,7 +60,18 @@ public class BoardService {
         boardSqlMapper.addReadCount(id);
     }
 
+    // 게시글 등록 하기
     public void registerArticle(BoardDto boardDto){
         boardSqlMapper.addArticle(boardDto);
+    }
+
+    // 게시글 수정 하기
+    public void updateArticle(BoardDto boardto){
+        boardSqlMapper.updateArticle(boardto);
+    }
+
+    // 게시글 수정 하기
+    public void deleteArticle(BoardDto boardto){
+        boardSqlMapper.deleteArticle(boardto);
     }
 }

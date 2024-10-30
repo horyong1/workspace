@@ -1,10 +1,10 @@
 package com.ja.study.study1029.board.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ja.study.study1029.board.dto.BoardDto;
-
-import java.util.List;
 
 @Mapper
 public interface BoardSqlMapper {
@@ -13,4 +13,6 @@ public interface BoardSqlMapper {
     BoardDto findById(int id);
     void addReadCount(int id);
     void addArticle(BoardDto boardDto);
+    void updateArticle(BoardDto boardto);
+    void deleteArticle(BoardDto boardto);
 }
