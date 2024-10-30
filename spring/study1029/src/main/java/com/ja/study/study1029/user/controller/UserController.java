@@ -34,6 +34,13 @@ public class UserController {
         return "redirect:/board/mainPage";
     }
 
+    // 로그아웃
+    @RequestMapping("logOut")
+    public String logOut(HttpSession session){
+        session.invalidate();
+        return "board/mainPage";
+    }
+
 
     // 회원가입 페이지
     @RequestMapping("signUpPage")
