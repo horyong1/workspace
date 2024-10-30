@@ -45,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="data: ${list}">
+                        <tr th:each="data: ${boardlist}">
                             <th scope="row" th:text="${data.boardDto.id}"></th>
                             <td th:text="${data.boardDto.title}">123</td>
                             <td th:text="${data.userDto.nickname}">123</td>

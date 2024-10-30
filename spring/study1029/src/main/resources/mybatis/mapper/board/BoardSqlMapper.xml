@@ -15,5 +15,16 @@
         ORDER BY id DESC
     </select>
 
+    <select id="findById" resultType="com.ja.study.study1029.board.dto.BoardDto">
+        SELECT  (b.id) AS id,
+                (b.user_id) AS userId,
+                (b.title) AS title,
+                (b.content) AS content,
+                (b.read_count) AS readCount,
+                DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAt
+        FROM    fp_article b
+        WHERE   b.id = #{id}
+    </select>
+
    
 </mapper>

@@ -41,4 +41,14 @@ public class BoardService {
         
         return result;
     }
+
+    public Map<String, Object> getFindById(int id){
+        Map<String, Object> result = new HashMap<>();
+        BoardDto boardDto = boardSqlMapper.findById(id);
+        int userId = boardDto.getUserId();
+        UserDto userDto = userSqlMapper.findById(userId);
+        result.put("boardDto", boardDto);
+        result.put("userDto", userDto);
+        return result;
+    }
 }

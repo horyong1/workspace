@@ -12,15 +12,8 @@
         <div class="row">
             <div class="col">
                 <div class="row">
-                    <div class="col text-end">
-                        <div th:if="${session.sessionUserInfo==null}">
-                            <a href="/user/loginPage">로그인</a>
-                        </div>
-                        <div th:unless="${session.sessionUserInfo==null}">
-                            <span th:text="${session.sessionUserInfo.nickname}"></span>
-                            님 반갑습니다.
-                            <a href="/user/logOut">로그아웃</a>
-                        </div>
+                    <div class="col text-center">
+                        <h1>상세 내용</h1>
                     </div>
                 </div>
                 <div class="row">
@@ -42,7 +35,9 @@
                         <tbody>
                             <tr th:each="data: ${list}">
                                 <th scope="row" th:text="${data.boardDto.id}"></th>
-                                <td th:text="${data.boardDto.title}">123</td>
+                                <a th:href="@{./detailPage/{id}(id=${data.boardDto.userId})}">
+                                    <td th:text="${data.boardDto.title}">123</td>
+                                </a>
                                 <td th:text="${data.userDto.nickname}">123</td>
                                 <td th:text="${data.boardDto.readCount}">123</td>
                                 <td>123</td>

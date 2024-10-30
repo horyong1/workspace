@@ -32,7 +32,7 @@
         WHERE   b.id = #{id}
     </select>
 
-    <update id="addReadCount" parameterType="int">
+    <update id="increaseReadCount" parameterType="int">
         UPDATE fp_article SET read_count = read_count +1 WHERE id = #{no};
     </update>
 </mapper>

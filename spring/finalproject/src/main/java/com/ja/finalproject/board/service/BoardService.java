@@ -53,13 +53,13 @@ public class BoardService {
         Map<String,Object> map = new HashMap<>();
         map.put("articleDto", articleDto);
         map.put("userDto", userDto);
-        
+
         return map;
     }
 
     // 조회수 증가
     public void addReadCount(int no){
-        boardMapper.addReadCount(no);
+        boardMapper.increaseReadCount(no);
     }
 
 }

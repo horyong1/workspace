@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.user.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+// import jakarta.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 
@@ -52,7 +52,6 @@ public class UserController {
      */
     @RequestMapping("loginProcess")
     public String loginProcess(UserDto params, HttpSession session){
-        System.out.println("정보 >>>> " + params);
         UserDto sessionUserInfo = userservice.getUserByUserIdAndPassword(params);
         
         if(sessionUserInfo==null){
