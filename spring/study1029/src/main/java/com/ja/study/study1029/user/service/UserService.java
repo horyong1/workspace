@@ -15,4 +15,8 @@ public class UserService {
     public void registerUser(UserDto userDto){
         userSqlMapper.createUser(userDto);
     }
+
+    public UserDto getUserByUserIdAndPassword(UserDto userDto){
+        return userSqlMapper.findByUserIdAndPassword(userDto);
+    }
 }

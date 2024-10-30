@@ -7,4 +7,19 @@
         INSERT INTO fp_user (id, user_id, password, nickname, email, gender, birth, phone)
         VALUES (#{id}, #{userId},#{password},#{nickname},#{email},#{gender},#{birth},#{phone})
     </insert>
+
+    <select id="findByUserIdAndPassword" resultType="com.ja.study.study1029.user.dto.UserDto">
+        SELECT  (A.id) AS id,
+                (A.user_id) AS userId,
+                (A.password) AS password,
+                (A.nickname) AS nickname,
+                (A.email) AS email,
+                (A.gender) AS gender,
+                (A.birth) AS birth,
+                (A.phone) AS phone,
+                (A.created_at) AS createdAt
+        FROM    fp_user A
+        WHERE   A.user_id = #{userId}
+        AND     A.password = #{password}
+    </select>
 </mapper>

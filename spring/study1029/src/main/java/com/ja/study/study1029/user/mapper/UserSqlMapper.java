@@ -8,5 +8,5 @@ import com.ja.study.study1029.user.dto.UserDto;
 public interface UserSqlMapper {
 
     void createUser(UserDto userDto);
-    
+    UserDto findByUserIdAndPassword(UserDto userDto);
 }
