@@ -18,6 +18,11 @@
             <b>작성자:</b> <span th:text="${item.userDto.nickname}"></span><br> 
             <b>조회수:</b> <span th:text="${item.articleDto.readCount}"></span><br> 
             <b>작성일:</b> <span th:text="${#dates.format(item.articleDto.createdAt,'yyyy.MM.dd')}"></span><br> 
+            
+            <span th:if="${session.sessionUserInfo != null and session.sessionUserInfo.id == item.articleDto.userId}">
+                <a th:href="@{./updateArticlePage(id=${item.articleDto.id})}">수정</a>
+                <a th:href="@{./deleteArticleProcess(id=${item.articleDto.id})}">삭제</a>
+            </span>
         </div>
         <a href="/board/mainPage">뒤로가기</a>
     </div>
