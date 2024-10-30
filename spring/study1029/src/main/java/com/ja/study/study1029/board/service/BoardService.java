@@ -24,6 +24,8 @@ public class BoardService {
     @Autowired
     private UserSqlMapper userSqlMapper;
 
+
+    // 게시글 전체 목록
     public List<Map<String,Object>> findAll(){
         List<BoardDto> boardDtoList = boardSqlMapper.findAll();
         List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
@@ -42,6 +44,7 @@ public class BoardService {
         return result;
     }
 
+    // 상세 페이지 
     public Map<String, Object> getFindById(int id){
         Map<String, Object> result = new HashMap<>();
         BoardDto boardDto = boardSqlMapper.findById(id);
@@ -50,5 +53,14 @@ public class BoardService {
         result.put("boardDto", boardDto);
         result.put("userDto", userDto);
         return result;
+    }
+
+    // 조회수 증가
+    public void addReadCount(int id){
+        boardSqlMapper.addReadCount(id);
+    }
+
+    public void registerArticle(BoardDto boardDto){
+        boardSqlMapper.addArticle(boardDto);
     }
 }

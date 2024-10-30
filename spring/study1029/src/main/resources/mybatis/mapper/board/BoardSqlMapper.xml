@@ -3,6 +3,12 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ja.study.study1029.board.mapper.BoardSqlMapper">
+    <!-- 게시글 등록 -->
+    <insert id="addArticle">
+        INSERT INTO fp_article (user_id, title, content) 
+        VALUES (#{userId}, #{title}, #{content});
+    </insert>
+
     <!-- 로그인 id, password 정보 확인 -->
     <select id="findAll" resultType="com.ja.study.study1029.board.dto.BoardDto">
         SELECT  (b.id) AS id,
@@ -15,6 +21,7 @@
         ORDER BY id DESC
     </select>
 
+    <!-- id 값으로 게시글 찾기 -->
     <select id="findById" resultType="com.ja.study.study1029.board.dto.BoardDto">
         SELECT  (b.id) AS id,
                 (b.user_id) AS userId,
@@ -26,5 +33,11 @@
         WHERE   b.id = #{id}
     </select>
 
+    <!-- 조회수 증가 -->
+    <update id="addReadCount">
+        UPDATE  fp_article  
+        SET     read_count = read_count + 1
+        WHERE   id = #{id}
+    </update>
    
 </mapper>
