@@ -1,12 +1,14 @@
 package com.ja.finalproject.board.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ja.finalproject.board.service.BoardService;
 import com.ja.finalproject.dto.articleDto;
@@ -24,10 +26,7 @@ public class BoardController {
     // 게시판 목록
     @RequestMapping("mainPage")
     public String mainPage(Model model){
-        List<articleDto> list = boardService.getBoardList();
-        for(articleDto a: list){
-            System.out.println("정보 >>> " + a);
-        }
+        List<Map<String,Object>> list = boardService.getArticleList();
         model.addAttribute("list", list);
         return"board/mainPage";
     }
@@ -35,12 +34,13 @@ public class BoardController {
     /*
      * 글 상세 보기
      */
-    @RequestMapping("detailPage/{id}")
-    public String getBoardDetail(@PathVariable("id") int no, Model model){
-        boardService.addReadCount(no);
-        articleDto dto = boardService.findByNoContent(no);
-        model.addAttribute("dto", dto);
-        return"board/boardDetailPage";
+    @RequestMapping("articleDetailPage")
+    public String articleDetailPage(@RequestParam("id") int id, Model model){
+        boardService.addReadCount(id);
+        Map<String,Object> map = boardService.getArticle(id);
+        model.addAttribute("map", map);
+        System.out.println("정보 >>> " +map);
+        return"board/articleDetailPage";
     }
     /*
      * 글쓰기 페이지
@@ -58,7 +58,7 @@ public class BoardController {
         // 세션값 세팅 하는 방법
         UserDto sessionUserInfo = (UserDto)session.getAttribute("sessionUserInfo");
         int userPk = sessionUserInfo.getId();
-        params.setUserid(userPk);
+        params.setUserId(userPk);
         boardService.registerArticle(params);
         return "redirect:/board/mainPage";
     }

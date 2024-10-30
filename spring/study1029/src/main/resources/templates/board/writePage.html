@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>글쓰기</h1>
+    
+    <form action="./articleProcess">
+        제목 : <input type="text" name="title"><br>
+        <br>
+        작성자 : <span th:text="${session.sessionUserInfo.nickname}"></span><br>
+        <br>
+        내용 : <textarea type="text" name="content" rows="4" cols="50"></textarea><br>
+        <br>
+        <input type="submit" value="등록">
+    </form>
+    <br>
+    <a href="./mainPage">뒤로가기</a>
+
+</body>
+</html>

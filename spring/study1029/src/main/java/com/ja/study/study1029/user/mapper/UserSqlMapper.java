@@ -9,4 +9,5 @@ public interface UserSqlMapper {
 
     void createUser(UserDto userDto);
     UserDto findByUserIdAndPassword(UserDto userDto);
+    UserDto findById(int id);
 }

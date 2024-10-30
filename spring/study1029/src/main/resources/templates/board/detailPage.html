@@ -28,33 +28,31 @@
                         <h1>게시판</h1>
                     </div>
                 </div>
-                <div class="row"></div>
-                <div class="row"></div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">조회수</th>
+                                <th scope="col">작성일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="data: ${list}">
+                                <th scope="row" th:text="${data.boardDto.id}"></th>
+                                <td th:text="${data.boardDto.title}">123</td>
+                                <td th:text="${data.userDto.nickname}">123</td>
+                                <td th:text="${data.boardDto.readCount}">123</td>
+                                <td>123</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
             </div>
 
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">번호</th>
-                            <th scope="col">제목</th>
-                            <th scope="col">작성자</th>
-                            <th scope="col">조회수</th>
-                            <th scope="col">작성일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="data: ${list}">
-                            <th scope="row" th:text="${data.boardDto.id}"></th>
-                            <td th:text="${data.boardDto.title}">123</td>
-                            <td th:text="${data.userDto.nickname}">123</td>
-                            <td th:text="${data.boardDto.readCount}">123</td>
-                            <td>123</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
             <a href="./writePage">
                 <button class="btn btn-primary">글쓰기</button>
             </a>

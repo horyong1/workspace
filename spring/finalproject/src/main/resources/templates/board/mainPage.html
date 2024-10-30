@@ -26,7 +26,7 @@
             <span></span>
         </div>
         <div>
-            <table style="border: 1px solid black">
+            <table border="1">
                 <thead>
                     <tr>
                         <th>번호</th>
@@ -36,13 +36,13 @@
                         <th>작성일</th>
                     </tr>
                 </thead>
-                <tbody th:each="item : ${list}">
+                <tbody th:each="data : ${list}">
                     <tr>
-                        <td><span th:text="${item.id}"></span></td>
-                        <td><a th:href="@{./detailPage/{no}(no=${item.id})}"><span th:text="${item.title}"></span></a></td>
-                        <td><span th:text="${item.nickname}"></span></td>
-                        <td><span th:text="${item.readcount}"></span></td>
-                        <td><span th:text="${item.createdAtFormmat}"></span></td>
+                        <td><span th:text="${data.articleDto.id}"></span></td>
+                        <td><a th:href="@{./articleDetailPage(id=${data.articleDto.id})}"><span th:text="${data.articleDto.title}"></span></a></td>
+                        <td><span th:text="${data.userDto.nickname}"></span></td>
+                        <td><span th:text="${data.articleDto.readCount}"></span></td>
+                        <td><span th:text="${#dates.format(data.articleDto.createdAt,'yyyy.MM.dd')}"></span></td>
                     </tr>
                 </tbody>
             </table>

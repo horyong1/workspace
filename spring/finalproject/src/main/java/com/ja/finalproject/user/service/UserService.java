@@ -19,4 +19,5 @@ public class UserService {
     public UserDto getUserByUserIdAndPassword(UserDto user){
         return userMapper.findByUserIdAndPassword(user);
     }
+    
 }

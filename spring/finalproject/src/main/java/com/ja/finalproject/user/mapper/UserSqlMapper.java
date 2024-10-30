@@ -11,4 +11,5 @@ public interface UserSqlMapper {
     // insert, update, delete =  void
     // select = 적절한 리턴타입이 필요 
     UserDto findByUserIdAndPassword(UserDto userdto);
+    UserDto findById(int id);
 }

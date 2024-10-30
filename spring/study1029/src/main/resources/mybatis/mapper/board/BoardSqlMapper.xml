@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ja.study.study1029.board.mapper.BoardSqlMapper">
+    <!-- 로그인 id, password 정보 확인 -->
+    <select id="findAll" resultType="com.ja.study.study1029.board.dto.BoardDto">
+        SELECT  (b.id) AS id,
+                (b.user_id) AS userId,
+                (b.title) AS title,
+                (b.content) AS content,
+                (b.read_count) AS readCount,
+                DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAt
+        FROM    fp_article b
+        ORDER BY id DESC
+    </select>
+
+   
+</mapper>

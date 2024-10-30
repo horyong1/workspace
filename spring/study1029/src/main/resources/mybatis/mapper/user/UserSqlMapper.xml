@@ -8,6 +8,7 @@
         VALUES (#{id}, #{userId},#{password},#{nickname},#{email},#{gender},#{birth},#{phone})
     </insert>
 
+    <!-- 로그인 id, password 정보 확인 -->
     <select id="findByUserIdAndPassword" resultType="com.ja.study.study1029.user.dto.UserDto">
         SELECT  (A.id) AS id,
                 (A.user_id) AS userId,
@@ -21,5 +22,20 @@
         FROM    fp_user A
         WHERE   A.user_id = #{userId}
         AND     A.password = #{password}
+    </select>
+
+    <!-- 게시글 id 정보  -->
+    <select id="findById" resultType="com.ja.study.study1029.user.dto.UserDto">
+        SELECT  (A.id) AS id,
+                (A.user_id) AS userId,
+                (A.password) AS password,
+                (A.nickname) AS nickname,
+                (A.email) AS email,
+                (A.gender) AS gender,
+                (A.birth) AS birth,
+                (A.phone) AS phone,
+                (A.created_at) AS createdAt
+        FROM    fp_user A
+        WHERE   A.id = #{id}
     </select>
 </mapper>

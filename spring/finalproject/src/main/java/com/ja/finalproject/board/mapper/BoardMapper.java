@@ -9,8 +9,8 @@ import com.ja.finalproject.dto.articleDto;
 @Mapper
 public interface BoardMapper {
     void createBoard(articleDto articleDto);
-    List<articleDto> selectAllBoards();
-    articleDto selectFindByNoContent(int no);
+    List<articleDto> findAll();
+    articleDto selectFindByNoContent(int id);
     void addReadCount(int no);
     
 }

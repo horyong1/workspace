@@ -7,33 +7,29 @@
     
     <insert id="createBoard">
         INSERT INTO fp_article (user_id, title, content) 
-        VALUES(#{userid}, #{title}, #{content});
+        VALUES(#{userId}, #{title}, #{content});
     </insert>
 
-    <select id="selectAllBoards" resultType="com.ja.finalproject.dto.articleDto">
+    <select id="findAll" resultType="com.ja.finalproject.dto.articleDto">
         SELECT  (b.id) AS id,
-                (u.nickname) AS nickname,
-                (b.user_id) AS userid,
+                (b.user_id) AS userId,
                 (b.title) AS title,
                 (b.content) AS content,
-                (b.read_count) AS readcount,
-                DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAtFormmat
+                (b.read_count) AS readCount,
+                DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAt
         FROM    fp_article b
-        INNER JOIN 	fp_user u ON u.id = b.user_id 
         ORDER BY id DESC
     </select>
    
     <select id="selectFindByNoContent" parameterType="int" resultType="com.ja.finalproject.dto.articleDto">
         SELECT  (b.id) AS id,
-                (u.nickname) AS nickname,
-                (b.user_id) AS userid,
+                (b.user_id) AS userId,
                 (b.title) AS title,
                 (b.content) AS content,
-                (b.read_count) AS readcount,
-                DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAtFormmat
+                (b.read_count) AS readCount,
+                DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAt
         FROM    fp_article b
-        INNER JOIN 	fp_user u ON u.id = b.user_id 
-        WHERE   b.id = #{no}
+        WHERE   b.id = #{id}
     </select>
 
     <update id="addReadCount" parameterType="int">

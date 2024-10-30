@@ -38,7 +38,7 @@ public class UserController {
     @RequestMapping("logOut")
     public String logOut(HttpSession session){
         session.invalidate();
-        return "board/mainPage";
+        return "redirect:/board/mainPage";
     }
 
 

@@ -16,5 +16,5 @@ public class UserDto {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birth;
     private String phone;
-    private Date created_at;
+    private Date createdAt;
 }

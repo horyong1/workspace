@@ -27,4 +27,17 @@
       AND     A.password = #{password}
     </select>
     
+    <select id="findById" resultType="com.ja.finalproject.dto.UserDto">
+      SELECT  (A.id) AS id,
+              (A.user_id) AS userId,
+              (A.password) AS password,
+              (A.nickname) AS nickname,
+              (A.email) AS email,
+              (A.gender) AS gender,
+              (A.birth) AS birth,
+              (A.phone) AS phone,
+              (A.created_at) AS createdAt
+      FROM    fp_user A
+      WHERE   A.id = #{id}
+    </select>
 </mapper>
