@@ -62,4 +62,15 @@ public class BoardService {
         boardMapper.increaseReadCount(no);
     }
 
+    // 게시글 삭제
+    public void deleteArticle(int id){
+        boardMapper.deleteById(id);
+    }
+
+    // 게시글 수정
+    public void update(articleDto articleDto){
+        boardMapper.update(articleDto);
+    }
+
+
 }

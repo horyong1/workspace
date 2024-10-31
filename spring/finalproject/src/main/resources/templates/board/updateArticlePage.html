@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    <h1>글 수정</h1>
+    
+        <form action="./updateArticleProcess" method="post">
+            제목 <input th:value="${articleDetail.articleDto.title}" type="text" name="title"><br>
+            작성자 <span th:text="${session.sessionUserInfo.nickname}"></span><br>
+            내용 <textarea th:text="${articleDetail.articleDto.content}" name="content" rows="4" cols="50"></textarea><br>
+            <input type="hidden" name="id" th:value="${articleDetail.articleDto.id}">
+            <input type="submit" value="등록"> 
+        </form>
+        <a href="./mainPage">뒤로가기</a>
+    
+</body>
+</html>

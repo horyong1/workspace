@@ -13,7 +13,7 @@
         <div th:with="item=${map}">
             <b>제목:</b> <span th:text="${item.articleDto.title}"></span><br> 
             <div style="width: 20em; margin-top: 2em; margin-bottom: 2em;">
-                <b>내용:</b> <span th:text="${item.articleDto.content}"></span> 
+                <b>내용:</b> <span th:utext="${item.articleDto.content}"></span> 
             </div>
             <b>작성자:</b> <span th:text="${item.userDto.nickname}"></span><br> 
             <b>조회수:</b> <span th:text="${item.articleDto.readCount}"></span><br> 

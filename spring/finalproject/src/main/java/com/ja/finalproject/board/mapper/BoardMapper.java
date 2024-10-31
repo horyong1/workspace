@@ -11,6 +11,9 @@ public interface BoardMapper {
     void createBoard(articleDto articleDto);
     List<articleDto> findAll();
     articleDto selectFindByNoContent(int id);
-    void increaseReadCount(int no);
+    void increaseReadCount(int id);
+    void deleteById(int id);
+    void update(articleDto articleDto);
+
     
 }

@@ -36,9 +36,9 @@
                         <th>작성일</th>
                     </tr>
                 </thead>
-                <tbody th:each="data : ${list}">
+                <tbody th:each="data, stat : ${list}">
                     <tr>
-                        <td><span th:text="${data.articleDto.id}"></span></td>
+                        <td><span th:text="${list.size() - stat.index}"></span></td>
                         <td><a th:href="@{./articleDetailPage(id=${data.articleDto.id})}"><span th:text="${data.articleDto.title}"></span></a></td>
                         <td><span th:text="${data.userDto.nickname}"></span></td>
                         <td><span th:text="${data.articleDto.readCount}"></span></td>

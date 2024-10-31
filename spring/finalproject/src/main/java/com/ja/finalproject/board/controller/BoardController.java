@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.StringUtils;
 
 import com.ja.finalproject.board.service.BoardService;
 import com.ja.finalproject.dto.articleDto;
@@ -37,6 +38,15 @@ public class BoardController {
     public String articleDetailPage(@RequestParam("id") int id, Model model){
         boardService.addReadCount(id);
         Map<String,Object> map = boardService.getArticle(id);
+
+        //html escape - 특수문자, 엔터 -> br로 변경
+        //나중에 javascript 로 넘어가면 수행안해도됨.
+        articleDto articledto = (articleDto)map.get("articleDto");
+        String content = articledto.getContent();
+        content = StringUtils.escapeXml(content);
+        content = content.replaceAll("\n", "<br>");
+        articledto.setContent(content);
+
         model.addAttribute("map", map);
         return"board/articleDetailPage";
     }
@@ -58,6 +68,24 @@ public class BoardController {
         int userPk = sessionUserInfo.getId();
         params.setUserId(userPk);
         boardService.registerArticle(params);
+        return "redirect:./mainPage";
+    }
+
+    @RequestMapping("updateArticlePage")
+    public String updateArticlePage(@RequestParam("id") int id,Model model){
+        model.addAttribute("articleDetail", boardService.getArticle(id));
+        return "board/updateArticlePage";
+    }
+
+    @RequestMapping("updateArticleProcess")
+    public String updateArticleProcess(articleDto articleDto){
+        boardService.update(articleDto);
         return "redirect:/board/mainPage";
+    }
+
+    @RequestMapping("deleteArticleProcess")
+    public String deleteArticleProcess(@RequestParam("id") int id){
+        boardService.deleteArticle(id);
+        return "redirect:./mainPage";
     }
 }
