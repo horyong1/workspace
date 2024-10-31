@@ -21,3 +21,22 @@ CREATE TABLE fp_article(
 	read_count INT DEFAULT 0,
 	created_at DATETIME DEFAULT now()
 );
+DROP TABLE fp_comments;
+CREATE TABLE fp_comments(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	article_id INT,
+	user_id INT,
+	nickname VARCHAR(30),
+	comment VARCHAR(1000),
+	created_at DATETIME DEFAULT now()
+);
+
+DROP TABLE fp_post_likes;
+
+CREATE TABLE fp_post_likes(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	article_id INT,
+	user_id INT,
+	article_like INT,
+	created_at DATETIME DEFAULT now()
+); 
