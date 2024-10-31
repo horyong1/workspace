@@ -17,39 +17,36 @@
             background-color: #fff; /* 배경색 설정 */
         }
     </style>
+    <script>
+        function confirmUtil(message,url){
+            if(confirm(message)){
+                window.location.href = url
+            }else{
+                return false;
+            }
+        }
+    </script>
 </head>
 <body>
-    <div class="container-fluid d-flex justify-content-center align-items-center p-0">
-        <div class="row fixed-container">
-            <div class="col">
-                <div class="row">
+    <div class="container-fluid" style="width: 1200px;">
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <div class="row py-3">
                     <div class="col text-center">
                         <h1>상세 내용</h1>
                     </div>
                 </div>
                 <div th:with="item=${boardMap}">
+                    <div class="row border border-bottom border-black">
+                        <div th:text="${item.userDto.nickname}" class="col-2"></div>
+                        <div th:text="${#dates.format(item.boardDto.createdAt,'yyyy.MM.dd')}" class="col-auto mx-auto"></div>
+                        <div class="col-2">
+                            조회수: <span th:text="${item.boardDto.readCount}"></span>
+                        </div>
+                    </div>
                     <div class="row">
-                        <div class="col-2" >제목</div>
-                        <div class="col-auto">
+                        <div class="col-auto fs-1">
                             <span th:text="${item.boardDto.title}"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">작성자</div>
-                        <div class="col-auto">
-                            <span th:text="${item.userDto.nickname}"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">작성일</div>
-                        <div class="col-auto">
-                            <span th:text="${#dates.format(item.boardDto.createdAt,'yyyy.MM.dd')}"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">조회수</div>
-                        <div class="col-auto">
-                            <span th:text="${item.boardDto.readCount}"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -69,9 +66,11 @@
                             <a th:href="@{/board/updateArticlePage(id=${item.boardDto.id})}">
                                 <button class="btn btn-primary btn-sm">수정</button>
                             </a>
-                            <a th:href="@{/board/deleteArticleProcess(id=${item.boardDto.id})}">
-                                <button class="btn btn-primary btn-sm">삭제</button>
+                            <a th:href="@{/board/deleteArticleProcess(id=${item.boardDto.id})}" 
+                            onclick="event.preventDefault(); confirmUtil('정말 삭제하시겠습니까?',this.href);">
+                                <button class="btn btn-dark btn-sm">삭제</button>
                             </a>
+                            
                         </div>
                     </div>
                 </div>

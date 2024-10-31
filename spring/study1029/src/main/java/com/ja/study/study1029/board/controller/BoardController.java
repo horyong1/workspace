@@ -37,6 +37,8 @@ public class BoardController {
     public String detailPage(@PathVariable("id") int id, Model model){
         boardService.addReadCount(id);
         Map<String,Object> boardMap = boardService.getFindById(id);
+
+        
         model.addAttribute("boardMap", boardMap);
         return "board/detailPage";
     }
@@ -74,8 +76,14 @@ public class BoardController {
 
     //게시글 삭제 프로세스
     @RequestMapping("deleteArticleProcess")
-    public String deleteArticleProcess(BoardDto boardDto){
-        boardService.deleteArticle(boardDto);
+    public String deleteArticleProcess(BoardDto boardDto, HttpSession session){
+        UserDto userDto = (UserDto)session.getAttribute("sessionUserInfo");
+        
+        if(boardDto.getUserId() ==  userDto.getId()){
+            boardService.deleteArticle(boardDto);
+        }
+
         return"redirect:/board/mainPage";
+        
     }
 }
