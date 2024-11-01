@@ -20,6 +20,7 @@
         FROM    fp_comments fc
         WHERE   fc.article_id = #{id}
     </select>
+    
     <select id="commentsCount" resultType="int">
         SELECT  COUNT(*)
         FROM    fp_comments

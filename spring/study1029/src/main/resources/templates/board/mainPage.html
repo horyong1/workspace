@@ -8,7 +8,11 @@
 </head>
 <body>
     <div th:replace="~{common/nav :: topNavi}"></div>
-    <div class="container-fluid" style="width: 1200px;">
+    
+    <div class="container-fluid " style="width: 1200px; top: 20em;">
+        <div class="row py-5">
+            <div class="col"></div>
+        </div>
         <div class="row">
             <div class="col-11 mx-auto">
                 <div class="row">
@@ -48,9 +52,13 @@
                             <div th:text="${data.boardDto.id}" class="col text-center"></div>
                             <div class="col-7" >
                                 <a class="link-underline-light text-center" th:href="@{./detailPage/{id}(id=${data.boardDto.id})} " th:text="${data.boardDto.title}"></a>
-                                <span th:if="${data.count > 0}">
+                                <span th:if="${data.commentCount > 0}">
                                     <i  class="bi bi-chat-right-dots"></i>
-                                    <span th:text="${data.count}"></span>
+                                    <span th:text="${data.commentCount}"></span>
+                                </span>
+                                <span th:if="${data.postLikeCount > 0}">
+                                    <i class="bi bi-hand-thumbs-up"></i>
+                                    <span th:text="${data.postLikeCount}"></span>
                                 </span>
                                 
                             </div>

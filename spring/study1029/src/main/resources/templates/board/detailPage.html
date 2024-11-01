@@ -20,6 +20,9 @@
 <body>
     <div th:replace="~{common/nav :: topNavi}"></div>
     <div class="container-fluid pb-4" style="width: 1200px;">
+        <div class="row py-5">
+            <div class="col"></div>
+        </div>
         <div class="row">
             <div class="col-9 mx-auto">
                 <div class="row py-3">
@@ -31,20 +34,24 @@
                     <div class="row border-bottom ">
                         <div th:text="${item.userDto.nickname}" class="col-2"></div>
                         <div th:text="${#dates.format(item.boardDto.createdAt,'yyyy.MM.dd')}" class="col-auto mx-auto"></div>
-                        <div class="col-2">
+                        <div class="col-2  text-end">
                             조회수: <span th:text="${item.boardDto.readCount}"></span>
                         </div>
                     </div>
-                    <div class="row py-4 position-relative">
-                        <div class="col-auto">
-                            <span class="fs-1" th:text="${item.boardDto.title}"></span>
-                            <button class="border-0 position-absolute top-0 end-0 mt-2 fs-8">
-                                <i class="bi bi-hand-thumbs-up ">
-                                    <span class="fs-8">0</span>
-                                </i>
-                            </button>
+                    <form action="/postlike/articleLikeProcess">
+                        <div class="row py-4 position-relative">
+                            <div class="col-auto">
+                                <span class="fs-1" th:text="${item.boardDto.title}"></span>
+                                <input type="hidden" th:value="${item.boardDto.id}" name="articleId">
+                                <button class="border-0 position-absolute top-0 end-0 mt-2 fs-9" type="submit">
+                                    <!-- <i th:if="${postLikeDto == null or session.sessionUserInfo == null}" class="bi bi-hand-thumbs-up fw-light"></i> -->
+                                    <i th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up-fill fw-light"></i>
+                                    <i th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up fw-light"></i>
+                                    <span th:text="${postLikeCount}" class="fs-9"></span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <div class="row pb-4">
                         <div class="col-auto">
                             <span th:utext="${item.boardDto.content}"></span>

@@ -3,7 +3,6 @@ package com.ja.study.study1029.board.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.attoparser.dom.Comment;
 
 import com.ja.study.study1029.board.dto.BoardDto;
 
