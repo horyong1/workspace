@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ja.study.study1029.postlike.mapper.PostLikeSqlMapper">
+    <!-- 좋아요 등록 -->
+    <insert id="addLike">
+        INSERT INTO fp_post_likes (article_id, user_id, article_like)
+        VALUES (#{articleId}, #{userId}, 1)
+    </insert>
+    <!-- 좋아요 업데이트 -->
+    
+    <update id="updateLike">
+        UPDATE  fp_post_likes 
+        SET     article_like = #{articleLike}
+        WHERE   article_id = #{articleId}
+        AND     user_id = #{userId}
+    </update>
+
+    <!-- 좋아요 개수 -->
+    <select id="postLikeCount" resultType="int">
+        SELECT  COUNT(*)
+        FROM    fp_post_likes
+        WHERE   article_id = #{id}
+        AND     article_like = 1
+    </select>
+
+    <select id="userLikeCousdsant" resultType="com.ja.study.study1029.postlike.dto.PostLikeDto">
+        SELECT  (article_like) AS articleLike
+		FROM    fp_post_likes
+		WHERE   article_id = #{articleId}
+		AND 	user_id = #{userId};
+    </select>
+
+    <select id="userLikeCount" resultType="com.ja.study.study1029.postlike.dto.PostLikeDto">
+        SELECT  (A.id) AS id, 
+		        (A.article_id) AS articleId,
+                (A.user_id) AS userId, 
+                (A.article_like) AS articleLike,
+                (A.created_at) AS createdAt 
+		FROM    fp_post_likes A
+		WHERE   A.article_id = #{articleId}
+		AND 	A.user_id = #{userId}
+    </select>
+</mapper>

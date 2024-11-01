@@ -1,0 +1,21 @@
+.fixed-container {
+    width: 100%; /* 원하는 너비 설정 */
+    max-width: 800px; /* 최대 너비 설정 */
+    margin: auto; /* 중앙 정렬 */
+    border: 1px solid #ccc; /* 경계선 추가 (선택 사항) */
+    padding: 20px; /* 내부 여백 추가 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 (선택 사항) */
+    background-color: #fff; /* 배경색 설정 */
+}
+.fs-06{
+    font-size: 0.6em;
+}
+.fs-7{
+    font-size: 0.7em;
+}
+.fs-8{
+    font-size: 0.8em;
+}
+.fs-9{
+    font-size: 0.9em;
+}
