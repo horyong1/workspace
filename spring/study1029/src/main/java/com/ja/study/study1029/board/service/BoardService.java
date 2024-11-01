@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.ja.study.study1029.board.dto.BoardDto;
 import com.ja.study.study1029.board.mapper.BoardSqlMapper;
+import com.ja.study.study1029.comment.dto.CommentDto;
+import com.ja.study.study1029.comment.mapper.CommentSqlMapper;
 import com.ja.study.study1029.user.dto.UserDto;
 import com.ja.study.study1029.user.mapper.UserSqlMapper;
 
@@ -23,6 +25,8 @@ public class BoardService {
     private BoardSqlMapper boardSqlMapper;
     @Autowired
     private UserSqlMapper userSqlMapper;
+    @Autowired
+    private CommentSqlMapper commentSqlMapper;
 
 
     // 게시글 전체 목록
@@ -33,14 +37,15 @@ public class BoardService {
         for(BoardDto boardDto : boardDtoList){
             int userId = boardDto.getUserId();
             UserDto userDto = userSqlMapper.findById(userId);
+            int count = commentSqlMapper.commentsCount(boardDto.getId());
 
             Map<String, Object> map = new HashMap<>();
             map.put("boardDto", boardDto);
             map.put("userDto", userDto);
+            map.put("count", count);
 
             result.add(map);
         }
-        
         return result;
     }
 

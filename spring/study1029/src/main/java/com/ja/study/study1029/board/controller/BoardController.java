@@ -1,5 +1,6 @@
 package com.ja.study.study1029.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,9 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.thymeleaf.util.StringUtils;
 
 import com.ja.study.study1029.board.dto.BoardDto;
 import com.ja.study.study1029.board.service.BoardService;
+import com.ja.study.study1029.comment.dto.CommentDto;
+import com.ja.study.study1029.comment.service.CommentService;
 import com.ja.study.study1029.user.dto.UserDto;
 
 import jakarta.servlet.http.HttpSession;
@@ -22,6 +26,9 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
+    
+    @Autowired
+    private CommentService commentService;
 
     
     // 게시판 페이지
@@ -38,8 +45,15 @@ public class BoardController {
         boardService.addReadCount(id);
         Map<String,Object> boardMap = boardService.getFindById(id);
 
-        
+        // 문자 변환
+        BoardDto boardDto = (BoardDto)boardMap.get("boardDto");
+        String content = boardDto.getContent();
+        content = StringUtils.escapeXml(content);
+        content = content.replaceAll("\n", "<br>");
+        boardDto.setContent(content);
         model.addAttribute("boardMap", boardMap);
+        model.addAttribute("commentList", commentService.getList(id));
+        model.addAttribute("commentCount", commentService.commentsCount(id));
         return "board/detailPage";
     }
     

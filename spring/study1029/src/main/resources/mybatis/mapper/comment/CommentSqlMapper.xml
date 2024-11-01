@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ja.study.study1029.comment.mapper.CommentSqlMapper">
+    <!-- 댓글 등록 -->
+    <insert id="addComment">
+        INSERT INTO fp_comments (article_id, user_id, nickname, comment)
+        VALUES (#{articleId}, #{userId}, #{nickname}, #{comment})
+    </insert>
+
+    <!-- 특정 게시물 댓글 리스트 -->
+    <select id="commentFindByArticleId" resultType="com.ja.study.study1029.comment.dto.CommentDto">
+        SELECT  (fc.id) AS id,
+		        (fc.article_id) AS article_id,
+                (fc.user_id) AS userId,
+                (fc.nickname) AS nickname,
+                (fc.comment) AS comment,
+                (fc.created_at) AS createdAt
+        FROM    fp_comments fc
+        WHERE   fc.article_id = #{id}
+    </select>
+    <select id="commentsCount" resultType="int">
+        SELECT  COUNT(*)
+        FROM    fp_comments
+        WHERE   article_id = #{id}
+    </select>
+</mapper>
