@@ -118,6 +118,16 @@ public class BoardController {
         return"redirect:/board/mainPage";
         
     }
+
+    @RequestMapping("articleTitleSearchProcess")
+    public String articleTitleSearchProcess(
+        @RequestParam("select")String select,
+        @RequestParam("search")String search,
+        Model model){
+            
+        model.addAttribute("boardlist", boardService.findByContent(select,search));
+        return "board/mainPage";
+    }
     
 
 }

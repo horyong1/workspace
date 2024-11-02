@@ -53,5 +53,31 @@
         DELETE  FROM fp_article  
         WHERE   id = #{id}
     </update>
+
+    <select id="findByContent" resultType="com.ja.study.study1029.board.dto.BoardDto">
+        SELECT  (b.id) AS id,
+                (b.user_id) AS userId,
+                (b.title) AS title,
+                (b.content) AS content,
+                (b.read_count) AS readCount,
+                DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAt
+        FROM    fp_article b
+        WHERE 1=1
+        <choose>
+        <when test="select == 'title'">
+            AND b.title LIKE CONCAT('%', #{search}, '%')
+        </when>
+        <when test="select == 'content'">
+            AND b.content LIKE CONCAT('%', #{search}, '%')
+        </when>
+        <when test="select == 'user_id'">
+            AND b.user_id in (SELECT id
+                              FROM   fp_user
+                              WHERE  nickname LIKE CONCAT('%', #{search}, '%'))
+        </when>
+    </choose>
+        ORDER BY id DESC
+    </select>
+
    
 </mapper>
