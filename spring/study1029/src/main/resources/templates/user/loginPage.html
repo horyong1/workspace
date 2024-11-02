@@ -8,15 +8,20 @@
 </head>
 <body>
     <div th:replace="~{common/nav :: topNavi}"></div>
-    <div class="container-fluid d-flex justify-content-center align-items-center vh-100 p-0">
+    <div class="container-fluid" style="width: 1200px;">
         <div class="row py-5">
             <div class="col"></div>
         </div>
-        <div class="row">
-            <div class="col">
+        <div class="row align-items-center">
+            <div class="col-5 mx-auto align-self-center">
                 <div calss="row pb-5">
                     <div calss="col">
-                        <h1 class="text-center">로그인 페이지</h1>
+                        <h1 class="text-center">로그인</h1>
+                    </div>
+                </div>
+                <div class="row py-4">
+                    <div class="col ">
+                        <img class="img-fluid" src="/public/img/banner.jpg" alt="">
                     </div>
                 </div>
                 <form action="./loginProcess">
