@@ -1,7 +1,8 @@
 package com.ja.study.study1029.postlike.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.ja.study.study1029.postlike.dto.PostLikeDto;
 
@@ -12,5 +13,5 @@ public interface PostLikeSqlMapper {
     void updateLike(PostLikeDto postLikeDto);
     int postLikeCount(int id);
     PostLikeDto userLikeCount(PostLikeDto postLikeDto);
-
+    List<PostLikeDto> likeArticleList(int id);
 }

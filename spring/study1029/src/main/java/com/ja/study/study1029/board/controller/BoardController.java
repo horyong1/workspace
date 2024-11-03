@@ -129,5 +129,11 @@ public class BoardController {
         return "board/mainPage";
     }
     
+    @RequestMapping("likeArticlePage")
+    public String likeArticlePage(HttpSession session, Model model){
+        UserDto sessionUserInfo = (UserDto)session.getAttribute("sessionUserInfo");
+        model.addAttribute("boardlist", boardService.likeArticlePage(sessionUserInfo.getId()));
+        return "board/likeArticlePage";
+    }
 
 }

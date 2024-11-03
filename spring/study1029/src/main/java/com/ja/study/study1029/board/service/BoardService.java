@@ -106,4 +106,23 @@ public class BoardService {
     public void deleteArticle(BoardDto boardto){
         boardSqlMapper.deleteArticle(boardto);
     }
+
+    public List<Map<String,Object>> likeArticlePage(int id){
+        List<Map<String,Object>> boardDtoList = new ArrayList<>();
+        List<PostLikeDto> postLikeDtos = postLikeSqlMapper.likeArticleList(id);
+
+        for(PostLikeDto dto : postLikeDtos ){
+            int articleId = dto.getArticleId();
+            int userId = dto.getUserId();
+            BoardDto boardDto = boardSqlMapper.findById(articleId);
+            UserDto userDto = userSqlMapper.findById(userId);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("boardDto", boardDto);
+            map.put("userDto", userDto);
+
+            boardDtoList.add(map);
+        }
+        return boardDtoList;
+    }
 }
