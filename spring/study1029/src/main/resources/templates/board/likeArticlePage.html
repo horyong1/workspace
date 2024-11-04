@@ -37,14 +37,14 @@
                             <div th:text="${data.boardDto.id}" class="col text-center"></div>
                             <div class="col-7" >
                                 <a class="link-underline-light text-center" th:href="@{./detailPage/{id}(id=${data.boardDto.id})} " th:text="${data.boardDto.title}"></a>
-                                <!-- <span th:if="${data.commentCount > 0}">
+                                <span th:if="${data.commentCount > 0}">
                                     <i  class="bi bi-chat-right-dots"></i>
                                     <span th:text="${data.commentCount}"></span>
                                 </span>
                                 <span th:if="${data.postLikeCount > 0}">
                                     <i class="bi bi-hand-thumbs-up"></i>
                                     <span th:text="${data.postLikeCount}"></span>
-                                </span> -->
+                                </span>
                                 
                             </div>
                             <div th:text="${data.userDto.nickname}" class="col text-center"></div>
