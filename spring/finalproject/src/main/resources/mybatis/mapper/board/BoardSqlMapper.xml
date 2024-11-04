@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "com.ja.finalproject.board.mapper.BoardMapper">
+<mapper namespace = "com.ja.finalproject.board.mapper.BoardSqlMapper">
     <!-- 게시글 등록 -->
     <insert id="createBoard">
         INSERT INTO fp_article (user_id, title, content) 
@@ -19,7 +19,42 @@
                 (b.read_count) AS readCount,
                 DATE_FORMAT(b.created_at,'%Y-%m-%d') AS createdAt
         FROM    fp_article b
-        ORDER BY id DESC
+        <if test="searchType != null and searchWord != null">
+            <choose>
+            <when test="searchType == 'title'">
+                WHERE b.title LIKE CONCAT('%',#{searchWord},'%') 
+            </when>
+            <when test="searchType == 'content'">
+                WHERE b.content LIKE CONCAT('%',#{searchWord},'%')
+            </when>
+            <when test="searchType == 'nickname'">
+                INNER JOIN fp_user fp ON fp.id = b.user_id
+                WHERE fp.nickname LIKE CONCAT('%',#{searchWord},'%')
+            </when>
+            </choose>
+        </if>
+        ORDER BY b.id DESC
+        LIMIT #{pageIndex}, 10
+    </select>
+
+    <select id="getTotalArticleCount" resultType="int">
+        SELECT  COUNT(*) 
+        FROM    fp_article b
+        <if test="searchType != null and searchWord != null">
+            <choose>
+            <when test="searchType == 'title'">
+                WHERE b.title LIKE CONCAT('%',#{searchWord},'%') 
+            </when>
+            <when test="searchType == 'content'">
+                WHERE b.content LIKE CONCAT('%',#{searchWord},'%')
+            </when>
+             <when test="searchType == 'nickname'">
+                INNER JOIN fp_user fp ON fp.id = b.user_id
+                WHERE fp.nickname LIKE CONCAT('%',#{searchWord},'%')
+            </when>
+            </choose>
+        </if>
+        ORDER BY b.id DESC
     </select>
    
    <!-- 게시글 상세보기 -->

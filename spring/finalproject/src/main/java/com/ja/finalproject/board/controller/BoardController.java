@@ -25,9 +25,29 @@ public class BoardController {
 
     // 게시판 목록
     @RequestMapping("mainPage")
-    public String mainPage(Model model){
-        List<Map<String,Object>> list = boardService.getArticleList();
+    public String mainPage(Model model,
+    @RequestParam(value = "searchType", required = false) String searchType,
+    @RequestParam(value = "searchWord", required = false) String searchWord,
+    @RequestParam(value = "page", required = false, defaultValue = "1") int page){
+        List<Map<String,Object>> list = boardService.getArticleList(searchType,searchWord,page);
         model.addAttribute("list", list);
+
+        int totalCount = boardService.getTotalArticleCount(searchType, searchWord);
+        int lastPageNumber = (int)Math.ceil(totalCount/10.0);
+        int startPage =((page - 1) / 5) * 5 + 1;
+        int endPage = ((page -1)/5 + 1) * 5;
+
+        if(endPage > lastPageNumber){
+            endPage = lastPageNumber;
+        }
+
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("lastPageNumber", lastPageNumber);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("currentPage", page);
+
+
         return"board/mainPage";
     }
 
@@ -70,19 +90,19 @@ public class BoardController {
         boardService.registerArticle(params);
         return "redirect:./mainPage";
     }
-
+    // 글 수정 페이지
     @RequestMapping("updateArticlePage")
     public String updateArticlePage(@RequestParam("id") int id,Model model){
         model.addAttribute("articleDetail", boardService.getArticle(id));
         return "board/updateArticlePage";
     }
-
+    // 게시글 수정 프로세스
     @RequestMapping("updateArticleProcess")
     public String updateArticleProcess(articleDto articleDto){
         boardService.update(articleDto);
         return "redirect:/board/mainPage";
     }
-
+    // 게시글 삭제 프로세스
     @RequestMapping("deleteArticleProcess")
     public String deleteArticleProcess(@RequestParam("id") int id){
         boardService.deleteArticle(id);

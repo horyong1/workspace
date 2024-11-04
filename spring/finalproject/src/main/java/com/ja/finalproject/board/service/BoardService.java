@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ja.finalproject.board.mapper.BoardMapper;
+import com.ja.finalproject.board.mapper.BoardSqlMapper;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.dto.articleDto;
 import com.ja.finalproject.user.mapper.UserSqlMapper;
@@ -17,21 +17,21 @@ import com.ja.finalproject.user.mapper.UserSqlMapper;
 public class BoardService {
 
     @Autowired
-    private BoardMapper boardMapper;
+    private BoardSqlMapper boardSqlMapper;
 
     @Autowired
     private UserSqlMapper userSqlMapper;
 
     // 글 쓰기
     public void registerArticle(articleDto articleDto){
-        boardMapper.createBoard(articleDto);
+        boardSqlMapper.createBoard(articleDto);
     }
 
     // 게시판 전체 목록 가져오기
-    public List<Map<String,Object>> getArticleList(){
-        List<articleDto> articleDtoList = boardMapper.findAll();
+    public List<Map<String,Object>> getArticleList(String searchType,String searchWord, int page){
         List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
-
+        List<articleDto> articleDtoList = boardSqlMapper.findAll(searchType, searchWord,(page -1)*10);
+        
         for(articleDto articleDto : articleDtoList ){
             int userPk = articleDto.getUserId();
             UserDto userDto = userSqlMapper.findById(userPk);
@@ -44,9 +44,13 @@ public class BoardService {
         return result;
     }
 
+    public int getTotalArticleCount(String searchType,String searchWord){
+        return boardSqlMapper.getTotalArticleCount(searchType, searchWord);
+    }
+
     // 번호로 게시판 글 상세 목록 가져오기
     public Map<String,Object> getArticle(int id){
-        articleDto articleDto = boardMapper.selectFindByNoContent(id);
+        articleDto articleDto = boardSqlMapper.selectFindByNoContent(id);
         int userPk = articleDto.getUserId();
         UserDto userDto = userSqlMapper.findById(userPk);
 
@@ -59,17 +63,17 @@ public class BoardService {
 
     // 조회수 증가
     public void addReadCount(int no){
-        boardMapper.increaseReadCount(no);
+        boardSqlMapper.increaseReadCount(no);
     }
 
     // 게시글 삭제
     public void deleteArticle(int id){
-        boardMapper.deleteById(id);
+        boardSqlMapper.deleteById(id);
     }
 
     // 게시글 수정
     public void update(articleDto articleDto){
-        boardMapper.update(articleDto);
+        boardSqlMapper.update(articleDto);
     }
 
 
