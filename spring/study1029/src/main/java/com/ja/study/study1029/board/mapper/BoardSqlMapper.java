@@ -8,7 +8,7 @@ import com.ja.study.study1029.board.dto.BoardDto;
 
 @Mapper
 public interface BoardSqlMapper {
-
+    
     List<BoardDto> findAll();
     BoardDto findById(int id);
     void addReadCount(int id);

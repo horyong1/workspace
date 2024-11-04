@@ -4,19 +4,9 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"  th:href="@{/css/styles.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .fixed-container {
-            width: 100%; /* 원하는 너비 설정 */
-            max-width: 800px; /* 최대 너비 설정 */
-            margin: auto; /* 중앙 정렬 */
-            border: 1px solid #ccc; /* 경계선 추가 (선택 사항) */
-            padding: 20px; /* 내부 여백 추가 */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 (선택 사항) */
-            background-color: #fff; /* 배경색 설정 */
-        }
-    </style>
     <script>
         function confirmUtil(message,url){
             if(confirm(message)){
@@ -28,34 +18,46 @@
     </script>
 </head>
 <body>
-    <div class="container-fluid" style="width: 1200px;">
+    <div th:replace="~{common/nav :: topNavi}"></div>
+    <div class="container-fluid pb-4" style="width: 1200px;">
+        <div class="row py-5">
+            <div class="col"></div>
+        </div>
         <div class="row">
-            <div class="col-6 mx-auto">
+            <div class="col-9 mx-auto">
                 <div class="row py-3">
                     <div class="col text-center">
                         <h1>상세 내용</h1>
                     </div>
                 </div>
                 <div th:with="item=${boardMap}">
-                    <div class="row border border-bottom border-black">
+                    <div class="row border-bottom ">
                         <div th:text="${item.userDto.nickname}" class="col-2"></div>
                         <div th:text="${#dates.format(item.boardDto.createdAt,'yyyy.MM.dd')}" class="col-auto mx-auto"></div>
-                        <div class="col-2">
+                        <div class="col-2  text-end">
                             조회수: <span th:text="${item.boardDto.readCount}"></span>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-auto fs-1">
-                            <span th:text="${item.boardDto.title}"></span>
+                    <form action="/postlike/articleLikeProcess">
+                        <div class="row py-4 position-relative">
+                            <div class="col-auto">
+                                <span class="fs-1" th:text="${item.boardDto.title}"></span>
+                                <input type="hidden" th:value="${item.boardDto.id}" name="articleId">
+                                <button class="border-0 position-absolute top-0 end-0 mt-2 fs-9" type="submit">
+                                    <!-- <i th:if="${postLikeDto == null or session.sessionUserInfo == null}" class="bi bi-hand-thumbs-up fw-light"></i> -->
+                                    <i th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up-fill fw-light"></i>
+                                    <i th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up fw-light"></i>
+                                    <span th:text="${postLikeCount}" class="fs-9"></span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">내용</div>
+                    </form>
+                    <div class="row pb-4">
                         <div class="col-auto">
-                            <span th:text="${item.boardDto.content}"></span>
+                            <span th:utext="${item.boardDto.content}"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row py-3">
                         <div class="col">
                             <a href="/board/mainPage">
                                 <button class="btn btn-primary btn-sm">뒤로가기</button>
@@ -63,15 +65,59 @@
                         </div>
                         <div th:if="${session.sessionUserInfo != null 
                             and session.sessionUserInfo.id == item.boardDto.userId}" class="col-auto">
-                            <a th:href="@{/board/updateArticlePage(id=${item.boardDto.id})}">
+                            <a class="link-underline-light" th:href="@{/board/updateArticlePage(id=${item.boardDto.id})}">
                                 <button class="btn btn-primary btn-sm">수정</button>
                             </a>
-                            <a th:href="@{/board/deleteArticleProcess(id=${item.boardDto.id})}" 
+                            <a class="link-underline-light" th:href="@{/board/deleteArticleProcess(id=${item.boardDto.id})}" 
                             onclick="event.preventDefault(); confirmUtil('정말 삭제하시겠습니까?',this.href);">
                                 <button class="btn btn-dark btn-sm">삭제</button>
                             </a>
                             
                         </div>
+                    </div>
+                    <form action="/comment/registerCommentProcess" method="post">
+                        <div th:if="${session.sessionUserInfo != null}" class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <textarea name="comment" class="form-control" type="text" placeholder="댓글을 작성해주세요"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="articleId" th:value="${item.boardDto.id}"/>
+                                <div class="row py-2">
+                                    <div class="col-auto ms-auto d-flex justify-content-end">
+                                        <button class="btn btn-primary btn-sm">등록</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div th:unless="${session.sessionUserInfo != null}" class="row px-2">
+                            <div class="col border border-1 rounded-2 py-3">
+                                <span>
+                                    <a href="/user/loginPage" class="link-underline-light" type="text">로그인</a> 후 이용해 주세요
+                                </span> 
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row pt-4">
+                    <div class="col fs-5 border-bottom">
+                        댓글 <span th:text="${commentCount}"></span>개
+                    </div>
+                </div>
+                <div th:each="data: ${commentList}" >
+                    <div  class="row pt-2">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col fs-8 text-secondary" th:text="${data.nickname}"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col fs-8 text-secondary" th:text="${#dates.format(data.createdAt,'yyyy-MM-dd HH:MM:ss')}"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row border-bottom pb-2">
+                        <div class="col fs-9 " th:text="${data.comment}"></div>
                     </div>
                 </div>
                 
