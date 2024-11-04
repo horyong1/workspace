@@ -45,6 +45,14 @@
                     </div>
                     <div class="row">
                         <div class="col-8 mx-auto pb-2">
+                            취미
+                            <th:block th:each="list: ${hobbyList}">
+                                <input class="form-check-input" name="hobby" type="checkbox" th:text="${list.hobbyName}" th:value="${list.id}">
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8 mx-auto pb-2">
                             <input class="form-control" type="date" name="birth">
                         </div>
                     </div>

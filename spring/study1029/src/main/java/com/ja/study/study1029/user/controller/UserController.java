@@ -1,8 +1,12 @@
 package com.ja.study.study1029.user.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ja.study.study1029.user.dto.UserDto;
 import com.ja.study.study1029.user.service.UserService;
@@ -44,14 +48,15 @@ public class UserController {
 
     // 회원가입 페이지
     @RequestMapping("signUpPage")
-    public String signup(){
+    public String signup(Model model){
+        model.addAttribute("hobbyList", userService.getHobbyCategoryList());
         return "user/signUpPage";
     }
 
     // 회원가입 등록
     @RequestMapping("signUpProcess")
-    public String signUpProcess(UserDto params){
-        userService.registerUser(params);
+    public String signUpProcess(UserDto params, @RequestParam("hobby")List<Integer> hobbyIdList){
+        userService.registerUser(params,hobbyIdList);
         return"redirect:/user/loginPage";
     }
 

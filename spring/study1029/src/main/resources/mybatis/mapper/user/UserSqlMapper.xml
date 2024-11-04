@@ -4,6 +4,9 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ja.study.study1029.user.mapper.UserSqlMapper">
     <insert id="createUser">
+        <selectKey resultType="int" keyProperty="id"  order="AFTER">
+          SELECT MAX(fu.id) FROM fp_user fu
+        </selectKey>
         INSERT INTO fp_user (id, user_id, password, nickname, email, gender, birth, phone)
         VALUES (#{id}, #{userId},#{password},#{nickname},#{email},#{gender},#{birth},#{phone})
     </insert>
@@ -38,4 +41,16 @@
         FROM    fp_user A
         WHERE   A.id = #{id}
     </select>
+
+    <select id="findByHobbyCategoryAll" resultType="com.ja.study.study1029.user.dto.HobbyCategoryDto">
+        SELECT  (A.id) AS id,
+                (A.hobby_name) AS hobbyName,
+                (A.created_at) AS createdAt
+        FROM    fp_hobby_category A
+    </select>
+
+    <insert id="createUserHobby">
+      INSERT INTO fp_user_hobby (user_id, hobby_id)
+      VALUES (#{userId},#{hobbyId})
+    </insert>
 </mapper>
