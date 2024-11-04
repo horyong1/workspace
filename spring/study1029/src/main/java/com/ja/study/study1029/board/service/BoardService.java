@@ -54,6 +54,28 @@ public class BoardService {
         return result;
     }
 
+    // 게시글 검색 목록
+    public List<Map<String,Object>> findByContent(String select, String search){
+        List<BoardDto> boardDtoList = boardSqlMapper.findByContent(select, search);
+        List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+
+        for(BoardDto boardDto : boardDtoList){
+            int userId = boardDto.getUserId();
+            UserDto userDto = userSqlMapper.findById(userId);
+            int commentCount = commentSqlMapper.commentsCount(boardDto.getId());
+            int postLikeCount = postLikeSqlMapper.postLikeCount(boardDto.getId());
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("boardDto", boardDto);
+            map.put("userDto", userDto);
+            map.put("commentCount", commentCount);
+            map.put("postLikeCount",postLikeCount);
+
+            result.add(map);
+        }
+        return result;
+    }
+
     // 상세 페이지 
     public Map<String, Object> getFindById(int id){
         Map<String, Object> result = new HashMap<>();
@@ -83,5 +105,29 @@ public class BoardService {
     // 게시글 수정 하기
     public void deleteArticle(BoardDto boardto){
         boardSqlMapper.deleteArticle(boardto);
+    }
+
+    // 좋아요한 게시글 목록
+    public List<Map<String,Object>> likeArticlePage(int id){
+        List<Map<String,Object>> boardDtoList = new ArrayList<>();
+        List<PostLikeDto> postLikeDtos = postLikeSqlMapper.likeArticleList(id);
+        
+        for(PostLikeDto dto : postLikeDtos ){
+            int articleId = dto.getArticleId();
+            int userId = dto.getUserId();
+            BoardDto boardDto = boardSqlMapper.findById(articleId);
+            UserDto userDto = userSqlMapper.findById(userId);
+            int commentCount = commentSqlMapper.commentsCount(boardDto.getId());
+            int postLikeCount = postLikeSqlMapper.postLikeCount(boardDto.getId());
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("boardDto", boardDto);
+            map.put("userDto", userDto);
+            map.put("commentCount", commentCount);
+            map.put("postLikeCount", postLikeCount);
+
+            boardDtoList.add(map);
+        }
+        return boardDtoList;
     }
 }

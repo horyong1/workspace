@@ -16,7 +16,7 @@
                 <div class="row py-5">
                     <div class="col fw-bold fs-1 text-center">회원 가입</div>
                 </div>
-                <form action="./signUpProcess">
+                <form action="./signUpProcess" onsubmit="return validateForm(this)">
                     <div class="row">
                         <div class="col-8 mx-auto pb-2">
                             <input class="form-control" type="text" name="userId" placeholder="아이디를 입력해주세요">
@@ -68,5 +68,35 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        function validateForm(form){
+            const userId = form.userId.value;
+            const password = form.password.value;
+            const nickname = form.nickname.value;
+            const birth = form.birth.value;
+            const phone = form.phone.value;
+
+            if(!userId){
+                alert("아이디를 입력하세요");
+                return false;
+            }
+            if(!password){
+                alert("비밀번호를 입력하세요");
+                return false;
+            }
+            if(!nickname){
+                alert("닉네임을 입력하세요");
+                return false;
+            }
+            if(!birth){
+                alert("생년월일을 입력하세요");
+                return false;
+            }
+            if(!phone){
+                alert("전화번호를 입력하세요");
+                return false;
+            }
+        }
+    </script>
 </body>
 </html>

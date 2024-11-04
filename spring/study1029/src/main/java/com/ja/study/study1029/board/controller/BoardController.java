@@ -118,6 +118,22 @@ public class BoardController {
         return"redirect:/board/mainPage";
         
     }
+
+    @RequestMapping("articleTitleSearchProcess")
+    public String articleTitleSearchProcess(
+        @RequestParam("select")String select,
+        @RequestParam("search")String search,
+        Model model){
+            
+        model.addAttribute("boardlist", boardService.findByContent(select,search));
+        return "board/mainPage";
+    }
     
+    @RequestMapping("likeArticlePage")
+    public String likeArticlePage(HttpSession session, Model model){
+        UserDto sessionUserInfo = (UserDto)session.getAttribute("sessionUserInfo");
+        model.addAttribute("boardlist", boardService.likeArticlePage(sessionUserInfo.getId()));
+        return "board/likeArticlePage";
+    }
 
 }
