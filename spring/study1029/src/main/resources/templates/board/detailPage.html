@@ -15,6 +15,12 @@
                 return false;
             }
         }
+
+        function logincheck(){
+            if(session.sessionUserInfo == null){
+                return alert("로그인 후 이용 가능합니다.")
+            }
+        }
     </script>
 </head>
 <body>
@@ -43,7 +49,7 @@
                             <div class="col-auto">
                                 <span class="fs-1" th:text="${item.boardDto.title}"></span>
                                 <input type="hidden" th:value="${item.boardDto.id}" name="articleId">
-                                <button id="likeButton" class="border-0 position-absolute top-0 end-0 mt-2 fs-9 bg-white" type="submit">
+                                <button id="likeButton" class="border-0 position-absolute top-0 end-0 mt-2 fs-9 bg-white" type="submit" onclick="logincheck()">
                                     <!-- <i th:if="${postLikeDto == null or session.sessionUserInfo == null}" class="bi bi-hand-thumbs-up fw-light"></i> -->
                                     <i th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up-fill fw-light"></i>
                                     <i th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up fw-light"></i>
