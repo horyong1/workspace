@@ -42,4 +42,15 @@
 		WHERE   A.article_id = #{articleId}
 		AND 	A.user_id = #{userId}
     </select>
+    <select id="likeArticleList" resultType="com.ja.study.study1029.postlike.dto.PostLikeDto">
+        SELECT  (A.id) AS id, 
+		        (A.article_id) AS articleId,
+                (A.user_id) AS userId, 
+                (A.article_like) AS articleLike,
+                (A.created_at) AS createdAt 
+        FROM    fp_post_likes A 
+        WHERE   A.user_id = #{id}
+        AND     A.article_like = 1
+        ORDER BY A.article_id DESC;
+    </select>
 </mapper>
