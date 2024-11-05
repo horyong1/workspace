@@ -10,7 +10,7 @@
           SELECT MAX(fu.id) FROM fp_user fu
         </selectKey>
         INSERT INTO fp_user (id, user_id, password, nickname, email, gender, birth, phone)
-        VALUES (#{id}, #{userId},#{password},#{nickname},#{email},#{gender},#{birth},#{phone})
+        VALUES (#{id}, #{userId},SHA2(CONCAT(#{password},'qwer'),224),#{nickname},#{email},#{gender},#{birth},#{phone})
     </insert>
     
     <!-- 로그인 체크 -->
@@ -27,7 +27,7 @@
               (A.created_at) AS createdAt
       FROM    fp_user A
       WHERE   A.user_id = #{userId}
-      AND     A.password = #{password}
+      AND     A.password = SHA2(CONCAT(#{password},'qwer'),224)
     </select>
     
     <select id="findById" resultType="com.ja.finalproject.dto.UserDto">

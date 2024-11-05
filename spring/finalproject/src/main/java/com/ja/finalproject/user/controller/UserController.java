@@ -90,4 +90,8 @@ public class UserController {
     //     return "qwer";
     // }
     
+    @RequestMapping("sessionNullPage")
+    public String sessionNullPage(){
+        return"user/sessionNullPage";
+    }
 }
