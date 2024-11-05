@@ -1,16 +1,15 @@
 package com.ja.study.study1029.board.service;
 
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.study.study1029.board.dto.BoardDto;
 import com.ja.study.study1029.board.mapper.BoardSqlMapper;
-import com.ja.study.study1029.comment.dto.CommentDto;
 import com.ja.study.study1029.comment.mapper.CommentSqlMapper;
 import com.ja.study.study1029.postlike.dto.PostLikeDto;
 import com.ja.study.study1029.postlike.mapper.PostLikeSqlMapper;
@@ -33,30 +32,9 @@ public class BoardService {
     private PostLikeSqlMapper postLikeSqlMapper;
 
     // 게시글 전체 목록
-    public List<Map<String,Object>> findAll(){
-        List<BoardDto> boardDtoList = boardSqlMapper.findAll();
-        List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
-
-        for(BoardDto boardDto : boardDtoList){
-            int userId = boardDto.getUserId();
-            UserDto userDto = userSqlMapper.findById(userId);
-            int commentCount = commentSqlMapper.commentsCount(boardDto.getId());
-            int postLikeCount = postLikeSqlMapper.postLikeCount(boardDto.getId());
-
-            Map<String, Object> map = new HashMap<>();
-            map.put("boardDto", boardDto);
-            map.put("userDto", userDto);
-            map.put("commentCount", commentCount);
-            map.put("postLikeCount",postLikeCount);
-
-            result.add(map);
-        }
-        return result;
-    }
-
-    // 게시글 검색 목록
-    public List<Map<String,Object>> findByContent(String select, String search){
-        List<BoardDto> boardDtoList = boardSqlMapper.findByContent(select, search);
+    public List<Map<String,Object>> findAll(String searchType, String searchWord, int page){
+        System.out.println("페이지 넘겨받기 " + page +" "+ (page -1)*10);
+        List<BoardDto> boardDtoList = boardSqlMapper.findAll(searchType,searchWord,(page -1)*10);
         List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
 
         for(BoardDto boardDto : boardDtoList){
@@ -129,5 +107,9 @@ public class BoardService {
             boardDtoList.add(map);
         }
         return boardDtoList;
+    }
+
+    public int getArticlePageCount(String searchType, String searchWord){
+        return boardSqlMapper.getArticlePageCount(searchType, searchWord);
     }
 }

@@ -36,9 +36,28 @@ public class BoardController {
     
     // 게시판 페이지
     @RequestMapping("mainPage")
-    public String mainPage(Model model){   
-        List<Map<String,Object>> boardlist = boardService.findAll();
+    public String mainPage(Model model,
+        @RequestParam(value = "searchType", required = false )String searchType,
+        @RequestParam(value = "searchWord", required = false)String searchWord,   
+        @RequestParam(value = "page", required = false, defaultValue = "1")int page){   
+        List<Map<String,Object>> boardlist = boardService.findAll(searchType, searchWord, page);
         model.addAttribute("boardlist", boardlist);
+
+        int totalCount = boardService.getArticlePageCount(searchType,searchWord);
+        int lastCount = (int)Math.ceil(totalCount/10.0);
+        int startPage = ((page - 1) / 5) * 5 + 1;
+        int endPage = ((page - 1) / 5 + 1) * 5;
+
+        if(endPage > lastCount){
+            endPage = lastCount;
+        }
+
+
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("lastCount", lastCount);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("currentPage", page);
         return "board/mainPage";
     }
     
@@ -117,16 +136,6 @@ public class BoardController {
 
         return"redirect:/board/mainPage";
         
-    }
-
-    @RequestMapping("articleTitleSearchProcess")
-    public String articleTitleSearchProcess(
-        @RequestParam("select")String select,
-        @RequestParam("search")String search,
-        Model model){
-            
-        model.addAttribute("boardlist", boardService.findByContent(select,search));
-        return "board/mainPage";
     }
     
     @RequestMapping("likeArticlePage")
