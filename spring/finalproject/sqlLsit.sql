@@ -40,3 +40,28 @@ CREATE TABLE fp_post_likes(
 	article_like INT,
 	created_at DATETIME DEFAULT now()
 ); 
+
+DROP TABLE fp_post_likes;
+
+CREATE TABLE fp_post_likes(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	article_id INT,
+	user_id INT,
+	article_like INT,
+	created_at DATETIME DEFAULT now()
+); 
+
+DROP TABLE fp_hobby_category;
+CREATE TABLE fp_hobby_category(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	hobby_name VARCHAR(50),
+	created_at DATETIME DEFAULT now()
+);
+
+DROP TABLE fp_user_hobby;
+CREATE TABLE fp_user_hobby(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	user_id INT,
+	hobby_id Int,
+	created_at DATETIME DEFAULT now()
+);
