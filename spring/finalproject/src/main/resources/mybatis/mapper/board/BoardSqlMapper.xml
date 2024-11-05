@@ -6,6 +6,10 @@
 <mapper namespace = "com.ja.finalproject.board.mapper.BoardSqlMapper">
     <!-- 게시글 등록 -->
     <insert id="createBoard">
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT  MAX(fa.id)
+            FROM    fp_article fa
+        </selectKey>
         INSERT INTO fp_article (user_id, title, content) 
         VALUES(#{userId}, #{title}, #{content});
     </insert>
@@ -84,5 +88,17 @@
         DELETE FROM fp_article WHERE id = #{id}
     </delete>
 
-    
+    <insert id="createArticleImage">
+        INSERT INTO fp_article_image (article_id, location, original_filename)
+        VALUES(#{articleId},#{location},#{originalFilename});
+    </insert>
+    <select id="findImageByArticleId" resultType="com.ja.finalproject.dto.ArticleImageDto">
+        SELECT  (A.id) AS id,
+                (A.article_id) AS articleId,
+                (A.location) AS location,
+                (A.original_filename) AS originalFilename,
+                (A.created_At) AS createdAt
+        FROM    fp_article_image A
+        WHERE   A.article_id = #{articleId}
+    </select>
 </mapper>

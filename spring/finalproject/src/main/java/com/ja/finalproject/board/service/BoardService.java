@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.finalproject.board.mapper.BoardSqlMapper;
+import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.dto.articleDto;
 import com.ja.finalproject.user.mapper.UserSqlMapper;
@@ -23,8 +24,14 @@ public class BoardService {
     private UserSqlMapper userSqlMapper;
 
     // 글 쓰기
-    public void registerArticle(articleDto articleDto){
+    public void registerArticle(articleDto articleDto, List<ArticleImageDto> articleImageList){
         boardSqlMapper.createBoard(articleDto);
+        int articleId = articleDto.getId();
+        for(ArticleImageDto articleImage : articleImageList){
+            articleImage.setArticleId(articleId);
+            boardSqlMapper.createArticleImage(articleImage);
+
+        }
     }
 
     // 게시판 전체 목록 가져오기
@@ -53,10 +60,12 @@ public class BoardService {
         articleDto articleDto = boardSqlMapper.selectFindByNoContent(id);
         int userPk = articleDto.getUserId();
         UserDto userDto = userSqlMapper.findById(userPk);
+        List<ArticleImageDto> articleImageDtoList = boardSqlMapper.findImageByArticleId(id);
 
         Map<String,Object> map = new HashMap<>();
         map.put("articleDto", articleDto);
         map.put("userDto", userDto);
+        map.put("articleImageDtoList",articleImageDtoList);
 
         return map;
     }

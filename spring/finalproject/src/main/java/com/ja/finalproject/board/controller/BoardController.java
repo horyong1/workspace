@@ -1,17 +1,25 @@
 package com.ja.finalproject.board.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import com.ja.finalproject.board.service.BoardService;
 import com.ja.finalproject.dto.articleDto;
+import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.UserDto;
 
 import jakarta.servlet.http.HttpSession;
@@ -82,12 +90,59 @@ public class BoardController {
      * 글쓰기 프로세스
      */
     @RequestMapping("wirteArticleProcess")
-    public String writeArticleProcess(articleDto params, HttpSession session){
+    public String writeArticleProcess(articleDto params, HttpSession session,
+        @RequestParam(value="uploadFiles")MultipartFile[] uploadFiles){
+            List<ArticleImageDto> articleImagelist = new ArrayList<>();
+            
+
+
         // 세션값 세팅 하는 방법
+        for(MultipartFile uploadFile: uploadFiles){
+            if(uploadFile.isEmpty()){
+                continue;
+            }
+            
+            String rootPath = "C:/uploadFiles/";
+            //날짜별 폴더(디렉토리) 생성
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
+            // "C:/uploadFiles/yyyy/MM/dd/" 파일 경로
+            String todayPath = sdf.format(new Date());
+            File todayFolderForCreate = new File(rootPath+todayPath);
+
+            // 해당 폴더/파일이 존재하지 않으면 생성코드
+            if(!todayFolderForCreate.exists()){
+                todayFolderForCreate.mkdirs();
+            }
+
+            // 파일명 충돌 회피 - 랜덤 + 시간 조합
+            String originalFilename = uploadFile.getOriginalFilename();
+
+            String uuid = UUID.randomUUID().toString();
+            long currentTime = System.currentTimeMillis();
+
+            String fileName = uuid +"_"+ currentTime;
+            
+            // 확장자명 추출
+            String ext = originalFilename.substring(originalFilename.lastIndexOf("."));
+            fileName += ext;
+
+            try {
+                uploadFile.transferTo(new File(rootPath+todayPath+fileName));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // DB 작업용 Dto생성 
+            ArticleImageDto articleImageDto = new ArticleImageDto();
+            articleImageDto.setOriginalFilename(originalFilename);
+            articleImageDto.setLocation(todayPath+fileName);
+            articleImagelist.add(articleImageDto);
+
+        }
         UserDto sessionUserInfo = (UserDto)session.getAttribute("sessionUserInfo");
         int userPk = sessionUserInfo.getId();
         params.setUserId(userPk);
-        boardService.registerArticle(params);
+        boardService.registerArticle(params, articleImagelist);
         return "redirect:./mainPage";
     }
     // 글 수정 페이지

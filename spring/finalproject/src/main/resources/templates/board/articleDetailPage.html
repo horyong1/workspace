@@ -24,20 +24,34 @@
     <div>
         <div>
         </div>
-        <div th:with="item=${map}">
-            <b>제목:</b> <span th:text="${item.articleDto.title}"></span><br> 
+        
+            <b>제목:</b> <span th:text="${map.articleDto.title}"></span><br> 
             <div style="width: 20em; margin-top: 2em; margin-bottom: 2em;">
-                <b>내용:</b> <span th:utext="${item.articleDto.content}"></span> 
+                <b>내용:</b> <span th:utext="${map.articleDto.content}"></span> 
             </div>
-            <b>작성자:</b> <span th:text="${item.userDto.nickname}"></span><br> 
-            <b>조회수:</b> <span th:text="${item.articleDto.readCount}"></span><br> 
-            <b>작성일:</b> <span th:text="${#dates.format(item.articleDto.createdAt,'yyyy.MM.dd')}"></span><br> 
+            참조이미지 링크
             
-            <span th:if="${session.sessionUserInfo != null and session.sessionUserInfo.id == item.articleDto.userId}">
-                <a th:href="@{./updateArticlePage(id=${item.articleDto.id})}">수정</a>
-                <a th:href="@{./deleteArticleProcess(id=${item.articleDto.id})}">삭제</a>
+
+            참조 이미지
+            <div th:each="data : ${map.articleImageDtoList}">
+                <div>
+                    <a th:href="|/uploadFiles/${data.location}|" download>
+                        <span th:text="${data.originalFilename}"></span>
+                    </a>
+                </div>
+                <img th:src="|/uploadFiles/${data.location}|" alt="">
+            </div>
+            
+            
+            <b>작성자:</b> <span th:text="${map.userDto.nickname}"></span><br> 
+            <b>조회수:</b> <span th:text="${map.articleDto.readCount}"></span><br> 
+            <b>작성일:</b> <span th:text="${#dates.format(map.articleDto.createdAt,'yyyy.MM.dd')}"></span><br> 
+            
+            <span th:if="${session.sessionUserInfo != null and session.sessionUserInfo.id == map.articleDto.userId}">
+                <a th:href="@{./updateArticlePage(id=${map.articleDto.id})}">수정</a>
+                <a th:href="@{./deleteArticleProcess(id=${map.articleDto.id})}">삭제</a>
             </span>
-        </div>
+        
         <a href="/board/mainPage">뒤로가기</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

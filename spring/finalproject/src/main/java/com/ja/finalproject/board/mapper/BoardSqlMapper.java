@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.articleDto;
 
 @Mapper
@@ -25,5 +26,6 @@ public interface BoardSqlMapper {
     void deleteById(int id);
     void update(articleDto articleDto);
 
-    
+    void createArticleImage(ArticleImageDto articleImageDto);
+    List<ArticleImageDto> findImageByArticleId(int articleId);
 }

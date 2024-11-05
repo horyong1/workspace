@@ -3,18 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <script>
+        function valied(form,msg1,msg2){
+            if(form.title.value.trim() === ""){
+               alert(msg1+"을 입력해주세요") 
+               return false;
+            }
+            if(form.content.value.trim() === ""){
+               alert(msg2+"을 입력해주세요") 
+               return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
     <h1>글 작성</h1>
-    <form action="./wirteArticleProcess" method="post">
-        제목 <input type="text" name="title"><br>
-        작성자 <span th:text="${session.sessionUserInfo.nickname}"></span><br>
-        내용 <textarea name="content" rows="4" cols="50"></textarea><br>
-        
+    <form action="./wirteArticleProcess" method="post" enctype="multipart/form-data" onsubmit="return valied(this,'제목','내용')">
+        <b>제목</b> <input type="text" name="title"><br>
+        <b>작성자</b> <span th:text="${session.sessionUserInfo.nickname}"></span><br>
+        <b>내용</b> <textarea name="content" rows="4" cols="50"></textarea><br>
+        <input type="file" name="uploadFiles" multiple accept="image/*"><br>
         <input type="submit" value="등록"> 
     </form>
     <a href="./mainPage">뒤로가기</a>
-
 </body>
 </html>
