@@ -5,6 +5,10 @@
 <mapper namespace="com.ja.study.study1029.board.mapper.BoardSqlMapper">
     <!-- 게시글 등록 -->
     <insert id="addArticle">
+        <selectKey resultType="int" keyProperty="id"  order="AFTER">
+            SELECT  MAX(fa.id)
+            FROM    fp_article fa
+        </selectKey>
         INSERT INTO fp_article (user_id, title, content) 
         VALUES (#{userId}, #{title}, #{content});
     </insert>
@@ -95,4 +99,8 @@
         WHERE   id = #{id}
     </update>
 
+    <insert id="addArticleImage">
+        INSERT INTO fp_article_image (article_id, location, original_filename)
+        VALUES(#{articleId}, #{location}, #{originalFilename})
+    </insert>
 </mapper>

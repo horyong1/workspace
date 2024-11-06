@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.ja.study.study1029.board.dto.ArticleImageDto;
 import com.ja.study.study1029.board.dto.BoardDto;
 
 @Mapper
@@ -23,4 +24,6 @@ public interface BoardSqlMapper {
     int getArticlePageCount(
         @Param("searchType")String searchType,
         @Param("searchWord")String searchWord);
+
+    void addArticleImage(ArticleImageDto articleImageDto);
 }

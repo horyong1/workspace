@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.study.study1029.board.dto.ArticleImageDto;
 import com.ja.study.study1029.board.dto.BoardDto;
 import com.ja.study.study1029.board.mapper.BoardSqlMapper;
 import com.ja.study.study1029.comment.mapper.CommentSqlMapper;
@@ -71,8 +72,14 @@ public class BoardService {
     }
 
     // 게시글 등록 하기
-    public void registerArticle(BoardDto boardDto){
+    public void registerArticle(BoardDto boardDto, List<ArticleImageDto> articleImageDtoList){
         boardSqlMapper.addArticle(boardDto);
+        int articleId = boardDto.getId();
+
+        for(ArticleImageDto articleImageDto : articleImageDtoList){
+            articleImageDto.setArticleid(articleId);
+            boardSqlMapper.addArticleImage(articleImageDto);
+        }
     }
 
     // 게시글 수정 하기
@@ -80,7 +87,7 @@ public class BoardService {
         boardSqlMapper.updateArticle(boardto);
     }
 
-    // 게시글 수정 하기
+    // 게시글 삭제 하기
     public void deleteArticle(BoardDto boardto){
         boardSqlMapper.deleteArticle(boardto);
     }
