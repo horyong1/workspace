@@ -17,6 +17,30 @@
             }
         }
 
+        function likeForm(){
+            const sessionUserId = document.getElementById("sessionUserId");
+            const articleId = document.getElementById("articleId");
+            
+            const data = new URLSearchParams();
+            data.append('userId',sessionUserId.value);
+            data.append('articleId',articleId.value);
+
+            if(sessionUserId.value == ''){
+                alert("로그인 후 이용 가능합니다.");
+                return false;
+            }
+            fetch("/like/likeProcess",{
+                method: "POST",
+                body:data
+            })
+            .then(r => r.json())
+            .then(response =>{
+                console.log(response);
+
+                
+            })
+        }
+
     </script>
 </head>
 <body>
@@ -41,11 +65,13 @@
                         </div>
                     </div>
                     <form id="likeForm" action="/postlike/articleLikeProcess">
+
+                        <input id="sessionUserId" type="hidden" name="userId" th:value="${session.sessionUserInfo != null ? session.sessionUserInfo.id : ''}">
                         <div class="row py-4 position-relative">
                             <div class="col-auto">
                                 <span class="fs-1" th:text="${item.boardDto.title}"></span>
-                                <input type="hidden" th:value="${item.boardDto.id}" name="articleId">
-                                <button id="likeButton" class="border-0 position-absolute top-0 end-0 mt-2 fs-9 bg-white" type="submit" >
+                                <input id="articleId" type="hidden" th:value="${item.boardDto.id}" name="articleId">
+                                <button onclick="likeForm()" id="likeButton" class="border-0 position-absolute top-0 end-0 mt-2 fs-9 bg-white" type="button" >
                                     <!-- <i th:if="${postLikeDto == null or session.sessionUserInfo == null}" class="bi bi-hand-thumbs-up fw-light"></i> -->
                                     <i th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up-fill fw-light"></i>
                                     <i th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up fw-light"></i>

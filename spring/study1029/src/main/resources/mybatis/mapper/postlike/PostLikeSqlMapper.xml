@@ -53,4 +53,9 @@
         AND     A.article_like = 1
         ORDER BY A.article_id DESC;
     </select>
+
+    <delete id="postLikeDelete">
+        DELETE FROM fp_post_likes 
+        WHERE article_id = #{articleId} AND user_id = #{userId} 
+    </delete>
 </mapper>

@@ -14,4 +14,6 @@ public interface PostLikeSqlMapper {
     int postLikeCount(int id);
     PostLikeDto userLikeCount(PostLikeDto postLikeDto);
     List<PostLikeDto> likeArticleList(int id);
+
+    void postLikeDelete(PostLikeDto postLikeDto);
 }
