@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.ja.finalproject.dto.ArticleImageDto;
+import com.ja.finalproject.dto.MailAuthDto;
 import com.ja.finalproject.dto.articleDto;
 
 @Mapper
@@ -26,6 +27,7 @@ public interface BoardSqlMapper {
     void deleteById(int id);
     void update(articleDto articleDto);
 
+    // 이미지 
     void createArticleImage(ArticleImageDto articleImageDto);
     List<ArticleImageDto> findImageByArticleId(int articleId);
 }

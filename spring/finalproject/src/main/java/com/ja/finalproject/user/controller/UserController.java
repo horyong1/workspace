@@ -90,8 +90,17 @@ public class UserController {
     //     return "qwer";
     // }
     
+    // 이메일 인증 프로세스
+    @RequestMapping("mailAuthProcess")
+    public String mailAuthProcess(@RequestParam String key){
+        userservice.authenticateMail(key);
+        return"user/mailAuthComplete";
+    }
+
+    // 인터셉트 페이지
     @RequestMapping("sessionNullPage")
     public String sessionNullPage(){
         return"user/sessionNullPage";
     }
+
 }
