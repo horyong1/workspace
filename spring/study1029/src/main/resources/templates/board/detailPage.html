@@ -17,15 +17,6 @@
             }
         }
 
-        function logincheck(sessionUserInfo){
-            alert(sessionUserInfo);
-            if(sessionUserInfo === 'null' || sessionUserInfo ===''){
-                alert("로그인 후 이용 가능합니다.");
-                return false;
-            }
-
-            return true;
-        }
     </script>
 </head>
 <body>
@@ -49,7 +40,7 @@
                             조회수: <span th:text="${item.boardDto.readCount}"></span>
                         </div>
                     </div>
-                    <form id="likeForm" action="/postlike/articleLikeProcess" onsubmit="return logincheck(/*[[${sessionUserInfo != null ? sessionUserInfo : ''}]]*/ '');">
+                    <form id="likeForm" action="/postlike/articleLikeProcess">
                         <div class="row py-4 position-relative">
                             <div class="col-auto">
                                 <span class="fs-1" th:text="${item.boardDto.title}"></span>
