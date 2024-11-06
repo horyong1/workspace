@@ -6,9 +6,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-  <nav th:fragment="topNavi" class="navbar navbar-expand-lg bg-body-tertiary fixed-top bg-dark-subtle text-dark-emphasis">
-      <div class="container-fluid ">
-        <a class="navbar-brand" href="#">로고</a>
+  <nav th:fragment="topNavi" class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom  text-dark-emphasis p-0">
+      <div class="container-fluid " style="width: 1200px;">
+        <a class="navbar-brand" href="/board/mainPage">
+          <img src="/public/img/logo.jpg" alt="" style="width: 50px; height: 50px;">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
