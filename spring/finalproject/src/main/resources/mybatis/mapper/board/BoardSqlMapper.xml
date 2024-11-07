@@ -101,4 +101,27 @@
         FROM    fp_article_image A
         WHERE   A.article_id = #{articleId}
     </select>
+
+    <insert id="createLike">
+      INSERT fp_post_likes(user_id, article_id, article_like)
+      VALUES (#{user_id},#{article_id}, 1);
+    </insert>
+
+    <delete id="deleteLike">
+      DELETE FROM fp_post_likes 
+      WHERE user_id = #{user_id} AND article_id = #{article_id};
+    </delete>
+
+    <select id="getTotalLikeCount" resultType="int">
+      SELECT 	COUNT(*)
+      FROM 	  fp_post_likes fpl 
+      WHERE 	article_id = #{article_id}
+    </select>
+
+    <select id="getMyLikeCount" resultType="int">
+      SELECT 	COUNT(*)
+      FROM 	  fp_post_likes fpl 
+      WHERE 	article_id = #{article_id}
+      AND 	  user_id = #{user_id}
+    </select>
 </mapper>

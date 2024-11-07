@@ -5,18 +5,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script>
+
+        let sessionId = null;
+        const urlParams = new URLSearchParams(window.location.search);
+        const articleId = urlParams.get("id");
+
+        window.addEventListener("DOMContentLoaded", async ()=>{
+            // 페이지 로드 시 처음 실행, 초기화
+            await confirmSession();
+            reloadTotalCount();
+            reloadMyLike();
+
+        });
+
+        async function confirmSession(){
+            // 비동기를 동기로 호출
+            const r = await fetch("/api/user/getSessionId");
+            const response = await r.json();
+            if(response.result == 'success'){
+                sessionId = response.data.id;
+            }
+
+                // 비동기 
+                // fetch("/api/user/getSessionId")
+                // .then(r => r.json())
+                // .then(response => {
+                //     if(response.result == 'success'){
+                //     sessionId = response.data.id;
+                //     }
+                // });
+        }
+
+        function reloadTotalCount(){ 
+            fetch(`/api/board/getTotalLikeCount?articleId=${articleId}`)
+            .then(r => r.json())
+            .then(response => {
+                const likeCount = document.getElementById("likeCount");
+                likeCount.innerText = response.data.count
+            });
+        }
+
+        function like(){
+            if(sessionId == null){
+                if(confirm("로그인 후 이용 가능합니다. 로그인하시겠습니까?")){
+                    location.href = "/user/loginPage"
+                }
+                return;
+            }
+            fetch(`/api/board/like?article_id=${articleId}`)
+            .then(r => r.json())
+            .then(response => {
+                reloadTotalCount();
+                reloadMyLike();
+            })
+            
+        }
+
+        function reloadMyLike(){
+            if(sessionId == null){
+                return;
+            }
+            const heartIcon = document.getElementById("heart");
+
+            fetch(`/api/board/isUserLike?article_id=${articleId}`)
+            .then(r => r.json())
+            .then(response => {
+                console.log(response);
+                
+                if(response.data.isLike){
+                    heartIcon.classList.remove("bi-heart");
+                    heartIcon.classList.add("bi-heart-fill");
+                    
+                    // 파라매터가 있는 경우
+                    heartIcon.setAttribute("onclick","unLike()");
+
+                    // 파라매터가 없어도 되는경우
+                    // heartIcon.onclick = unLike;
+                    
+                }else{
+                    heartIcon.classList.remove("bi-heart-fill");
+                    heartIcon.classList.add("bi-heart");
+                    heartIcon.setAttribute("onclick","like()");
+                    
+                }
+            })
+        }
+
+        function unLike(){
+            if(sessionId == null){
+                if(confirm("로그인 후 이용 가능합니다. 로그인하시겠습니까?")){
+                    location.href = "/user/loginPage"
+                }
+                return;
+            }
+            
+            fetch(`/api/board/unlike?article_id=${articleId}&user_id=${sessionId}`)
+            .then(r => r.json())
+            .then(response => {
+                reloadTotalCount();
+                reloadMyLike();
+            })
+            
+        }
+        </script>
 </head>
 <body>
     <div class="container-fluid" style="width: 1200px;">
         <div class="row">
-            <div class="col-6 mx-auto">
-                <div class="row">
-                    <div class="col">
+            <div class="col-7 mx-auto">
+                <div class="row py-5">
+                    <div class="col text-center">
                         <h1>게시글 상세 내용</h1>
                     </div>
                 </div>
+                <div class="row border-bottom">
+                    <div class="col-auto p-0">
+                        <img style="width: auto; height: 35px;" class="img-fluid rounded-5 mb-1" src="/public/img/userImg.png" alt="">
+                    </div>
+                    <div class="col-auto align-self-center p-0 ps-2">
+                        <span th:text="${map.userDto.nickname}"></span><br> 
+                    </div>
+                    <div class="col-auto ms-auto align-self-center">
+                        <span th:text="${#dates.format(map.articleDto.createdAt,'yyyy.MM.dd')}"></span>
+                    </div>
+                    <div class="col-auto ms-auto text-end align-self-center">
+                        <i id="heart" onclick="like()" class="bi bi-heart text-danger"></i>
+                        <span id="likeCount"></span>
+                        <i class="bi bi-eye"></i> <span th:text="${map.articleDto.readCount}"></span>
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col">
+                        <span class="fs-1" th:text="${map.articleDto.title}"></span> 
+                    </div>
+                </div>
+                <div class="row pb-1">
+                   
+                </div>
+                
+                <div th:each="data : ${map.articleImageDtoList}" class="row text-end">
+                    <div  class="col"  style="font-size: 0.8em;">
+                        <i class="bi bi-floppy2-fill"></i>
+                        <a th:href="|/uploadFiles/${data.location}|" download>
+                            <span th:text="${data.originalFilename}"></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row py-5 border-bottom mb-3">
+                    <div class="col">
+                        <span th:utext="${map.articleDto.content}"></span> 
+                    </div>
+                </div>
+                <div th:each="data : ${map.articleImageDtoList}" class="row">
+                    <div class="col">
+                        <img th:src="|/uploadFiles/${data.location}|" alt="">
+                    </div>
+                </div>
                 <div class="row">
-                    <div></div>
+                    <div class="col">
+                        <span th:if="${session.sessionUserInfo != null and session.sessionUserInfo.id == map.articleDto.userId}">
+                            <a th:href="@{./updateArticlePage(id=${map.articleDto.id})}">수정</a>
+                            <a th:href="@{./deleteArticleProcess(id=${map.articleDto.id})}">삭제</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <a href="/board/mainPage">뒤로가기</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,34 +183,6 @@
         <div>
         </div>
         
-            <b>제목:</b> <span th:text="${map.articleDto.title}"></span><br> 
-            <div style="width: 20em; margin-top: 2em; margin-bottom: 2em;">
-                <b>내용:</b> <span th:utext="${map.articleDto.content}"></span> 
-            </div>
-            참조이미지 링크
-            
-
-            참조 이미지
-            <div th:each="data : ${map.articleImageDtoList}">
-                <div>
-                    <a th:href="|/uploadFiles/${data.location}|" download>
-                        <span th:text="${data.originalFilename}"></span>
-                    </a>
-                </div>
-                <img th:src="|/uploadFiles/${data.location}|" alt="">
-            </div>
-            
-            
-            <b>작성자:</b> <span th:text="${map.userDto.nickname}"></span><br> 
-            <b>조회수:</b> <span th:text="${map.articleDto.readCount}"></span><br> 
-            <b>작성일:</b> <span th:text="${#dates.format(map.articleDto.createdAt,'yyyy.MM.dd')}"></span><br> 
-            
-            <span th:if="${session.sessionUserInfo != null and session.sessionUserInfo.id == map.articleDto.userId}">
-                <a th:href="@{./updateArticlePage(id=${map.articleDto.id})}">수정</a>
-                <a th:href="@{./deleteArticleProcess(id=${map.articleDto.id})}">삭제</a>
-            </span>
-        
-        <a href="/board/mainPage">뒤로가기</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

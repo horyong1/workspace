@@ -17,6 +17,7 @@ public interface UserSqlMapper {
     // select = 적절한 리턴타입이 필요 
     UserDto findByUserIdAndPassword(UserDto userdto);
     UserDto findById(int id);
+    int countUserByUserId(String userId);
 
     // 취미 관련
     List<HobbyCategoryDto> findHobbyCategoryAll();

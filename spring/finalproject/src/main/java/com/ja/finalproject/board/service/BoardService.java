@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ja.finalproject.board.mapper.BoardSqlMapper;
 import com.ja.finalproject.dto.ArticleImageDto;
+import com.ja.finalproject.dto.PostLikeDto;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.dto.articleDto;
 import com.ja.finalproject.user.mapper.UserSqlMapper;
@@ -83,6 +84,23 @@ public class BoardService {
     // 게시글 수정
     public void update(articleDto articleDto){
         boardSqlMapper.update(articleDto);
+    }
+
+    // 좋아요 등록
+    public void like(PostLikeDto postLikeDto){
+        boardSqlMapper.createLike(postLikeDto);
+    }
+    // 좋아요 삭제
+    public void unlike(PostLikeDto postLikeDto){
+        boardSqlMapper.deleteLike(postLikeDto);
+    }
+    // 게시글 좋아요 개수
+    public int getTotalLikeCount(int articleId){
+       return boardSqlMapper.getTotalLikeCount(articleId);
+    }
+    // 내가 누른 좋아요 확인
+    public boolean isUserLike(PostLikeDto postLikeDto){
+        return boardSqlMapper.getMyLikeCount(postLikeDto) > 0 ? true : false;
     }
 
 

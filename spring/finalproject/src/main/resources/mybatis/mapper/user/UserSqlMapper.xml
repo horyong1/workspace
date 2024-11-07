@@ -31,6 +31,13 @@
       AND     A.password = SHA2(CONCAT(#{password},'qwer'),224)
       AND 	  B.complete ='Y';
     </select>
+
+    <!-- 중복 검사 -->
+    <select id="countUserByUserId" resultType="int">
+      SELECT  COUNT(*)
+      FROM    fp_user A
+      WHERE   A.user_id = #{userId}
+    </select>
     
     <!-- 아이디로 정보 찾기 -->
     <select id="findById" resultType="com.ja.finalproject.dto.UserDto">
@@ -72,4 +79,5 @@
       UPDATE fp_mail_auth SET complete = 'Y'
       WHERE auth_key = #{auth_key};
     </update>
+    
 </mapper>

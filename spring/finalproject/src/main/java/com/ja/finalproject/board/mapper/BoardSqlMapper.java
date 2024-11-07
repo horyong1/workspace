@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.MailAuthDto;
+import com.ja.finalproject.dto.PostLikeDto;
 import com.ja.finalproject.dto.articleDto;
 
 @Mapper
@@ -30,4 +31,10 @@ public interface BoardSqlMapper {
     // 이미지 
     void createArticleImage(ArticleImageDto articleImageDto);
     List<ArticleImageDto> findImageByArticleId(int articleId);
+
+      // 좋아요 
+    void createLike(PostLikeDto postLikeDto);
+    void deleteLike(PostLikeDto postLikeDto);
+    int getTotalLikeCount(int article_id);
+    int getMyLikeCount(PostLikeDto postLikeDto);
 }

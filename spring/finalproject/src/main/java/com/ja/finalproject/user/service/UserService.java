@@ -60,6 +60,11 @@ public class UserService {
     public void authenticateMail(String key){
         userSqlMapper.updateMailAuthComplete(key);
     }
+
+    // 아이디 중복검사
+    public boolean existsByUserId(String userId){
+        return userSqlMapper.countUserByUserId(userId) > 0 ? true : false;
+    }
 }
 
 @AllArgsConstructor
@@ -98,4 +103,6 @@ class MailSendThead extends Thread{
 
 
     }
+
+    
 }
