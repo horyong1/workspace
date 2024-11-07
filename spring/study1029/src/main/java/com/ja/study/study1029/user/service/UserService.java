@@ -34,4 +34,8 @@ public class UserService {
     public List<HobbyCategoryDto> getHobbyCategoryList(){
         return userSqlMapper.findByHobbyCategoryAll();
     }
+
+    public UserDto getUserInfo(int id){
+        return userSqlMapper.findById(id);
+    }
 }

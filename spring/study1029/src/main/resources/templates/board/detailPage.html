@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script>
+
         
         function confirmUtil(message,url){
             if(confirm(message)){
@@ -20,7 +21,7 @@
         function likeForm(){
             const sessionUserId = document.getElementById("sessionUserId").value;
             const articleId = document.getElementById("articleId").value;
-            
+
             const data = new URLSearchParams();
             data.append('userId',sessionUserId);
             data.append('articleId',articleId);
@@ -38,20 +39,66 @@
                 const likeIcons = document.getElementsByClassName("likeIcon");
                 if(response.likeResult === 1){
                     for(icon of likeIcons){
-                        icon.classList.remove("bi-hand-thumbs-up");
-                        icon.classList.add("bi-hand-thumbs-up-fill");
+                        icon.classList.remove("bi-heart");
+                        icon.classList.add("bi-heart-fill");
                     }
                 }
 
                 if(response.likeResult === 0){
                     for(icon of likeIcons){
-                        icon.classList.remove("bi-hand-thumbs-up-fill");
-                        icon.classList.add("bi-hand-thumbs-up");
+                        icon.classList.remove("bi-heart-fill");
+                        icon.classList.add("bi-heart");
                     }
                     
                 }
                 const likeCount = document.getElementById("likeCount");
                 likeCount.textContent = response.likeCount;
+            })
+        }
+
+        function registComment(){
+            const sessionUserId = document.getElementById("sessionUserId").value;
+            const commentContext =  document.getElementById("commentContext").value;
+            const articleId = document.getElementById("articleId").value;
+
+            const data = {
+                "userId" : sessionUserId,
+                "articleId" : articleId,
+                "comment" : commentContext
+            }
+            if(comment == ''){
+                alert("댓글을 입력하세요.");
+                return;
+            }
+            
+            fetch(`/api/board/registComment`,{
+                method:"POST",
+                headers: {
+                "Content-Type": "application/json" // JSON 형식으로 전송
+                },
+                body:JSON.stringify(data)
+            })
+            .then(r => r.json())
+            .then(response => {
+                getCommentList()
+            })            
+        }
+
+        function getCommentList(){
+            const articleId = document.getElementById("articleId").value;
+
+            fetch(`/api/board/getCommentList?articleId=?${articleId}`)
+            .then(r => r.json())
+            .then(response => {
+                const commentNickname = document.getElementById("commentNickname");
+                const comment = document.getElementById("comment");
+                const commentCreatedAt = document.getElementById("commentCreatedAt");
+
+                for(e of response){
+                    commentNickname.innerText = response.userDto.nickname;
+                    comment.innerText = response.commentDto.comment;
+                    commentCreatedAt.innerText = response.commentDto.createdAt;
+                }
             })
         }
 
@@ -71,35 +118,55 @@
                     </div>
                 </div>
                 <div th:with="item=${boardMap}">
-                    <div class="row border-bottom ">
-                        <div th:text="${item.userDto.nickname}" class="col-2"></div>
-                        <div th:text="${#dates.format(item.boardDto.createdAt,'yyyy.MM.dd')}" class="col-auto mx-auto"></div>
-                        <div class="col-2  text-end">
-                            조회수: <span th:text="${item.boardDto.readCount}"></span>
+                    <div class="row border-top pt-2">
+                        <div class="col-auto pt-1">
+                            <img class="img-fluid rounded-5" src="/public/img/userImg.png" style="width: 50px;">
                         </div>
+                        <div class="col p-0 align-self-center">
+                            <div class="row">
+                                <div th:text="${item.userDto.nickname}" class="col fs-9"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-auto fs-9 p-0 ps-2 ms-1">
+                                    <div th:text="${#dates.format(item.boardDto.createdAt,'yyyy.MM.dd')}" class="col-auto mx-auto"></div>
+                                </div>
+                                <div class="col-auto fs-9 p-0 ps-2 align-self-center">
+                                    <i class="bi bi-eye"></i><span th:text="${item.boardDto.readCount}"></span>
+                                </div>
+                                <div class="col-auto fs-9 p-0 ps-2">
+                                    <i th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="likeIcon bi bi-heart-fill fs-9 text-danger" onclick="likeForm()"></i>
+                                    <i th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="likeIcon bi bi-heart fs-9 text-danger" onclick="likeForm()"></i>
+                                    <span id="likeCount" th:text="${postLikeCount}" class="align-self-center"></span>
+                                    <input id="articleId" type="hidden" th:value="${item.boardDto.id}" name="articleId">
+                                    <input id="sessionUserId" type="hidden" name="userId" th:value="${session.sessionUserInfo != null ? session.sessionUserInfo.id : ''}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2  text-end"></div>
                     </div>
-                    <form id="likeForm" action="/postlike/articleLikeProcess">
+                    <!-- <form id="likeForm" action="/postlike/articleLikeProcess">
 
-                        <input id="sessionUserId" type="hidden" name="userId" th:value="${session.sessionUserInfo != null ? session.sessionUserInfo.id : ''}">
                         <div class="row py-4 position-relative">
                             <div class="col-auto">
                                 <span class="fs-1" th:text="${item.boardDto.title}"></span>
-                                <input id="articleId" type="hidden" th:value="${item.boardDto.id}" name="articleId">
                                 <button onclick="likeForm()" id="likeButton" class="border-0 position-absolute top-0 end-0 mt-2 fs-9 bg-white" type="button" >
-                                    <!-- <i th:if="${postLikeDto == null or session.sessionUserInfo == null}" class="bi bi-hand-thumbs-up fw-light"></i> -->
-                                    <i  th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="likeIcon bi bi-hand-thumbs-up-fill fw-light"></i>
-                                    <i  th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="likeIcon bi bi-hand-thumbs-up fw-light"></i>
-                                    <span id="likeCount" th:text="${postLikeCount}" class="fs-9"></span>
+                                    <i th:if="${postLikeDto == null or session.sessionUserInfo == null}" class="bi bi-hand-thumbs-up fw-light"></i>
+                                    
                                 </button>
                             </div>
                         </div>
-                    </form>
-                    <div class="row pb-4">
+                    </form> -->
+                    <div class="row py-4">
+                        <div class="col-auto fs-1">
+                            <span th:utext="${item.boardDto.title}"></span>
+                        </div>
+                    </div>
+                    <div class="row py-4">
                         <div class="col-auto">
                             <span th:utext="${item.boardDto.content}"></span>
                         </div>
                     </div>
-                    <div class="row py-3">
+                    <div class="row pt-5 pb-3">
                         <div class="col">
                             <a href="/board/mainPage">
                                 <button class="btn btn-primary btn-sm">뒤로가기</button>
@@ -117,77 +184,55 @@
                             
                         </div>
                     </div>
-                    <form action="/comment/registerCommentProcess" method="post">
+                    
                         <div th:if="${session.sessionUserInfo != null}" class="row">
                             <div class="col">
                                 <div class="row">
                                     <div class="col">
-                                        <textarea name="comment" class="form-control" type="text" placeholder="댓글을 작성해주세요"></textarea>
+                                        <textarea id="commentContext" name="comment" class="form-control" type="text" placeholder="댓글을 작성해주세요" rows="3"></textarea>
                                     </div>
                                 </div>
                                 <input type="hidden" name="articleId" th:value="${item.boardDto.id}"/>
                                 <div class="row py-2">
                                     <div class="col-auto ms-auto d-flex justify-content-end">
-                                        <button class="btn btn-primary btn-sm">등록</button>
+                                        <button onclick="registComment()" class="btn btn-primary btn-sm">등록</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div th:unless="${session.sessionUserInfo != null}" class="row px-2">
-                            <div class="col border border-1 rounded-2 py-3">
+                            <div class="col border border-1 rounded-2 py-4">
                                 <span>
                                     <a href="/user/loginPage" class="link-underline-light" type="text">로그인</a> 후 이용해 주세요
                                 </span> 
                             </div>
                         </div>
-                    </form>
+        
                 </div>
                 <div class="row pt-4">
-                    <div class="col fs-5 border-bottom">
-                        댓글 <span th:text="${commentCount}"></span>개
+                    <div class="col fs-9 border-bottom">
+                        <span th:text="${commentCount}"></span>개의 답변
                     </div>
                 </div>
                 <div th:each="data: ${commentList}" >
                     <div  class="row pt-2">
                         <div class="col">
                             <div class="row">
-                                <div class="col fs-8 text-secondary" th:text="${data.nickname}"></div>
+                                <div id="commentNickname" class="col fs-8 text-secondary" th:text="${data.userDto.nickname}"></div>
                             </div>
                             <div class="row">
-                                <div class="col fs-8 text-secondary" th:text="${#dates.format(data.createdAt,'yyyy-MM-dd HH:MM:ss')}"></div>
+                                <div id="commentCreatedAt" class="col fs-8 text-secondary" th:text="${#dates.format(data.commentDto.createdAt,'yyyy-MM-dd HH:MM:ss')}"></div>
                             </div>
                         </div>
                     </div>
                     <div class="row border-bottom pb-2">
-                        <div class="col fs-9 " th:text="${data.comment}"></div>
+                        <div id="comment" class="col fs-9 " th:text="${data.commentDto.comment}"></div>
                     </div>
                 </div>
                 
             </div>
         </div>
     </div>
-    <script>
-        // document.getElementById("likeButton").addEventListener('click',()=>{
-        //     const form = document.getElementById("likeForm");
-        //     const formData = new FormData(form);
-
-        //     fetch(form.action,{
-        //         method :"POST",
-        //         body: formData
-        //     })
-        //     .then(response => response.json())
-        //     .then(data =>{
-        //         if(data.success){
-        //             console.log(" 좋아요 버튼 클릭 성공" + data);
-        //         }else {
-        //             alert('좋아요 처리 중 오류가 발생했습니다.');
-        //         }
-        //     })
-        //     .catch(error=>{
-        //         console.error("Error : ", error);
-        //     });
-        // });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

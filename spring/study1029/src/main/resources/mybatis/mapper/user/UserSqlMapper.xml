@@ -27,7 +27,7 @@
         AND     A.password = #{password}
     </select>
 
-    <!-- 게시글 id 정보  -->
+    <!-- id 정보  -->
     <select id="findById" resultType="com.ja.study.study1029.user.dto.UserDto">
         SELECT  (A.id) AS id,
                 (A.user_id) AS userId,
