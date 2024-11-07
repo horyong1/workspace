@@ -32,9 +32,11 @@ public class PostLikeRestController {
         PostLikeDto postLikeDto = new PostLikeDto();
         postLikeDto.setUserId(userId);
         postLikeDto.setArticleId(articleId);
-        
-        map.put("likeResult", postLikeService.likeProcess(postLikeDto));
-        map.put("likeCount",postLikeService.postLikeCount(articleId));
+        int likeResult = postLikeService.likeProcess(postLikeDto);
+        int likeCount = postLikeService.postLikeCount(articleId);
+        System.out.println("좋아요 개수 >>>> " + likeCount);
+        map.put("likeResult", likeResult);
+        map.put("likeCount",likeCount);
         return map;
     }
 }

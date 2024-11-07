@@ -18,14 +18,14 @@
         }
 
         function likeForm(){
-            const sessionUserId = document.getElementById("sessionUserId");
-            const articleId = document.getElementById("articleId");
+            const sessionUserId = document.getElementById("sessionUserId").value;
+            const articleId = document.getElementById("articleId").value;
             
             const data = new URLSearchParams();
-            data.append('userId',sessionUserId.value);
-            data.append('articleId',articleId.value);
+            data.append('userId',sessionUserId);
+            data.append('articleId',articleId);
 
-            if(sessionUserId.value == ''){
+            if(sessionUserId == ''){
                 alert("로그인 후 이용 가능합니다.");
                 return false;
             }
@@ -35,9 +35,23 @@
             })
             .then(r => r.json())
             .then(response =>{
-                console.log(response);
+                const likeIcons = document.getElementsByClassName("likeIcon");
+                if(response.likeResult === 1){
+                    for(icon of likeIcons){
+                        icon.classList.remove("bi-hand-thumbs-up");
+                        icon.classList.add("bi-hand-thumbs-up-fill");
+                    }
+                }
 
-                
+                if(response.likeResult === 0){
+                    for(icon of likeIcons){
+                        icon.classList.remove("bi-hand-thumbs-up-fill");
+                        icon.classList.add("bi-hand-thumbs-up");
+                    }
+                    
+                }
+                const likeCount = document.getElementById("likeCount");
+                likeCount.textContent = response.likeCount;
             })
         }
 
@@ -73,9 +87,9 @@
                                 <input id="articleId" type="hidden" th:value="${item.boardDto.id}" name="articleId">
                                 <button onclick="likeForm()" id="likeButton" class="border-0 position-absolute top-0 end-0 mt-2 fs-9 bg-white" type="button" >
                                     <!-- <i th:if="${postLikeDto == null or session.sessionUserInfo == null}" class="bi bi-hand-thumbs-up fw-light"></i> -->
-                                    <i th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up-fill fw-light"></i>
-                                    <i th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="bi bi-hand-thumbs-up fw-light"></i>
-                                    <span th:text="${postLikeCount}" class="fs-9"></span>
+                                    <i  th:if="${postLikeDto != null and postLikeDto.articleLike == 1}" class="likeIcon bi bi-hand-thumbs-up-fill fw-light"></i>
+                                    <i  th:unless="${postLikeDto != null and postLikeDto.articleLike == 1}" class="likeIcon bi bi-hand-thumbs-up fw-light"></i>
+                                    <span id="likeCount" th:text="${postLikeCount}" class="fs-9"></span>
                                 </button>
                             </div>
                         </div>

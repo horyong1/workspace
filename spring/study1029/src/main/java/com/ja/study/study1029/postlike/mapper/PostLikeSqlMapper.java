@@ -11,7 +11,7 @@ public interface PostLikeSqlMapper {
 
     void addLike(PostLikeDto postLikeDto);
     void updateLike(PostLikeDto postLikeDto);
-    int postLikeCount(int id);
+    int postLikeCount(int articleId);
     PostLikeDto userLikeCount(PostLikeDto postLikeDto);
     List<PostLikeDto> likeArticleList(int id);
 

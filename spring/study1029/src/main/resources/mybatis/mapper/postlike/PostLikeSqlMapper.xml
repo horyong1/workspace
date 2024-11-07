@@ -21,8 +21,7 @@
     <select id="postLikeCount" resultType="int">
         SELECT  COUNT(*)
         FROM    fp_post_likes
-        WHERE   article_id = #{id}
-        AND     article_like = 1
+        WHERE   article_id = #{articleId}
     </select>
 
     <select id="userLikeCousdsant" resultType="com.ja.study.study1029.postlike.dto.PostLikeDto">

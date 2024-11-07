@@ -17,14 +17,14 @@ public class PostLikeController {
     @Autowired
     private PostLikeService postLikeService;
 
-    @RequestMapping("articleLikeProcess")
-    public String thumbsUp(PostLikeDto params, HttpSession session){
-        int id = params.getArticleId();
-        UserDto userDto = (UserDto)session.getAttribute("sessionUserInfo");
-        params.setUserId(userDto.getId());
+    // @RequestMapping("articleLikeProcess")
+    // public String thumbsUp(PostLikeDto params, HttpSession session){
+    //     int id = params.getArticleId();
+    //     UserDto userDto = (UserDto)session.getAttribute("sessionUserInfo");
+    //     params.setUserId(userDto.getId());
         
-        postLikeService.userLikeboolean(params);
-        return "redirect:/board/detailPage/"+ id;
-    }
+    //     // postLikeService.userLikeboolean(params);
+    //     return "redirect:/board/detailPage/"+ id;
+    // }
     
 }
