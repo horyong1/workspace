@@ -3,6 +3,7 @@ package com.ja.study.study1029.comment.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.study.study1029.comment.dto.CommentDto;
@@ -22,6 +23,13 @@ public class CommentRestComtroller {
         System.out.println(params);
         commentService.addComment(params);
 
+        return responseDto;
+    }
+
+    @RequestMapping("getCommentList")
+    public RestResponseDto getCommentList(@RequestParam("articleId") int articleId){
+        RestResponseDto responseDto = new RestResponseDto();
+        responseDto.add("commentList", commentService.getList(articleId));
         return responseDto;
     }
 }

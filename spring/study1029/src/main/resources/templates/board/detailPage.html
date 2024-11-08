@@ -66,7 +66,7 @@
                 "articleId" : articleId,
                 "comment" : commentContext
             }
-            if(comment == ''){
+            if(commentContext == ''){
                 alert("댓글을 입력하세요.");
                 return;
             }
@@ -87,17 +87,39 @@
         function getCommentList(){
             const articleId = document.getElementById("articleId").value;
 
-            fetch(`/api/board/getCommentList?articleId=?${articleId}`)
+            fetch(`/api/board/getCommentList?articleId=${articleId}`)
             .then(r => r.json())
             .then(response => {
-                const commentNickname = document.getElementById("commentNickname");
-                const comment = document.getElementById("comment");
-                const commentCreatedAt = document.getElementById("commentCreatedAt");
+                console.log(response);
+                const list = response.map.commentList;
+                const commentContainer = document.getElementById("commentContainer");
 
-                for(e of response){
-                    commentNickname.innerText = response.userDto.nickname;
-                    comment.innerText = response.commentDto.comment;
-                    commentCreatedAt.innerText = response.commentDto.createdAt;
+                while (commentContainer.firstChild){
+                    commentContainer.removeChild(commentContainer.firstChild);
+                }
+
+                for(const e of list){
+                    const createElement = document.createElement("div");
+                    const commentDiv = createElement;
+                    commentDiv.classList.add("row","pt-2");
+
+                    const commentRow = createElement;
+                    commentRow.className = "row";
+                    const commentCol = createElement;
+                    commentRow.className = "col";
+                    // 닉네임 설정
+                    const commentNickname = createElement;
+                    commentNickname.classList.add("col","fs-8","text-secondary","commentNickname");
+                    commentNickname.innerText = e.userDto.nickname;
+
+                    // 시간 설정
+                    const commentCreatedAt = createElement;
+                    commentCreatedAt.classList.add("col","fs-8","text-secondary","commentCreatedAt");
+
+
+                    const comment = createElement;
+                    commentCreatedAt.classList.add("col","fs-9","comment");
+
                 }
             })
         }
@@ -211,25 +233,26 @@
                 </div>
                 <div class="row pt-4">
                     <div class="col fs-9 border-bottom">
-                        <span th:text="${commentCount}"></span>개의 답변
+                        <span id="commentCount" th:text="${commentCount}"></span>개의 답변
                     </div>
                 </div>
-                <div th:each="data: ${commentList}" >
-                    <div  class="row pt-2">
-                        <div class="col">
-                            <div class="row">
-                                <div id="commentNickname" class="col fs-8 text-secondary" th:text="${data.userDto.nickname}"></div>
-                            </div>
-                            <div class="row">
-                                <div id="commentCreatedAt" class="col fs-8 text-secondary" th:text="${#dates.format(data.commentDto.createdAt,'yyyy-MM-dd HH:MM:ss')}"></div>
+                <div id="commentContainer">
+                    <div th:each="data: ${commentList}" >
+                        <div  class="row pt-2">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col fs-8 text-secondary commentNickname" th:text="${data.userDto.nickname}"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col fs-8 text-secondary commentCreatedAt" th:text="${#dates.format(data.commentDto.createdAt,'yyyy-MM-dd HH:MM:ss')}"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row border-bottom pb-2">
-                        <div id="comment" class="col fs-9 " th:text="${data.commentDto.comment}"></div>
+                        <div class="row border-bottom pb-2">
+                            <div class="col fs-9 comment" th:text="${data.commentDto.comment}"></div>
+                        </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
