@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.attoparser.dom.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.finalproject.board.mapper.BoardSqlMapper;
 import com.ja.finalproject.dto.ArticleImageDto;
+import com.ja.finalproject.dto.CommentDto;
 import com.ja.finalproject.dto.PostLikeDto;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.dto.articleDto;
@@ -104,4 +106,30 @@ public class BoardService {
     }
 
 
+    // 댓글 
+    public void registerComment(CommentDto commentDto){
+        boardSqlMapper.createComment(commentDto);
+    }
+
+    public void deleteComment(int id){
+        boardSqlMapper.deleteCommentById(id);
+    }
+    public void updateComment(CommentDto commentDto){
+        boardSqlMapper.updateCommentById(commentDto);
+    }
+
+    public List<Map<String,Object>> getCommentList(int articleId){
+        List<Map<String,Object>> result =  new ArrayList<>();
+        List<CommentDto> commentDtoList = boardSqlMapper.selectCommentByArticleId(articleId);
+
+        for(CommentDto commentDto : commentDtoList){
+            UserDto userDto =  userSqlMapper.findById(commentDto.getUser_id());
+            Map<String, Object> map = new HashMap<>();
+            map.put("commentDto", commentDto);
+            map.put("userDto", userDto);
+            result.add(map);
+
+        }
+        return result;   
+    }
 }

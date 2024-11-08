@@ -1,11 +1,13 @@
 package com.ja.finalproject.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.finalproject.board.service.BoardService;
+import com.ja.finalproject.dto.CommentDto;
 import com.ja.finalproject.dto.PostLikeDto;
 import com.ja.finalproject.dto.RestResponseDto;
 import com.ja.finalproject.dto.UserDto;
@@ -73,5 +75,51 @@ public class RestBoardController {
 
         return responseDto;
 
+    }
+
+
+    // 댓글 api 
+    @RequestMapping("registerComment")
+    public RestResponseDto registerComment(HttpSession session,CommentDto params){
+        RestResponseDto responseDto = new RestResponseDto();
+        responseDto.setResult("success");
+
+        UserDto sessionUserInfo = (UserDto)session.getAttribute("sessionUserInfo");
+        params.setUser_id(sessionUserInfo.getId());
+
+        boardService.registerComment(params);
+
+        return responseDto;
+    }
+    
+    
+    @RequestMapping("deleteComment")
+    public RestResponseDto deleteComment(@RequestParam("commentId") int commentId){
+        RestResponseDto responseDto = new RestResponseDto();
+        responseDto.setResult("success");
+
+        boardService.deleteComment(commentId);
+
+        return responseDto;
+    }
+    @RequestMapping("updateComment")
+    public RestResponseDto updateComment(CommentDto params){
+        RestResponseDto responseDto = new RestResponseDto();
+        responseDto.setResult("success");
+
+        System.out.println("정보 :: " + params);
+        boardService.updateComment(params);
+
+        return responseDto;
+    }
+
+    @RequestMapping("getCommentList")
+    public RestResponseDto getCommentList(@RequestParam("articleId")int articleId){
+        RestResponseDto responseDto = new RestResponseDto();
+        responseDto.setResult("success");
+
+        responseDto.add("commentList", boardService.getCommentList(articleId));
+
+        return responseDto;
     }
 }
