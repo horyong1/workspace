@@ -148,28 +148,26 @@
         WHERE 	fc.article_id = #{article_id};
     </select>
 
-    <!-- <resultMap id="articleInfoGroup" type="com.ja.finalproject.dto.GetUserInfoDto">
-        <result column="id" property="id"/>
-        <result column="nickname" property="nickname"/>
-        <collection property="articleList" ofType="com.ja.finalproject.dto.GetArticleDto" resultMap="articleResult" select="getArticlesByPeriod">
+    <resultMap id="articleInfoGroup" type="com.ja.finalproject.dto.GetUserInfoDto">
+        <result column="id" property="id" />
+        <result column="nickname" property="nickname" />
+        <collection property="articleList" ofType="com.ja.finalproject.dto.GetArticleDto">
+            <result column="article_title" property="title" />
+            <result column="article_content" property="content" />
+            <result column="article_read_count" property="readCount" />
+            <result column="article_create_at" property="createAt" />
         </collection>
     </resultMap>
-
-    <select id="articleInfoGroup" resultType="com.ja.finalproject.dto.GetUserInfoDto">
-        SELECT fu.id as id,
-                fu.nickname as nickname 
-        FROM fp_user fu 
+    <select id="articleInfoGroup" resultMap="articleInfoGroup">
+        SELECT 
+            fu.id as id,
+            fu.nickname as nickname,
+            fa.title as article_title,
+            fa.content as article_content,
+            fa.read_count as article_read_count,
+            fa.created_at as article_create_at
+        FROM fp_user fu
+        LEFT JOIN fp_article fa ON fu.id = fa.user_id
         WHERE fu.id = #{id}
     </select>
-
-    <select id="getArticlesByPeriod" resultType="com.ja.finalproject.dto.GetArticleDto">
-        SELECT 
-                fa.title as title,
-                fa.content as content,
-                fa.read_count as readCount,
-                fa.created_at as createAt
-        FROM fp_user fu 
-        INNER JOIN fp_article fa ON fu.id = fa.user_id
-        WHERE fu.id = #{id}
-    </select> -->
 </mapper>
