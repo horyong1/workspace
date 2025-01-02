@@ -2,6 +2,7 @@ package com.ja.finalproject.user.controller;
 
 import java.util.List;
 
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,14 +58,20 @@ public class UserController {
      */
     @RequestMapping("loginProcess")
     public String loginProcess(UserDto params, HttpSession session){
-        UserDto sessionUserInfo = userservice.getUserByUserIdAndPassword(params);
-        
-        if(sessionUserInfo==null){
-            return "user/loginFail";
-        }
-        
-        // 로그인 성공
+        UserDto sessionUserInfo = 
+            userservice.getUserByUserIdAndPassword(params).orElseThrow(()-> new NullPointerException("로그인 실패"));
         session.setAttribute("sessionUserInfo", sessionUserInfo);
+        
+        // userservice.getUserByUserIdAndPassword(params).ifPresent(sessionUserInfo ->{
+        //     session.setAttribute("sessionUserInfo", sessionUserInfo);
+        // });
+        
+        // if(sessionUserInfo==null){
+        //     return "user/loginFail";
+        // }
+        
+        // // 로그인 성공
+        // session.setAttribute("sessionUserInfo", sessionUserInfo);
 
         return "redirect:/board/mainPage";
     }

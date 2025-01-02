@@ -1,6 +1,7 @@
 package com.ja.finalproject.user.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,8 @@ public class UserService {
         
     }
 
-    public UserDto getUserByUserIdAndPassword(UserDto user){
-        return userSqlMapper.findByUserIdAndPassword(user);
+    public Optional<UserDto> getUserByUserIdAndPassword(UserDto user){
+        return Optional.ofNullable(userSqlMapper.findByUserIdAndPassword(user));
     }
 
     public List<HobbyCategoryDto> getHobbyList(){

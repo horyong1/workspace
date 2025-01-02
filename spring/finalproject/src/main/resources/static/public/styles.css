@@ -1,0 +1,31 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+/* html > body {
+  font-family: 'GmarketSansMedium', sans-serif !important;
+  overflow-y: scroll;
+} */
+body{
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, 
+                  system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", 
+                 "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif !important;
+        overflow-y: scroll;
+}
+/* html {
+  font-family: 'GmarketSans', sans-serif !important;
+  overflow-y: scroll;
+} */
+
+
+
+.fs-08{
+    font-size: 0.8rem;
+}
+.fs-09{
+    font-size: 0.9rem;
+}

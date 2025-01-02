@@ -1,7 +1,6 @@
 package com.ja.finalproject.board.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,18 +18,24 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import com.ja.finalproject.board.service.BoardService;
-import com.ja.finalproject.dto.articleDto;
 import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.UserDto;
+import com.ja.finalproject.dto.articleDto;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j // 로그를 찍어주는 어노테이션, log.debug("content : {}", content); 이런식으로 사용
 @Controller
 @RequestMapping("board")
 public class BoardController {
 
     @Autowired
     private BoardService boardService;
+    @Value("${app.file.upload.rootPath}")
+    static String rootPath;
+
+
 
     // 게시판 목록
     @RequestMapping("mainPage")
@@ -43,7 +49,7 @@ public class BoardController {
         int totalCount = boardService.getTotalArticleCount(searchType, searchWord);
         int lastPageNumber = (int)Math.ceil(totalCount/10.0);
         int startPage =((page - 1) / 5) * 5 + 1;
-        int endPage = ((page -1)/5 + 1) * 5;
+        int endPage = ((page -1) / 5 + 1) * 5;
 
         if(endPage > lastPageNumber){
             endPage = lastPageNumber;
@@ -66,7 +72,6 @@ public class BoardController {
     public String articleDetailPage(@RequestParam("id") int id, Model model){
         boardService.addReadCount(id);
         Map<String,Object> map = boardService.getArticle(id);
-
         //html escape - 특수문자, 엔터 -> br로 변경
         //나중에 javascript 로 넘어가면 수행안해도됨.
         articleDto articledto = (articleDto)map.get("articleDto");
@@ -74,7 +79,9 @@ public class BoardController {
         content = StringUtils.escapeXml(content);
         content = content.replaceAll("\n", "<br>");
         articledto.setContent(content);
-
+        
+        log.debug("content : {}", content);
+        
         model.addAttribute("map", map);
         return"board/articleDetailPage";
     }

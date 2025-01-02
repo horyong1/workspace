@@ -1,7 +1,6 @@
 package com.ja.finalproject.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +12,8 @@ import com.ja.finalproject.dto.RestResponseDto;
 import com.ja.finalproject.dto.UserDto;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("api/board")
@@ -122,4 +123,12 @@ public class RestBoardController {
 
         return responseDto;
     }
+
+    @GetMapping("myPage")
+    public String getMethodName(HttpSession session) {
+        UserDto userDto = (UserDto)session.getAttribute("sessionUserInfo");
+        int userId = userDto.getId();
+        return new String();
+    }
+    
 }

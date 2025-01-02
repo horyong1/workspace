@@ -7,7 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ja.finalproject.dto.ArticleImageDto;
 import com.ja.finalproject.dto.CommentDto;
-import com.ja.finalproject.dto.MailAuthDto;
+import com.ja.finalproject.dto.GetArticleDto;
+import com.ja.finalproject.dto.GetUserInfoDto;
 import com.ja.finalproject.dto.PostLikeDto;
 import com.ja.finalproject.dto.articleDto;
 
@@ -44,4 +45,7 @@ public interface BoardSqlMapper {
     void deleteCommentById(int id);
     void updateCommentById(CommentDto commentDto);
     List<CommentDto> selectCommentByArticleId(int article_id);
+
+    GetUserInfoDto articleInfoGroup(int id);
+    GetArticleDto getArticlesByPeriod(int id);
 }
