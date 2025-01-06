@@ -2,13 +2,13 @@ package com.ja.finalproject.user.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ja.finalproject.dto.GetUserInfoDto;
 import com.ja.finalproject.dto.UserDto;
 import com.ja.finalproject.user.service.UserService;
 
@@ -110,4 +110,13 @@ public class UserController {
         return"user/sessionNullPage";
     }
 
+    @RequestMapping("myArticleList")
+    public String myArticeList(Model model, HttpSession session){
+        UserDto sessionUserInfo = (UserDto)session.getAttribute("sessionUserInfo");
+        int userId = sessionUserInfo.getId();
+        GetUserInfoDto getUserInfoDto = userservice.getUserInfoDto(sessionUserInfo.getId());
+        System.out.println(getUserInfoDto);
+        model.addAttribute("getUserInfoDto", getUserInfoDto);
+        return"/user/myArticleList";
+    }
 }

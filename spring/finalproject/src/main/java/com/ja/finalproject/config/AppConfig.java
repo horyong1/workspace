@@ -29,6 +29,18 @@ public class AppConfig implements WebMvcConfigurer {
             // .addPathPatterns("/board/writeArticlePage")
             // .addPathPatterns("/board/writeArticlePage")
             ;
+        
+        registry.addInterceptor(sessionInterceptor)
+            .addPathPatterns("/user/**")
+            .excludePathPatterns("/user/loginPage"
+            ,"/user/loginProcess"
+            ,"/user/registerProcess"
+            ,"/user/registerComplete"
+            ,"/user/registerPage"
+            ,"/user/loginFail"
+            ,"/user/mailAuthComplete"
+            ,"/user/sessionNullPage")
+            ;
 
     }
 }

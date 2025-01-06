@@ -9,5 +9,5 @@ public class GetArticleDto {
     private String title;
     private String content;
     private int readCount;
-    private Date createAt;
+    private Date createdAt;
 }

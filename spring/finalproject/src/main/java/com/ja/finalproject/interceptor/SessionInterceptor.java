@@ -17,7 +17,7 @@ public class SessionInterceptor implements HandlerInterceptor{
             return false;
         }
 
-        System.out.println("인터셉터 실행됨!!!!!!!");
+        System.out.println("인터셉터 실행됨!!!!!!! >>> 로그인 체크 완료");
 
         return true;
     }

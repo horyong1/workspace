@@ -9,6 +9,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.ja.finalproject.board.mapper.BoardSqlMapper;
+import com.ja.finalproject.dto.GetUserInfoDto;
 import com.ja.finalproject.dto.HobbyCategoryDto;
 import com.ja.finalproject.dto.MailAuthDto;
 import com.ja.finalproject.dto.UserDto;
@@ -24,7 +26,11 @@ public class UserService {
     private JavaMailSender javaMailSender;
 
     @Autowired
+    private BoardSqlMapper boardSqlMapper;
+    @Autowired
     private UserSqlMapper userSqlMapper;
+
+    
     public void addUser(UserDto userDto,List<Integer> hobbyIdList){
         userSqlMapper.createUser(userDto);
         int lastUserPk = userDto.getId();
@@ -65,6 +71,10 @@ public class UserService {
     // 아이디 중복검사
     public boolean existsByUserId(String userId){
         return userSqlMapper.countUserByUserId(userId) > 0 ? true : false;
+    }
+
+    public GetUserInfoDto getUserInfoDto(int id){
+        return boardSqlMapper.articleInfoGroup(id);
     }
 }
 

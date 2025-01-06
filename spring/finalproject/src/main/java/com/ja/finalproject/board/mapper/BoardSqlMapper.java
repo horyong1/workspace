@@ -46,6 +46,5 @@ public interface BoardSqlMapper {
     void updateCommentById(CommentDto commentDto);
     List<CommentDto> selectCommentByArticleId(int article_id);
 
-    GetUserInfoDto articleInfoGroup(int id);
-    GetArticleDto getArticlesByPeriod(int id);
-}
+    GetUserInfoDto articleInfoGroup(@Param("id")int id);
+}   
