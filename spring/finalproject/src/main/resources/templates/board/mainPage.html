@@ -15,6 +15,25 @@
                             게시판
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-auto">
+                            <button class="btn btn-primary" onclick="xytest()">위치 찾기</button>
+                            <label for="xValue">위도 : </label>
+                            <span id="xValue"></span>
+                            <label for="yValue">경도 : </label>
+                            <span id="yValue"></span>
+                        </div>
+                        
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-auto">
+                            <button class="btn btn-primary" onclick="getIpLocation()">위치 찾기</button>
+                            위도: <span id="latitude">알 수 없음</span>
+                            경도: <span id="longitude">알 수 없음</span>
+                            도시: <span id="city">알 수 없음</span>
+                        </div>
+
+                    </div>
                     <form action="./mainPage" method="get" class="row my-3">
                         <div class="col-2">
                             <select name="searchType" class="form-select form-select-sm">
@@ -77,5 +96,82 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script>
+            window.onload = function(){
+                xytest();
+                getTest();
+            }
+            function xytest(){
+                if(navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(function(position){
+                        var lat = position.coords.latitude;
+                        var lon = position.coords.longitude;
+                        document.getElementById("xValue").innerText = lat;
+                        document.getElementById("yValue").innerText = lon;
+                        // alert("현재위치 : " + lat + ", " + lon);
+                    });
+                }else{
+                    alert("위치정보 사용 불가능");
+                }
+            }
+
+            function getTest() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            const lat = position.coords.latitude;
+                            const lon = position.coords.longitude;
+
+                            document.getElementById("latitude").innerText = lat;
+                            document.getElementById("longitude").innerText = lon;
+
+                            console.log("정확한 위도: " + lat + ", 경도: " + lon);
+                        },
+                        function (error) {
+                            switch (error.code) {
+                                case 1:
+                                    alert("위치 접근이 거부되었습니다.");
+                                    break;
+                                case 2:
+                                    alert("위치를 사용할 수 없습니다.");
+                                    break;
+                                case 3:
+                                    alert("위치 요청 시간이 초과되었습니다.");
+                                    break;
+                                default:
+                                    alert("알 수 없는 오류 발생");
+                                    break;
+                            }
+                        },
+                        {
+                            enableHighAccuracy: true, // GPS 신호를 우선 사용
+                            timeout: 5000, // 5초 이내에 응답 없으면 타임아웃
+                            maximumAge: 0 // 캐시된 위치 사용 안 함
+                        }
+                    );
+                } else {
+                    alert("브라우저에서 위치 정보를 지원하지 않습니다.");
+                }
+            }
+
+            async function getIpLocation() {
+            try {
+                // IP 기반 위치 정보 서비스 호출 (무료로 사용 가능)
+                const response = await fetch("http://ip-api.com/json/");
+                const data = await response.json();
+                
+                // 데이터 출력
+                document.getElementById("latitude").innerText = data.lat;
+                document.getElementById("longitude").innerText = data.lon;
+                document.getElementById("city").innerText = data.city;
+
+                console.log("위도: " + data.lat + ", 경도: " + data.lon);
+                alert("현재 위치:\n도시: " + data.city + "\n위도: " + data.lat + "\n경도: " + data.lon);
+            } catch (error) {
+                console.error("위치 정보를 가져오는 중 오류 발생:", error);
+                alert("위치 정보를 가져올 수 없습니다.");
+            }
+        }
+        </script>
     </body>
 </html>
